@@ -1,0 +1,284 @@
+{
+  "schemaVersion": 1,
+  "trilha": 5,
+  "questoes": [
+    {
+      "id": "t5-q01",
+      "subtema": "reflexao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "eco-vs-reverb",
+      "enunciado": "O eco acontece quando o som:",
+      "alternativas": ["É absorvido pela parede", "É refletido e chega com atraso suficiente para ser percebido separado", "Passa por outro meio", "É amplificado por ressonância"],
+      "correta": 1,
+      "explicacao": "Eco = som refletido com >0,1 s de atraso. Precisa de obstáculo a pelo menos 17 m de distância."
+    },
+    {
+      "id": "t5-q02",
+      "subtema": "difracao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "difracao",
+      "enunciado": "Ouvir som atrás de uma parede é possível por causa da:",
+      "alternativas": ["Reflexão", "Difração", "Refração", "Ressonância"],
+      "correta": 1,
+      "explicacao": "Difração: o som contorna obstáculos. Como o comprimento de onda do som é relativamente grande, ele se difrata bem."
+    },
+    {
+      "id": "t5-q03",
+      "subtema": "reverberacao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "eco-vs-reverb",
+      "enunciado": "Aquela sensação de 'ecoar' em salas vazias e grandes é chamada de:",
+      "alternativas": ["Eco", "Reverberação", "Refração", "Difração"],
+      "correta": 1,
+      "explicacao": "Reverberação: reflexões rápidas (<0,1 s) que o cérebro funde com o som original. Por isso a sala vazia parece 'ecoar' sem ter eco separado."
+    },
+    {
+      "id": "t5-q04",
+      "subtema": "interferencia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "interferencia",
+      "enunciado": "Quando duas ondas sonoras se encontram em fase (picos com picos), ocorre:",
+      "alternativas": ["Interferência destrutiva, som mais fraco", "Interferência construtiva, som mais forte", "Reflexão", "Refração"],
+      "correta": 1,
+      "explicacao": "Construtiva: picos com picos (e vales com vales) — as amplitudes se somam, som fica mais forte."
+    },
+    {
+      "id": "t5-q05",
+      "subtema": "ressonancia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "ressonancia",
+      "enunciado": "Ressonância ocorre quando um sistema:",
+      "alternativas": ["Reflete o som", "É forçado a vibrar na sua frequência natural, com grande amplitude", "Difrata o som", "Está no vácuo"],
+      "correta": 1,
+      "explicacao": "Ressonância: quando a frequência da fonte coincide com a frequência natural do sistema, ele vibra com grande amplitude."
+    },
+    {
+      "id": "t5-q06",
+      "subtema": "reflexao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "eco-vs-reverb",
+      "enunciado": "Para ouvir um eco bem definido, o obstáculo precisa estar a pelo menos:",
+      "alternativas": ["1 metro", "17 metros", "170 metros", "1.700 metros"],
+      "correta": 1,
+      "explicacao": "O ouvido precisa de ~0,1 s para separar os sons. Em 0,1 s, o som vai e volta ~34 m (17 m ida + 17 m volta). Por isso 17 m é a distância mínima."
+    },
+    {
+      "id": "t5-q07",
+      "subtema": "difracao",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "difracao",
+      "enunciado": "Conseguimos ouvir sons de trás de obstáculos, mas não conseguimos ver através deles. Uma explicação correta é que o comprimento de onda do som é maior que o da luz.",
+      "correta": true,
+      "explicacao": "VERDADEIRO. Difração é mais acentuada quando o comprimento de onda é próximo do tamanho do obstáculo. Som (metros) sofre difração comum; luz (nanômetros) não."
+    },
+    {
+      "id": "t5-q08",
+      "subtema": "reflexao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "reflexao",
+      "enunciado": "Eco e reverberação são fenômenos de:",
+      "alternativas": ["Refração", "Reflexão", "Difração", "Interferência"],
+      "correta": 1,
+      "explicacao": "Ambos dependem de reflexão do som — a diferença é o tempo com que a reflexão volta."
+    },
+    {
+      "id": "t5-q09",
+      "subtema": "interferencia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "interferencia",
+      "enunciado": "Fones com cancelamento de ruído usam:",
+      "alternativas": ["Reflexão", "Interferência destrutiva", "Ressonância", "Difração"],
+      "correta": 1,
+      "explicacao": "O fone emite uma onda em oposição ao ruído externo — pico encontra vale, cancelando o som. É interferência destrutiva programada."
+    },
+    {
+      "id": "t5-q10",
+      "subtema": "ressonancia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "ressonancia",
+      "enunciado": "O som de uma taça de cristal quebrando com uma nota específica é exemplo de:",
+      "alternativas": ["Reflexão", "Difração", "Ressonância", "Interferência"],
+      "correta": 2,
+      "explicacao": "A taça tem uma frequência natural. Uma nota igual a essa frequência provoca ressonância, e a vibração pode chegar a quebrar o cristal."
+    },
+    {
+      "id": "t5-q11",
+      "subtema": "fenomenos-gerais",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "fenomenos-ondas",
+      "enunciado": "Associe cada fenômeno à sua descrição.",
+      "colunaA": ["Reflexão", "Refração", "Difração", "Interferência"],
+      "colunaB": ["Som volta ao encontrar obstáculo", "Muda de velocidade ao mudar de meio", "Contorna obstáculos", "Duas ondas se somam"],
+      "correta": [0, 1, 2, 3],
+      "explicacao": "Reflexão = voltar. Refração = mudar de meio. Difração = contornar. Interferência = somar."
+    },
+    {
+      "id": "t5-q12",
+      "subtema": "reflexao",
+      "tipo": "calculo_guiado",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "eco-calculo",
+      "enunciado": "Você grita em frente a um paredão e ouve o eco 0,4 s depois. Sabendo que o som viaja a 340 m/s, qual a distância até o paredão? (Lembre: o som vai e volta.)",
+      "alternativas": ["34 m", "68 m", "136 m", "340 m"],
+      "correta": 1,
+      "explicacao": "d_ida_volta = v·t = 340·0,4 = 136 m. Como vai e volta, a distância é a metade: 68 m. Esquecer de dividir por 2 é o erro mais comum."
+    },
+    {
+      "id": "t5-q13",
+      "subtema": "ressonancia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "ressonancia",
+      "enunciado": "Soldados quebram o passo ao atravessar pontes porque:",
+      "alternativas": ["É tradição militar", "Passos sincronizados podem provocar ressonância e danificar a ponte", "A ponte é mais estreita", "Para não fazer eco"],
+      "correta": 1,
+      "explicacao": "Passos sincronizados produzem vibração em frequência fixa, que pode coincidir com a frequência natural da ponte. Isso já aconteceu historicamente (ponte de Angers, 1850)."
+    },
+    {
+      "id": "t5-q14",
+      "subtema": "interferencia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "interferencia",
+      "enunciado": "Interferência destrutiva acontece quando:",
+      "alternativas": ["Dois picos coincidem", "Um pico coincide com um vale", "Não há ondas", "As ondas têm mesma frequência"],
+      "correta": 1,
+      "explicacao": "Pico com vale → as amplitudes se subtraem. No caso extremo, cancelamento total. É o que os fones anti-ruído fazem."
+    },
+    {
+      "id": "t5-q15",
+      "subtema": "refracao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "refracao",
+      "enunciado": "A refração do som acontece quando ele:",
+      "alternativas": ["Bate em uma parede e volta", "Passa de um meio para outro e muda de velocidade", "Contorna um obstáculo", "Soma-se com outro som"],
+      "correta": 1,
+      "explicacao": "Refração: mudança de meio → mudança de velocidade → desvio de trajetória. O som 'entorta' ligeiramente."
+    },
+    {
+      "id": "t5-q16",
+      "subtema": "eco",
+      "tipo": "calculo_guiado",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "eco-calculo",
+      "enunciado": "Um sonar emite um pulso e recebe o eco 0,2 s depois. A velocidade do som na água é ~1.500 m/s. A que distância está o obstáculo?",
+      "alternativas": ["150 m", "300 m", "750 m", "3.000 m"],
+      "correta": 0,
+      "explicacao": "d_ida_volta = 1500 × 0,2 = 300 m. Distância = 300/2 = 150 m. Esquecer de dividir por 2 daria 300 m (errado)."
+    },
+    {
+      "id": "t5-q17",
+      "subtema": "ressonancia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "ressonancia",
+      "enunciado": "Por que podemos afinar um copo com água assoprando na borda?",
+      "alternativas": ["Porque a água esquenta", "Porque o nível de água altera a frequência de ressonância do copo", "Porque o copo fica mais pesado", "Porque a água muda o timbre do som"],
+      "correta": 1,
+      "explicacao": "A coluna de ar dentro do copo tem frequência de ressonância que depende do comprimento. Variar o nível de água varia essa frequência — e a nota que ouvimos."
+    },
+    {
+      "id": "t5-q18",
+      "subtema": "difracao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "difracao",
+      "enunciado": "Podemos ouvir uma conversa atrás de uma esquina, mas não podemos ver as pessoas. A explicação correta é:",
+      "alternativas": ["A luz não sofre difração, o som sim", "A luz sofre menos difração porque seu comprimento de onda é muito menor", "O som se propaga mais rápido", "A luz é refletida e o som não"],
+      "correta": 1,
+      "explicacao": "Difração é mais evidente quando o comprimento de onda é da ordem do obstáculo. Som (metros) difrata muito; luz (nanômetros) difrata pouco. Por isso só o som contorna."
+    },
+    {
+      "id": "t5-q19",
+      "subtema": "fenomenos-gerais",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "fenomenos-ondas",
+      "enunciado": "Uma sala com paredes muito reflexivas (auditórios antigos) precisa de tratamento acústico porque:",
+      "alternativas": ["Reflexões múltiplas prejudicam a clareza do som", "A ressonância pode quebrar as paredes", "O som não se propaga sem tratamento", "O eco é necessário para a música"],
+      "correta": 0,
+      "explicacao": "Reverberação excessiva faz o som 'embolar' — sílabas se sobrepõem. Tratamento com materiais absorventes (cortinas, espumas) controla isso."
+    },
+    {
+      "id": "t5-q20",
+      "subtema": "interferencia",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "interferencia",
+      "enunciado": "Um colega disse: 'Duas ondas sonoras que se encontram sempre ficam mais fortes.' Onde está o erro?",
+      "respostaEsperada": "Se as ondas estão em fase (picos com picos), a interferência é construtiva e o som fica mais forte. Mas se estão em oposição (pico com vale), a interferência é destrutiva e o som pode até se cancelar. Depende da fase relativa.",
+      "palavrasChave": ["fase", "construtiva", "destrutiva", "cancelar"],
+      "explicacao": "A soma de ondas depende da fase. Em fase, amplifica. Fora de fase, atenua. É por isso que fones anti-ruído funcionam."
+    },
+    {
+      "id": "t5-q21",
+      "subtema": "reflexao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "eco-vs-reverb",
+      "enunciado": "A distância mínima de 17 metros para ouvir eco vem do fato de que o ouvido precisa de cerca de:",
+      "alternativas": ["0,01 s entre os sons", "0,1 s entre os sons", "1 s entre os sons", "10 s entre os sons"],
+      "correta": 1,
+      "explicacao": "0,1 s é o tempo mínimo que o cérebro precisa para separar dois sons. Em 0,1 s o som vai e volta 34 m (17 m ida + 17 m volta)."
+    },
+    {
+      "id": "t5-q22",
+      "subtema": "ressonancia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "ressonancia",
+      "enunciado": "A caixa de um violão serve para:",
+      "alternativas": ["Deixar o violão mais pesado", "Amplificar o som por ressonância com as cordas", "Refletir a luz", "Evitar o eco"],
+      "correta": 1,
+      "explicacao": "A caixa tem uma frequência de ressonância que amplifica o som das cordas. Sem ela, o som seria muito fraco (só as cordas vibrando diretamente no ar)."
+    },
+    {
+      "id": "t5-q23",
+      "subtema": "fenomenos-gerais",
+      "tipo": "ordenacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "fenomenos-ondas",
+      "enunciado": "Ordene os fenômenos pela ordem em que costumam acontecer com uma onda sonora num ambiente fechado:",
+      "itens": ["Produção", "Propagação", "Reflexão nas paredes", "Reverberação percebida"],
+      "correta": ["Produção", "Propagação", "Reflexão nas paredes", "Reverberação percebida"],
+      "explicacao": "Ordem natural: fonte produz → som viaja → bate nas paredes → volta e é percebido com atraso (reverberação)."
+    },
+    {
+      "id": "t5-q24",
+      "subtema": "reflexao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "eco-calculo",
+      "enunciado": "Uma pessoa grita em um vale e ouve o eco 1,5 s depois. Sabendo que o som viaja a 340 m/s, qual a distância até a montanha que refletiu o som?",
+      "alternativas": ["255 m", "510 m", "680 m", "1.020 m"],
+      "correta": 0,
+      "explicacao": "d_ida_volta = 340 × 1,5 = 510 m. Distância = 510/2 = 255 m."
+    },
+    {
+      "id": "t5-q25",
+      "subtema": "fenomenos-gerais",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "aplicacao",
+      "enunciado": "Explique em 2–3 linhas por que os teatros costumam ter cortinas, almofadas e formas irregulares nas paredes.",
+      "criterios": [
+        "Mencionou absorção do som",
+        "Relacionou com redução de reverberação/eco",
+        "Concluiu que melhora a clareza do som"
+      ],
+      "explicacao": "Cortinas e almofadas absorvem o som em vez de refletir. Formas irregulares espalham as reflexões. Resultado: menos reverberação e mais clareza para a fala e a música."
+    }
+  ]
+}

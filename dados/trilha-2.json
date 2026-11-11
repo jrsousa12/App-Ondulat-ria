@@ -1,0 +1,74 @@
+{
+  "id": "trilha-2",
+  "titulo": "As grandezas das ondas",
+  "subtitulo": "λ, A, f, T — e a equação fundamental",
+  "tempoEstimadoMin": 6,
+  "secoes": [
+    {
+      "id": "s1",
+      "titulo": "Comprimento de onda (λ)",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "O comprimento de onda é a distância entre dois pontos iguais consecutivos da onda. Pode ser de uma crista até a próxima crista, de um vale até o próximo vale, ou entre dois nós consecutivos.",
+        "É representado pela letra grega λ (lambda) e medido em metros (m).",
+        "Numa corda de violão, o comprimento de onda é a distância entre duas 'barrigas' da corda vibrando. Em uma onda do mar, é a distância entre duas cristas."
+      ]
+    },
+    {
+      "id": "s2",
+      "titulo": "Amplitude (A)",
+      "tempoEstimadoMin": 1.3,
+      "texto": [
+        "A amplitude é a altura da onda: a distância do repouso até a crista (ou até o vale).",
+        "Quanto maior a amplitude, mais energia a onda carrega. Numa corda, uma amplitude maior significa que a corda balança mais. No som, amplitude maior significa som mais alto (mais volume).",
+        "Cuidado para não confundir: amplitude não tem nada a ver com a distância percorrida pela onda — é só 'a altura da onda'."
+      ]
+    },
+    {
+      "id": "s3",
+      "titulo": "Frequência (f) e período (T)",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "A frequência é o número de oscilações completas que a onda faz por segundo. Mede-se em hertz (Hz): 1 Hz = 1 oscilação por segundo.",
+        "O período é o tempo que uma oscilação completa leva para acontecer. Mede-se em segundos (s).",
+        "Eles são inversos um do outro: T = 1/f. Uma onda de 2 Hz tem período de 0,5 s. Uma onda de 0,5 Hz tem período de 2 s.",
+        "Frequência alta = muitas oscilações por segundo = período curto. Frequência baixa = poucas oscilações = período longo."
+      ]
+    },
+    {
+      "id": "s4",
+      "titulo": "A equação fundamental: v = λ · f",
+      "tempoEstimadoMin": 1.7,
+      "texto": [
+        "Toda onda obedece à mesma relação entre velocidade, comprimento de onda e frequência: v = λ · f.",
+        "Onde v é a velocidade (m/s), λ é o comprimento de onda (m) e f é a frequência (Hz).",
+        "Exemplo: um som de 170 Hz viajando no ar a 340 m/s tem λ = 340 / 170 = 2 metros.",
+        "Um detalhe importante: quando a onda muda de meio, a frequência NÃO muda (a fonte continua a mesma), mas a velocidade e o comprimento de onda mudam juntos, mantendo a equação v = λ · f válida.",
+        "Por isso o mesmo som de 170 Hz tem λ = 2 m no ar e λ ≈ 0,068 m no aço (que é ~29 vezes mais rápido)."
+      ]
+    }
+  ],
+  "perguntasCompreensao": [
+    {
+      "id": "t2-c1",
+      "pergunta": "O comprimento de onda (λ) mede:",
+      "alternativas": ["A altura da onda", "A distância entre duas cristas consecutivas", "O número de oscilações por segundo", "O tempo de uma oscilação"],
+      "correta": 1,
+      "explicacao": "λ é a distância entre dois pontos iguais consecutivos da onda (crista a crista, vale a vale). A altura é a amplitude; as oscilações por segundo são a frequência; o tempo de uma oscilação é o período."
+    },
+    {
+      "id": "t2-c2",
+      "pergunta": "Uma onda tem frequência de 4 Hz. Qual é o seu período?",
+      "alternativas": ["4 s", "0,25 s", "2 s", "0,5 s"],
+      "correta": 1,
+      "explicacao": "T = 1/f = 1/4 = 0,25 s. Frequência de 4 Hz significa 4 oscilações por segundo — cada uma dura 0,25 s."
+    },
+    {
+      "id": "t2-c3",
+      "pergunta": "Uma onda tem velocidade de 20 m/s e frequência de 5 Hz. Qual é o comprimento de onda?",
+      "alternativas": ["0,25 m", "4 m", "100 m", "25 m"],
+      "correta": 1,
+      "explicacao": "λ = v / f = 20 / 5 = 4 m. Sempre confira: m/s ÷ Hz = m."
+    }
+  ]
+}

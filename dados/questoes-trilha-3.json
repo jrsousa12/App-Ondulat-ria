@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "trilha": 3,
+  "questoes": [
+    {
+      "id": "t3-q01",
+      "subtema": "producao-som",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "producao-som",
+      "enunciado": "Todo som tem origem em:",
+      "alternativas": ["Uma vibração de algum material", "Uma corrente elétrica", "Uma mudança de temperatura", "Uma reação química"],
+      "correta": 0,
+      "explicacao": "Todo som nasce de vibração. Cordas vocais, cordas de violão, pele de tambor, membrana de alto-falante — todos vibram para produzir som."
+    },
+    {
+      "id": "t3-q02",
+      "subtema": "meio",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "som-no-vacuo",
+      "enunciado": "Em qual destes locais o som NÃO pode se propagar?",
+      "alternativas": ["Dentro de uma piscina", "No ar da sala de aula", "No vácuo do espaço", "Dentro de uma mina"],
+      "correta": 2,
+      "explicacao": "O som é mecânico — precisa de meio. No vácuo não há matéria, portanto o som não se propaga."
+    },
+    {
+      "id": "t3-q03",
+      "subtema": "longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "O som é uma onda:",
+      "alternativas": ["Eletromagnética e transversal", "Mecânica e longitudinal", "Mecânica e transversal", "Eletromagnética e longitudinal"],
+      "correta": 1,
+      "explicacao": "Mecânica (precisa de meio) e longitudinal (vibração na mesma direção da propagação)."
+    },
+    {
+      "id": "t3-q04",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "velocidade-som",
+      "enunciado": "A velocidade do som no ar, a 20 °C, é aproximadamente:",
+      "alternativas": ["34 m/s", "340 m/s", "3.400 m/s", "34.000 m/s"],
+      "correta": 1,
+      "explicacao": "~340 m/s (valor mais preciso: 343 m/s a 20 °C)."
+    },
+    {
+      "id": "t3-q05",
+      "subtema": "meio",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Em qual destes meios o som se propaga com MAIOR velocidade?",
+      "alternativas": ["Ar", "Água", "Aço", "Vácuo"],
+      "correta": 2,
+      "explicacao": "Aço (~5.000 m/s). Sólidos geralmente transmitem o som mais rapidamente do que líquidos, e estes mais que gases."
+    },
+    {
+      "id": "t3-q06",
+      "subtema": "compressao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "onda-sonora",
+      "enunciado": "A propagação do som no ar acontece por meio de:",
+      "alternativas": ["Correntes de ar que viajam da fonte ao ouvido", "Compressões e rarefações do ar", "Fótons de luz", "Moléculas que viajam até o ouvido"],
+      "correta": 1,
+      "explicacao": "O som no ar é uma onda de pressão: zonas de compressão (moléculas mais juntas) e rarefação (mais afastadas). As moléculas vibram no lugar — não viajam."
+    },
+    {
+      "id": "t3-q07",
+      "subtema": "meio",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "som-no-vacuo",
+      "enunciado": "O som se propaga mais rápido no vácuo, porque não há obstáculos.",
+      "correta": false,
+      "explicacao": "FALSO. No vácuo não há meio, então o som NÃO se propaga."
+    },
+    {
+      "id": "t3-q08",
+      "subtema": "velocidade",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Em geral, o som viaja mais rápido em sólidos do que em gases.",
+      "correta": true,
+      "explicacao": "VERDADEIRO. Sólidos têm moléculas mais próximas e ligadas — a vibração se transmite mais rapidamente."
+    },
+    {
+      "id": "t3-q09",
+      "subtema": "compressao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "onda-sonora",
+      "enunciado": "Numa onda sonora no ar, uma 'compressão' é uma região onde:",
+      "alternativas": ["As moléculas estão mais afastadas", "As moléculas estão mais próximas", "Não há moléculas", "A temperatura é zero"],
+      "correta": 1,
+      "explicacao": "Compressão = moléculas mais juntas (alta pressão). Rarefação = moléculas mais afastadas (baixa pressão). Juntas formam a onda sonora."
+    },
+    {
+      "id": "t3-q10",
+      "subtema": "producao-som",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "producao-som",
+      "enunciado": "Quando você fala, o som é produzido pela vibração:",
+      "alternativas": ["Dos pulmões", "Das cordas vocais", "Da língua", "Dos dentes"],
+      "correta": 1,
+      "explicacao": "As cordas vocais vibram quando o ar passa por elas, produzindo o som que depois é moldado pela boca e língua."
+    },
+    {
+      "id": "t3-q11",
+      "subtema": "velocidade",
+      "tipo": "ordenacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Ordene os meios do mais LENTO para o mais RÁPIDO na propagação do som:",
+      "itens": ["Ar", "Água", "Aço"],
+      "correta": ["Ar", "Água", "Aço"],
+      "explicacao": "Ar (~340 m/s) < água (~1.500 m/s) < aço (~5.000 m/s)."
+    },
+    {
+      "id": "t3-q12",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-luz-som",
+      "enunciado": "Numa tempestade, vemos o relâmpago antes de ouvir o trovão porque:",
+      "alternativas": ["O trovão acontece depois do relâmpago", "A luz viaja muito mais rápido que o som", "O som demora a ser produzido", "A luz é mecânica e o som é eletromagnético"],
+      "correta": 1,
+      "explicacao": "Luz: ~300.000 km/s. Som: ~340 m/s. A luz chega quase instantaneamente; o som leva segundos. Invertemos a ordem por causa da diferença de velocidade."
+    },
+    {
+      "id": "t3-q13",
+      "subtema": "meio",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Associe cada meio à velocidade aproximada do som nele.",
+      "colunaA": ["Ar", "Água", "Aço"],
+      "colunaB": ["~340 m/s", "~1.500 m/s", "~5.000 m/s"],
+      "correta": [0, 1, 2],
+      "explicacao": "Ar: 340 m/s. Água: 1.500 m/s. Aço: 5.000 m/s."
+    },
+    {
+      "id": "t3-q14",
+      "subtema": "compressao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "onda-sonora",
+      "enunciado": "Ao se propagar no ar, o som NÃO transporta:",
+      "alternativas": ["Energia", "Informação", "Moléculas de ar da fonte ao ouvinte", "Variações de pressão"],
+      "correta": 2,
+      "explicacao": "O som transporta energia e informação, mas as moléculas vibram no lugar — não viajam da fonte ao ouvido."
+    },
+    {
+      "id": "t3-q15",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Por que o som viaja mais rápido em dias quentes?",
+      "alternativas": ["Porque o ar quente é mais denso", "Porque as moléculas do ar quente se movem mais rápido e transmitem a vibração com mais facilidade", "Porque o Sol puxa o som", "Não há relação entre temperatura e velocidade do som"],
+      "correta": 1,
+      "explicacao": "Moléculas mais rápidas transmitem a vibração mais rapidamente. Em dias quentes, o ar tem mais energia térmica, e o som viaja um pouco mais rápido (cerca de 0,6 m/s mais rápido por °C)."
+    },
+    {
+      "id": "t3-q16",
+      "subtema": "producao-som",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "producao-som",
+      "enunciado": "Num alto-falante, o som é produzido pela vibração:",
+      "alternativas": ["Do ímã", "Da membrana (cone)", "Dos fios internos", "Do ar ao redor"],
+      "correta": 1,
+      "explicacao": "A membrana (cone) do alto-falante vibra empurrando o ar, produzindo as ondas sonoras."
+    },
+    {
+      "id": "t3-q17",
+      "subtema": "meio",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "som-no-vacuo",
+      "enunciado": "Se você estiver dentro de uma campânula de vidro e o ar for retirado aos poucos, o som de um despertador tocando dentro dela:",
+      "alternativas": ["Fica mais alto", "Fica mais baixo, até parar de ser ouvido", "Não muda", "Fica mais agudo"],
+      "correta": 1,
+      "explicacao": "Ao retirar o ar, o meio material vai desaparecendo — o som tem cada vez menos meio para se propagar. No vácuo, silêncio total. Esse experimento foi feito historicamente por Robert Boyle no século XVII."
+    },
+    {
+      "id": "t3-q18",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Num dia de tempestade, você vê o relâmpago e ouve o trovão 5 segundos depois. Sabendo que o som viaja a ~340 m/s, aproximadamente a que distância caiu o raio?",
+      "alternativas": ["68 m", "340 m", "1.700 m", "5.000 m"],
+      "correta": 2,
+      "explicacao": "d = v · t = 340 m/s × 5 s = 1.700 m (1,7 km). O tempo entre ver o relâmpago e ouvir o trovão é uma forma prática de estimar a distância da tempestade."
+    },
+    {
+      "id": "t3-q19",
+      "subtema": "compressao",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "onda-sonora",
+      "enunciado": "Um colega disse: 'Quando o som viaja no ar, as moléculas de ar saem da boca e vão até o ouvido.' Onde está o erro?",
+      "respostaEsperada": "As moléculas do ar não viajam da fonte ao ouvinte — elas vibram no lugar, transmitindo energia (e pressão) para as moléculas vizinhas, que vibram e transmitem adiante. O que viaja é a perturbação (a energia), não a matéria.",
+      "palavrasChave": ["vibram no lugar", "energia", "não viajam", "transmitem"],
+      "explicacao": "Analogia: a 'ola' do estádio. Cada torcedor se levanta e se senta no mesmo lugar, mas a 'ola' percorre o estádio. No som, o que viaja é a perturbação."
+    },
+    {
+      "id": "t3-q20",
+      "subtema": "meio",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "aplicacao",
+      "enunciado": "Explique em 2–3 linhas por que um índio encosta o ouvido no chão para detectar a aproximação de animais ou pessoas.",
+      "criterios": [
+        "Mencionou que o som viaja mais rápido em sólidos",
+        "Relacionou com o chão sendo um meio mais rápido que o ar",
+        "Concluiu que dá para ouvir mais longe/antes"
+      ],
+      "explicacao": "O chão (sólido) transmite o som muito mais rápido que o ar — cerca de 10 a 15 vezes. Assim, vibrações distantes que ainda não chegaram pelo ar podem ser detectadas pelo chão, permitindo perceber a aproximação antes."
+    }
+  ]
+}

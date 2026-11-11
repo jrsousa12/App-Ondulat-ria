@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "trilha": 2,
+  "questoes": [
+    {
+      "id": "t2-q01",
+      "subtema": "comprimento-onda",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "definicao-lambda",
+      "enunciado": "Em uma onda, o comprimento de onda (λ) pode ser medido como a distância entre:",
+      "alternativas": ["A base e a crista", "Duas cristas consecutivas", "Dois vales não consecutivos", "A crista e o vale"],
+      "correta": 1,
+      "explicacao": "λ é a distância entre dois pontos iguais consecutivos: crista a crista, vale a vale, nó a nó. A distância da base à crista é a amplitude."
+    },
+    {
+      "id": "t2-q02",
+      "subtema": "amplitude",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "amplitude-vs-lambda",
+      "enunciado": "A amplitude de uma onda está relacionada com:",
+      "alternativas": ["O comprimento de onda", "A energia que a onda transporta", "A velocidade da onda", "O período da onda"],
+      "correta": 1,
+      "explicacao": "A amplitude representa a quantidade de energia da onda. Amplitude maior = mais energia. No som, amplitude maior = som mais intenso (mais alto)."
+    },
+    {
+      "id": "t2-q03",
+      "subtema": "frequencia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "unidade-frequencia",
+      "enunciado": "Uma onda tem frequência de 60 Hz. Isso significa que ela realiza:",
+      "alternativas": ["60 oscilações por minuto", "1 oscilação a cada 60 segundos", "60 oscilações por segundo", "60 metros por segundo"],
+      "correta": 2,
+      "explicacao": "Hertz (Hz) significa 'oscilações por segundo'. 60 Hz = 60 oscilações completas em cada segundo."
+    },
+    {
+      "id": "t2-q04",
+      "subtema": "periodo",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "periodo-frequencia",
+      "enunciado": "Uma onda tem frequência de 25 Hz. Qual é o seu período?",
+      "alternativas": ["25 s", "0,04 s", "4 s", "0,25 s"],
+      "correta": 1,
+      "explicacao": "T = 1/f = 1/25 = 0,04 s. Frequência alta = período curto."
+    },
+    {
+      "id": "t2-q05",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Uma onda tem velocidade de 30 m/s e frequência de 6 Hz. Qual o comprimento de onda?",
+      "alternativas": ["180 m", "0,2 m", "5 m", "36 m"],
+      "correta": 2,
+      "explicacao": "λ = v/f = 30/6 = 5 m. A (a) é v·f (erro comum de multiplicar); a (b) é f/v."
+    },
+    {
+      "id": "t2-q06",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Um som tem frequência de 340 Hz e viaja no ar a 340 m/s. Qual é o comprimento de onda?",
+      "alternativas": ["1 m", "340 m", "0,5 m", "0,001 m"],
+      "correta": 0,
+      "explicacao": "λ = 340/340 = 1 m. Quando a velocidade (em m/s) tem o mesmo número da frequência (em Hz), o comprimento de onda é 1 m."
+    },
+    {
+      "id": "t2-q07",
+      "subtema": "comprimento-onda",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "unidade-lambda",
+      "enunciado": "No SI, a unidade do comprimento de onda é:",
+      "alternativas": ["Hertz (Hz)", "Metro (m)", "Segundo (s)", "Metro por segundo (m/s)"],
+      "correta": 1,
+      "explicacao": "λ é uma distância — metro (m). Hz é frequência, s é período, m/s é velocidade."
+    },
+    {
+      "id": "t2-q08",
+      "subtema": "amplitude",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "amplitude-vs-lambda",
+      "enunciado": "Aumentar a amplitude de uma onda aumenta sua energia.",
+      "correta": true,
+      "explicacao": "VERDADEIRO. Amplitude e energia caminham juntas: quanto mais alta a onda, mais energia ela transporta."
+    },
+    {
+      "id": "t2-q09",
+      "subtema": "periodo",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "periodo-frequencia",
+      "enunciado": "Uma onda tem período de 0,5 s. Qual é a frequência?",
+      "alternativas": ["0,5 Hz", "2 Hz", "5 Hz", "50 Hz"],
+      "correta": 1,
+      "explicacao": "f = 1/T = 1/0,5 = 2 Hz. Duas oscilações por segundo — cada uma dura meio segundo."
+    },
+    {
+      "id": "t2-q10",
+      "subtema": "frequencia",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "frequencia-vs-lambda",
+      "enunciado": "Quanto maior a frequência de uma onda, mantendo a mesma velocidade, maior será seu comprimento de onda.",
+      "correta": false,
+      "explicacao": "FALSO. É o contrário: v = λ·f. Se v é constante e f aumenta, λ diminui. Frequência alta = comprimento de onda curto."
+    },
+    {
+      "id": "t2-q11",
+      "subtema": "equacao-fundamental",
+      "tipo": "predicao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "relacao-f-lambda",
+      "enunciado": "Se a frequência de uma onda sonora dobra (mantendo a velocidade), o comprimento de onda:",
+      "alternativas": ["Dobra", "Fica a metade", "Permanece igual", "Fica 4 vezes maior"],
+      "correta": 1,
+      "explicacao": "v = λ·f. Se f dobra e v fica constante, λ tem que cair pela metade para manter o produto igual."
+    },
+    {
+      "id": "t2-q12",
+      "subtema": "equacao-fundamental",
+      "tipo": "calculo_guiado",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Uma onda tem período de 0,02 s e velocidade de 300 m/s. Qual é o comprimento de onda?",
+      "alternativas": ["6 m", "15 m", "0,006 m", "150 m"],
+      "correta": 0,
+      "explicacao": "Passo 1: f = 1/T = 1/0,02 = 50 Hz. Passo 2: λ = v/f = 300/50 = 6 m. Quem esquece de achar f primeiro se perde."
+    },
+    {
+      "id": "t2-q13",
+      "subtema": "periodo",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "periodo-frequencia",
+      "enunciado": "Uma onda tem período de 0,004 s. Qual é a frequência?",
+      "alternativas": ["250 Hz", "4 Hz", "40 Hz", "2.500 Hz"],
+      "correta": 0,
+      "explicacao": "f = 1/T = 1/0,004 = 250 Hz. Cuidado com vírgulas e zeros — 0,004 é 4 milésimos."
+    },
+    {
+      "id": "t2-q14",
+      "subtema": "grandezas-gerais",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "grandezas-ondas",
+      "enunciado": "Associe cada grandeza à sua definição.",
+      "colunaA": ["Comprimento de onda", "Amplitude", "Frequência", "Período"],
+      "colunaB": ["Distância entre duas cristas", "Altura da onda", "Oscilações por segundo", "Tempo de uma oscilação"],
+      "correta": [0, 1, 2, 3],
+      "explicacao": "λ = distância entre cristas. A = altura. f = oscilações/segundo. T = tempo de uma oscilação."
+    },
+    {
+      "id": "t2-q15",
+      "subtema": "comprimento-onda",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "definicao-lambda",
+      "enunciado": "Numa onda, a distância entre um vale e o vale seguinte é:",
+      "alternativas": ["Meio comprimento de onda", "Um comprimento de onda", "Dois comprimentos de onda", "Impossível determinar"],
+      "correta": 1,
+      "explicacao": "Vale a vale é uma oscilação completa — exatamente um comprimento de onda (λ)."
+    },
+    {
+      "id": "t2-q16",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "combinacao-v-lambda-f",
+      "enunciado": "Uma onda tem comprimento de 8 m e frequência de 4 Hz. Qual é a sua velocidade?",
+      "alternativas": ["0,5 m/s", "2 m/s", "12 m/s", "32 m/s"],
+      "correta": 3,
+      "explicacao": "v = λ·f = 8 · 4 = 32 m/s. A (c) é 8+4 (soma); a (a) é 4/8."
+    },
+    {
+      "id": "t2-q17",
+      "subtema": "grandezas-gerais",
+      "tipo": "ordenacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "relacoes-ondas",
+      "enunciado": "Coloque em ordem crescente de frequência (do menor para o maior):",
+      "itens": ["1 Hz", "10 Hz", "100 Hz", "1000 Hz"],
+      "correta": ["1 Hz", "10 Hz", "100 Hz", "1000 Hz"],
+      "explicacao": "Ordem direta — cada item é 10× maior que o anterior."
+    },
+    {
+      "id": "t2-q18",
+      "subtema": "equacao-fundamental",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Um colega calculou: 'Uma onda de 340 m/s e 170 Hz tem comprimento de onda λ = 340 × 170 = 57.800 m.' Onde está o erro?",
+      "respostaEsperada": "O erro é multiplicar em vez de dividir. A fórmula é v = λ·f, então λ = v/f. O correto é λ = 340/170 = 2 m.",
+      "palavrasChave": ["dividir", "v/f", "2 m", "λ = v/f"],
+      "explicacao": "λ = v/f é a forma correta de isolar o comprimento de onda. Multiplicar (v·f) daria uma unidade absurda e um valor irreal."
+    },
+    {
+      "id": "t2-q19",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Uma onda sonora de 200 Hz viaja no ar (v=340 m/s). Se ela passar para a água (v=1500 m/s), o que muda?",
+      "alternativas": ["Só a frequência", "Só a velocidade", "A velocidade e o comprimento de onda, mas não a frequência", "Todas as três grandezas"],
+      "correta": 2,
+      "explicacao": "A fonte continua vibrando na mesma frequência — f não muda. Mas v muda com o meio, e como v = λ·f, λ também muda para manter a equação. No ar: λ=1,7m. Na água: λ=7,5m."
+    },
+    {
+      "id": "t2-q20",
+      "subtema": "grandezas-gerais",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "aplicacao",
+      "enunciado": "Explique em 2–3 linhas por que a frequência de uma onda NÃO muda quando ela passa de um meio para outro, mas a velocidade e o comprimento de onda mudam.",
+      "criterios": [
+        "Mencionou que a fonte continua vibrando igual",
+        "Mencionou que a velocidade depende do meio",
+        "Concluiu que λ muda para manter v = λ·f"
+      ],
+      "explicacao": "A frequência é determinada pela fonte (que continua vibrando do mesmo jeito), então não muda. O meio determina a velocidade. Como v = λ·f e f é fixo, λ se ajusta quando v muda."
+    }
+  ]
+}

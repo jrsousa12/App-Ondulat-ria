@@ -1,0 +1,87 @@
+{
+  "id": "trilha-1",
+  "titulo": "Ondas: o que são e como se propagam",
+  "subtitulo": "Revisão + classificação das ondas",
+  "tempoEstimadoMin": 6,
+  "secoes": [
+    {
+      "id": "s1",
+      "titulo": "O que é uma onda?",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Você já jogou uma pedra num lago? Viu os círculos se espalharem pela água? Você acabou de criar uma onda.",
+        "Mas o que, exatamente, viaja ali? A água não vai toda para a borda do lago — as ondas vão. A água só sobe e desce, balançando no lugar. O que se desloca é a perturbação — e, com ela, a energia que você transferiu à água quando jogou a pedra.",
+        "Essa é a definição central da Ondulatória: Onda é uma perturbação que se propaga por um meio, transportando energia — mas não transportando matéria.",
+        "Pense na 'ola' do estádio: cada torcedor se levanta e se senta no mesmo lugar, mas a 'ola' percorre o estádio inteiro. Cada pessoa é o meio. A 'ola' é a perturbação."
+      ]
+    },
+    {
+      "id": "s2",
+      "titulo": "Toda onda precisa de um meio?",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Nem toda onda é igual. Existem dois grandes tipos:",
+        "Ondas mecânicas — precisam de um meio material para se propagar. Exemplos: o som, as ondas na água, as ondas em uma corda de violão.",
+        "Ondas eletromagnéticas — não precisam de meio: viajam até no vácuo. Exemplos: a luz, as ondas de rádio, os raios X, o micro-ondas.",
+        "O som é uma onda mecânica. Sem ar, sem água, sem algum material, o som não se propaga. É por isso que no espaço não há som: entre as estrelas, há vácuo.",
+        "No cinema, explosões no espaço fazem 'BUM!' — mas isso é licença poética. Na realidade, o astronauta não ouviria nada. Só veria a luz da explosão (que é eletromagnética e viaja no vácuo)."
+      ]
+    },
+    {
+      "id": "s3",
+      "titulo": "Para onde a onda vibra?",
+      "tempoEstimadoMin": 1.2,
+      "texto": [
+        "Outra classificação importante olha para a direção da vibração:",
+        "Ondas transversais — a vibração é perpendicular à direção em que a onda caminha. Exemplo: uma corda de violão. Você bate na corda, ela sobe e desce (vibra na vertical), e a onda caminha na horizontal.",
+        "Ondas longitudinais — a vibração acontece na mesma direção da propagação. Exemplo: uma mola (slinky). Você empurra uma ponta, as espirais se aproximam (compressão) e se afastam (rarefação), e a 'onda' caminha pela mola.",
+        "O som é uma onda longitudinal: as moléculas do ar se aproximam e se afastam na mesma direção em que o som caminha. Quando você fala, suas cordas vocais empurram o ar à frente, que empurra mais ar, que empurra mais ar... até chegar ao ouvido de quem escuta."
+      ]
+    },
+    {
+      "id": "s4",
+      "titulo": "O som no dia a dia",
+      "tempoEstimadoMin": 1.0,
+      "texto": [
+        "Quando você fala, suas cordas vocais vibram. Essa vibração empurra o ar, que empurra mais ar, que empurra mais ar... até chegar ao ouvido de quem escuta. É assim que o som viaja.",
+        "A velocidade do som depende do meio — e, em geral, quanto mais 'junto' o material, mais rápido o som passa. Valores aproximados (a 20 °C): ar ~340 m/s; água ~1.500 m/s; aço ~5.000 m/s; no vácuo não se propaga.",
+        "E tem mais: o ouvido humano só escuta frequências entre 20 Hz e 20.000 Hz. Abaixo disso é infrassom (o elefante escuta!). Acima disso é ultrassom (o morcego usa para 'enxergar' no escuro!)."
+      ]
+    },
+    {
+      "id": "s5",
+      "titulo": "A equação fundamental",
+      "tempoEstimadoMin": 1.0,
+      "texto": [
+        "Toda onda obedece a uma relação simples entre velocidade, comprimento de onda e frequência: v = λ · f",
+        "Onde: v = velocidade da onda (m/s); λ (lambda) = comprimento de onda (m); f = frequência (Hz).",
+        "E ainda existe o período, que é o tempo de uma oscilação completa: T = 1 / f (T em segundos, f em Hz).",
+        "Exemplo: uma onda sonora tem frequência de 170 Hz e viaja no ar a 340 m/s. Qual o comprimento de onda? λ = v / f = 340 / 170 = 2 metros.",
+        "Perceba: quanto maior a frequência, menor o comprimento de onda (se a velocidade for a mesma). Grave essa ideia — ela vai voltar na Trilha 4, quando falarmos de som agudo e grave."
+      ]
+    }
+  ],
+  "perguntasCompreensao": [
+    {
+      "id": "t1-c1",
+      "pergunta": "Segundo o texto, o que uma onda transporta ao se propagar?",
+      "alternativas": ["A matéria do meio", "Apenas energia, sem transportar matéria", "Matéria e energia juntas", "Nada, apenas vibração sem energia"],
+      "correta": 1,
+      "explicacao": "A onda transporta energia, não matéria. No exemplo da 'ola' do estádio, cada pessoa sobe e desce no mesmo lugar — o que percorre o estádio é a perturbação (e a energia), não as pessoas."
+    },
+    {
+      "id": "t1-c2",
+      "pergunta": "Por que não há som no espaço?",
+      "alternativas": ["Porque o espaço é muito frio", "Porque não há gravidade", "Porque o som é uma onda mecânica e no espaço há vácuo", "Porque o som é eletromagnético e não viaja no vácuo"],
+      "correta": 2,
+      "explicacao": "O som é uma onda mecânica e precisa de um meio material para se propagar. No espaço, entre as estrelas, há vácuo — não há meio. A luz viaja no vácuo porque é eletromagnética, mas o som, não."
+    },
+    {
+      "id": "t1-c3",
+      "pergunta": "O som é uma onda:",
+      "alternativas": ["Eletromagnética e transversal", "Mecânica e longitudinal", "Mecânica e transversal", "Eletromagnética e longitudinal"],
+      "correta": 1,
+      "explicacao": "O som é mecânico (precisa de meio) e longitudinal (a vibração acontece na mesma direção da propagação — compressões e rarefações do ar)."
+    }
+  ]
+}

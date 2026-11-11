@@ -1,0 +1,75 @@
+{
+  "id": "trilha-4",
+  "titulo": "As qualidades do som",
+  "subtitulo": "Altura, intensidade, timbre e faixa audível",
+  "tempoEstimadoMin": 6,
+  "secoes": [
+    {
+      "id": "s1",
+      "titulo": "Altura: som agudo ou grave",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "A altura é a qualidade que diferencia um som agudo (fininho) de um som grave (grosso).",
+        "A altura está ligada à frequência: sons agudos têm frequência alta; sons graves têm frequência baixa.",
+        "Exemplos: o apito do árbitro é agudo (~2.000 Hz); o som do trovão é grave (~50 Hz). A voz feminina costuma ser mais aguda que a masculina, mas há enorme variação individual.",
+        "Cuidado: 'som alto' na linguagem popular muitas vezes significa 'som com volume alto' — não é altura, é intensidade. Fisicamente, 'alto/agudo' e 'baixo/grave' se referem à frequência."
+      ]
+    },
+    {
+      "id": "s2",
+      "titulo": "Intensidade: som forte ou fraco",
+      "tempoEstimadoMin": 1.4,
+      "texto": [
+        "A intensidade é a qualidade que diferencia um som forte (volume alto) de um som fraco (volume baixo).",
+        "Está ligada à amplitude da onda sonora: maior amplitude = maior intensidade.",
+        "A intensidade é medida em decibéis (dB). Uma conversa normal fica em torno de 60 dB; um show pode passar de 110 dB.",
+        "Cuidado para não confundir: altura (agudo/grave) é da frequência; intensidade (forte/fraco) é da amplitude. São coisas separadas."
+      ]
+    },
+    {
+      "id": "s3",
+      "titulo": "Timbre: a 'cor' do som",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "O timbre é a qualidade que nos permite distinguir duas fontes sonoras mesmo quando tocam a mesma nota na mesma altura e intensidade. É a 'personalidade' do som.",
+        "Um violão e um piano tocando a mesma nota (mesma frequência) produzem sons diferentes. A diferença está no timbre.",
+        "O timbre depende da forma da onda — da mistura de frequências (harmônicos) que acompanham a frequência principal.",
+        "É graças ao timbre que reconhecemos a voz de um amigo ao telefone, mesmo sem vê-lo."
+      ]
+    },
+    {
+      "id": "s4",
+      "titulo": "Faixa audível: o que o ouvido capta",
+      "tempoEstimadoMin": 1.6,
+      "texto": [
+        "O ouvido humano escuta frequências entre 20 Hz e 20.000 Hz (20 kHz), aproximadamente — com grande variação entre pessoas e com a idade.",
+        "Abaixo de 20 Hz: infrassom. Elefantes, baleias e alguns peixes usam infrassom para se comunicar a longas distâncias.",
+        "Acima de 20.000 Hz: ultrassom. Morcegos usam ultrassom para 'enxergar' no escuro (ecolocalização); aparelhos de ultrassom na medicina usam a mesma ideia.",
+        "Com a idade, a faixa audível diminui — especialmente nas frequências altas. Por isso adolescentes às vezes ouvem um apito que adultos não escutam."
+      ]
+    }
+  ],
+  "perguntasCompreensao": [
+    {
+      "id": "t4-c1",
+      "pergunta": "A altura de um som está relacionada com:",
+      "alternativas": ["A amplitude", "A frequência", "O timbre", "A velocidade"],
+      "correta": 1,
+      "explicacao": "Altura = frequência. Frequência alta = som agudo; frequência baixa = som grave. A amplitude está ligada à intensidade."
+    },
+    {
+      "id": "t4-c2",
+      "pergunta": "Se uma nota é tocada no mesmo volume e na mesma frequência por um violão e um piano, ainda conseguimos distinguir os instrumentos porque têm:",
+      "alternativas": ["Amplitudes diferentes", "Velocidades diferentes", "Timbres diferentes", "Comprimentos de onda diferentes"],
+      "correta": 2,
+      "explicacao": "O timbre depende da forma de onda (mistura de harmônicos). Mesmo com a mesma altura e intensidade, cada instrumento tem um timbre único."
+    },
+    {
+      "id": "t4-c3",
+      "pergunta": "Sons abaixo de 20 Hz são chamados de:",
+      "alternativas": ["Ultrassom", "Infrassom", "Subsom", "Macrossom"],
+      "correta": 1,
+      "explicacao": "Abaixo de 20 Hz = infrassom. Acima de 20.000 Hz = ultrassom. A faixa audível humana está entre esses valores."
+    }
+  ]
+}

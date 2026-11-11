@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F172A'/%3E%3Cpath d='M0,16 Q4,8 8,16 T16,16 T24,16 T32,16' fill='none' stroke='%2322D3EE' stroke-width='2.5'/%3E%3C/svg%3E">
+  <title>Ferramenta do Professor — Ondulatória</title>
+  <link rel="stylesheet" href="css/professor.css">
+</head>
+<body>
+  <!-- CSP removida deliberadamente: esta é uma ferramenta local do professor,
+       sem input de terceiros perigoso. Todos os dados decifrados passam por
+       escapeHtml antes de renderizar. A remoção permite que o aviso de
+       file:// funcione por script clássico externo. -->
+  <div id="aviso-file" hidden>
+    ⚠️ Esta página precisa ser aberta por um servidor HTTP.
+    Rode <code>python -m http.server 8000</code> na pasta do projeto e acesse
+    <code>http://localhost:8000/professor.html</code>.
+  </div>
+
+  <header>
+    <h1>Ferramenta do Professor</h1>
+    <p class="subtitulo">Ondulatória — gerar chaves e decifrar relatórios dos alunos</p>
+  </header>
+
+  <main id="main-prof">
+    <section class="card">
+      <h2>1. Configurar chave</h2>
+      <p>Antes de receber relatórios, você precisa de um par de chaves. A chave <strong>pública</strong> vai no app dos alunos; a <strong>privada</strong> fica só com você.</p>
+      <div class="estado" id="estado-chave">
+        <span class="badge badge-aviso">Nenhuma chave configurada nesta sessão</span>
+      </div>
+      <div class="btn-grupo">
+        <button class="btn" id="btn-gerar">🔑 Gerar novo par de chaves</button>
+        <button class="btn btn-secundario" id="btn-importar">📂 Importar chave privada</button>
+        <input type="file" id="input-privada" accept=".json" style="display:none">
+      </div>
+    </section>
+
+    <section class="card" id="card-publica" hidden>
+      <h2>Chave pública</h2>
+      <p>Copie o conteúdo abaixo e cole em <code>js/chave-publica.js</code> no repositório do app — ou baixe o arquivo já pronto:</p>
+      <div class="codigo-bloco">
+        <pre id="publica-valor"></pre>
+        <button class="btn btn-pequeno" id="btn-copiar">Copiar</button>
+      </div>
+      <div class="btn-grupo">
+        <button class="btn btn-secundario" id="btn-baixar-chave-publica">⬇ Baixar chave-publica.js</button>
+      </div>
+      <p class="aviso-privacidade">Esta chave é pública. Compartilhá-la não compromete nada.</p>
+    </section>
+
+    <section class="card" id="card-privada" hidden>
+      <h2>Chave privada</h2>
+      <p class="aviso-perigo">⚠️ <strong>Guarde com muito cuidado.</strong> Sem esta chave, você não consegue abrir os relatórios enviados. Nunca compartilhe.</p>
+      <div class="btn-grupo">
+        <button class="btn" id="btn-baixar-privada">⬇ Baixar chave privada (.json)</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2. Decifrar relatórios dos alunos</h2>
+      <p>Selecione os arquivos que os alunos enviaram. Você pode selecionar vários de uma vez.</p>
+      <div class="estado" id="estado-privada">
+        <span class="badge badge-aviso">Chave privada não carregada</span>
+      </div>
+      <div class="btn-grupo">
+        <button class="btn" id="btn-decriptar" disabled>🔓 Selecionar e decifrar relatórios</button>
+        <input type="file" id="input-relatorios" accept=".json" multiple style="display:none">
+      </div>
+    </section>
+
+    <section class="card" id="card-resultados" hidden>
+      <h2>Relatórios decifrados</h2>
+      <div class="btn-grupo">
+        <button class="btn btn-secundario" id="btn-exportar-csv">⬇ Exportar CSV (planilha)</button>
+        <button class="btn btn-secundario" id="btn-limpar">🗑 Limpar</button>
+      </div>
+      <div id="lista-relatorios"></div>
+    </section>
+
+    <section class="card">
+      <h2>Limitações importantes</h2>
+      <ul style="line-height:1.8">
+        <li>✅ O arquivo é cifrado com a sua chave pública. Só você (com a chave privada) consegue abrir.</li>
+        <li>✅ Se o arquivo for corrompido no envio, a verificação de integridade falha — e você vê isso.</li>
+        <li>✅ Se um aluno editar manualmente o arquivo, a integridade também falha.</li>
+        <li>⚠️ Um aluno com conhecimento técnico poderia criar um relatório "do zero" e cifrar com a sua chave pública (que está no app). A integridade passaria, mas os dados seriam falsos.</li>
+        <li>⚠️ Isso é <strong>dificultar</strong>, não <strong>impedir</strong>. Use as flags de comportamento (troca de aba, resposta rápida) como pistas.</li>
+        <li>⚠️ Sem a chave privada, você <strong>não abre</strong> nenhum relatório. Guarde-a com muito cuidado (pendrive + backup).</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="js/file-check.js"></script>
+  <script type="module" src="js/professor.js"></script>
+</body>
+</html>

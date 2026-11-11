@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "trilha": 1,
+  "questoes": [
+    {
+      "id": "t1-q01",
+      "subtema": "definicao",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "onda-transporta-materia",
+      "enunciado": "Uma onda se propaga da extremidade A para a extremidade B de um meio. O que, de fato, vai de A até B?",
+      "alternativas": ["A matéria do meio, que se desloca", "Apenas a energia, sem transporte de matéria", "A matéria e a energia, juntas", "Nem a matéria nem a energia"],
+      "correta": 1,
+      "explicacao": "A onda transporta energia, não matéria. Na 'ola' do estádio, cada pessoa sobe e desce no mesmo lugar — a 'ola' percorre o estádio, mas as pessoas não. A (a) e a (c) confundem onda com correnteza."
+    },
+    {
+      "id": "t1-q02",
+      "subtema": "mecanica-eletromagnetica",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Qual das ondas abaixo é uma onda MECÂNICA?",
+      "alternativas": ["A luz do Sol", "As ondas de rádio", "O som de uma buzina", "Os raios X"],
+      "correta": 2,
+      "explicacao": "O som precisa de um meio material (ar, água, etc.) — é mecânico. Luz, rádio e raios X são eletromagnéticos e viajam no vácuo."
+    },
+    {
+      "id": "t1-q03",
+      "subtema": "mecanica-eletromagnetica",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Qual das ondas abaixo é uma onda ELETROMAGNÉTICA?",
+      "alternativas": ["O som do trovão", "A onda na superfície de um lago", "A luz de uma lâmpada", "O som de um violão"],
+      "correta": 2,
+      "explicacao": "A luz é eletromagnética — viaja no vácuo. Som e ondas na água são mecânicos."
+    },
+    {
+      "id": "t1-q04",
+      "subtema": "transversal-longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Uma onda em que a vibração acontece PERPENDICULARMENTE à direção de propagação é chamada de:",
+      "alternativas": ["Longitudinal", "Transversal", "Mecânica", "Eletromagnética"],
+      "correta": 1,
+      "explicacao": "Transversal: vibração perpendicular à propagação (ex.: corda de violão — vibra na vertical, onda caminha na horizontal). Longitudinal é a vibração na mesma direção (ex.: som)."
+    },
+    {
+      "id": "t1-q05",
+      "subtema": "transversal-longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Uma onda se propaga ao longo de uma corda de violão. A vibração da corda é vertical, mas a onda caminha horizontalmente. Essa onda é:",
+      "alternativas": ["Longitudinal", "Transversal", "Eletromagnética", "Estacionária"],
+      "correta": 1,
+      "explicacao": "A vibração é perpendicular à propagação — é transversal. Cordas vibrantes produzem ondas transversais."
+    },
+    {
+      "id": "t1-q06",
+      "subtema": "longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "O som é uma onda longitudinal. Isso significa que:",
+      "alternativas": ["As moléculas do ar se movem perpendicularmente à direção do som", "As moléculas do ar se aproximam e se afastam na mesma direção em que o som caminha", "O som só se propaga em uma única direção", "O som não vibra"],
+      "correta": 1,
+      "explicacao": "Longitudinal: a vibração (compressões e rarefações do ar) acontece na mesma direção da propagação. É como uma mola (slinky) sendo empurrada e puxada numa ponta."
+    },
+    {
+      "id": "t1-q07",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "velocidade-som",
+      "enunciado": "Qual é o valor APROXIMADO da velocidade do som no ar, a 20 °C?",
+      "alternativas": ["34 m/s", "340 m/s", "3.400 m/s", "340.000 m/s"],
+      "correta": 1,
+      "explicacao": "O som se propaga no ar a aproximadamente 340 m/s (valor real: ~343 m/s a 20 °C). É por isso que vemos o relâmpago antes de ouvir o trovão: o som é lento comparado à luz."
+    },
+    {
+      "id": "t1-q08",
+      "subtema": "frequencia",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "unidade-frequencia",
+      "enunciado": "A unidade de frequência no Sistema Internacional é:",
+      "alternativas": ["Metro (m)", "Segundo (s)", "Hertz (Hz)", "Metro por segundo (m/s)"],
+      "correta": 2,
+      "explicacao": "Frequência é medida em Hertz (Hz) — número de oscilações por segundo. Metro mede comprimento de onda, segundo mede tempo (período), m/s mede velocidade."
+    },
+    {
+      "id": "t1-q09",
+      "subtema": "comprimento-onda",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "definicao-lambda",
+      "enunciado": "O comprimento de onda (λ) representa:",
+      "alternativas": ["A altura da onda, do repouso até a crista", "A distância entre duas cristas consecutivas", "O tempo de uma oscilação completa", "O número de oscilações por segundo"],
+      "correta": 1,
+      "explicacao": "λ é a distância entre dois pontos iguais consecutivos da onda (crista a crista, ventre a ventre, etc.). A altura é a amplitude. O tempo de uma oscilação é o período. O número por segundo é a frequência."
+    },
+    {
+      "id": "t1-q10",
+      "subtema": "periodo",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "periodo-frequencia",
+      "enunciado": "Período (T) e frequência (f) de uma onda se relacionam por:",
+      "alternativas": ["T = f", "T = 1 / f", "T = f / 2", "T = 2 · f"],
+      "correta": 1,
+      "explicacao": "T = 1/f. Se a frequência é 10 Hz (10 oscilações por segundo), cada oscilação dura 0,1 s (período). São grandezas inversas."
+    },
+    {
+      "id": "t1-q11",
+      "subtema": "longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "O som, ao se propagar no ar, é uma onda:",
+      "alternativas": ["Mecânica e transversal", "Mecânica e longitudinal", "Eletromagnética e transversal", "Eletromagnética e longitudinal"],
+      "correta": 1,
+      "explicacao": "O som é mecânico (precisa de meio) e longitudinal (a vibração do ar é na mesma direção da propagação)."
+    },
+    {
+      "id": "t1-q12",
+      "subtema": "vacuidade-som",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "som-no-vacuo",
+      "enunciado": "O som pode se propagar no vácuo, desde que seja muito intenso.",
+      "correta": false,
+      "explicacao": "FALSO. O som é uma onda mecânica e precisa de um meio material. No vácuo não há meio — o som não se propaga, independentemente da intensidade."
+    },
+    {
+      "id": "t1-q13",
+      "subtema": "transversal-longitudinal",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "As ondas que se formam na superfície da água (como quando jogamos uma pedra) são, predominantemente:",
+      "alternativas": ["Longitudinais", "Transversais", "Eletromagnéticas", "Não são ondas"],
+      "correta": 1,
+      "explicacao": "As ondas na superfície da água são predominantemente transversais (a água sobe e desce, enquanto a onda caminha horizontalmente). São também mecânicas — precisam do meio (água)."
+    },
+    {
+      "id": "t1-q14",
+      "subtema": "mecanica-eletromagnetica",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "A luz é uma onda mecânica, pois se propaga no ar.",
+      "correta": false,
+      "explicacao": "FALSO. A luz é uma onda eletromagnética — viaja no vácuo e não precisa de meio. O fato de se propagar no ar não a torna mecânica."
+    },
+    {
+      "id": "t1-q15",
+      "subtema": "comprimento-onda",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "unidade-lambda",
+      "enunciado": "No Sistema Internacional, o comprimento de onda (λ) é medido em:",
+      "alternativas": ["Hertz (Hz)", "Metro (m)", "Segundo (s)", "Metro por segundo (m/s)"],
+      "correta": 1,
+      "explicacao": "λ é uma distância — mede-se em metros (m). Hertz mede frequência. Segundo mede período. m/s mede velocidade."
+    },
+    {
+      "id": "t1-q16",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Uma onda tem velocidade de 20 m/s e frequência de 4 Hz. Qual é o comprimento de onda?",
+      "alternativas": ["0,2 m", "5 m", "16 m", "80 m"],
+      "correta": 1,
+      "explicacao": "λ = v / f = 20 / 4 = 5 m. Sempre confira: m/s ÷ Hz = m. A (d) é v · f — erro comum de multiplicar em vez de dividir."
+    },
+    {
+      "id": "t1-q17",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "calculo-v-lambda-f",
+      "enunciado": "Uma onda sonora tem frequência de 170 Hz e se propaga no ar a 340 m/s. Qual é o comprimento de onda?",
+      "alternativas": ["0,5 m", "1 m", "2 m", "340 m"],
+      "correta": 2,
+      "explicacao": "λ = v / f = 340 / 170 = 2 m. A (d) é a velocidade — erro de não dividir. A (a) é o inverso (f/v)."
+    },
+    {
+      "id": "t1-q18",
+      "subtema": "periodo",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "periodo-frequencia",
+      "enunciado": "Uma onda tem frequência de 50 Hz. Qual é o seu período?",
+      "alternativas": ["50 s", "2 s", "0,02 s", "0,5 s"],
+      "correta": 2,
+      "explicacao": "T = 1/f = 1/50 = 0,02 s. A (b) é 1/0,5 — erro de inverter duas vezes. A (a) é o próprio valor da frequência sem calcular."
+    },
+    {
+      "id": "t1-q19",
+      "subtema": "classificacao-geral",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Associe cada exemplo ao tipo de onda correspondente.",
+      "colunaA": ["Som no ar", "Luz do Sol", "Onda na corda de violão"],
+      "colunaB": ["Mecânica e longitudinal", "Eletromagnética", "Mecânica e transversal"],
+      "correta": [0, 1, 2],
+      "explicacao": "Som: mecânica + longitudinal. Luz: eletromagnética. Corda de violão: mecânica + transversal."
+    },
+    {
+      "id": "t1-q20",
+      "subtema": "classificacao-geral",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "classificacao-ondas",
+      "enunciado": "Associe cada característica ao tipo de onda que ela descreve.",
+      "colunaA": ["Precisa de meio material", "Viaja no vácuo", "Vibração perpendicular à propagação", "Vibração na mesma direção da propagação"],
+      "colunaB": ["Mecânica", "Eletromagnética", "Transversal", "Longitudinal"],
+      "correta": [0, 1, 2, 3],
+      "explicacao": "Mecânica precisa de meio. Eletromagnética viaja no vácuo. Transversal vibra perpendicular. Longitudinal vibra na mesma direção."
+    },
+    {
+      "id": "t1-q21",
+      "subtema": "equacao-fundamental",
+      "tipo": "predicao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "relacao-f-lambda",
+      "enunciado": "Uma onda sonora tem frequência de 170 Hz. Você DOBRA a frequência para 340 Hz, mantendo a velocidade do som. O que acontece com o comprimento de onda?",
+      "alternativas": ["Dobra", "Fica a metade", "Não muda", "Fica o dobro da velocidade"],
+      "correta": 1,
+      "explicacao": "v = λ · f. Se v é constante e f dobra, então λ tem que cair pela metade — é o único jeito de o produto continuar igual. Essa relação volta na Trilha 4 (agudo = alta f, λ menor)."
+    },
+    {
+      "id": "t1-q22",
+      "subtema": "definicao",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "onda-transporta-materia",
+      "enunciado": "O som transporta as moléculas do ar da boca de quem fala até o ouvido de quem escuta.",
+      "correta": false,
+      "explicacao": "FALSO. As moléculas do ar vibram no lugar e transmitem energia para as vizinhas, mas não viajam da boca ao ouvido. O som transporta energia, não matéria."
+    },
+    {
+      "id": "t1-q23",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-luz-som",
+      "enunciado": "Em uma tempestade, vemos o relâmpago e só depois ouvimos o trovão. A explicação correta é:",
+      "alternativas": ["O som é mais rápido que a luz", "A luz é mais rápida que o som, então chega primeiro", "O trovão é produzido depois do relâmpago", "O som viaja no vácuo e a luz não"],
+      "correta": 1,
+      "explicacao": "A luz (~300.000 km/s) é MUITO mais rápida que o som (~340 m/s). Vemos o relâmpago quase instantaneamente e o som leva alguns segundos para chegar. A (a) inverte a relação."
+    },
+    {
+      "id": "t1-q24",
+      "subtema": "velocidade",
+      "tipo": "ordenacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Ordene os meios do MAIS LENTO para o MAIS RÁPIDO na propagação do som.",
+      "itens": ["Ar", "Água", "Aço"],
+      "correta": ["Ar", "Água", "Aço"],
+      "explicacao": "Em geral, quanto mais 'junto' o material, mais rápido o som passa. Ar (~340 m/s) < água (~1.500 m/s) < aço (~5.000 m/s)."
+    },
+    {
+      "id": "t1-q25",
+      "subtema": "equacao-fundamental",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "combinacao-v-lambda-f-T",
+      "enunciado": "Uma onda tem período de 0,5 s e velocidade de 20 m/s. Qual é o comprimento de onda?",
+      "alternativas": ["10 m", "40 m", "0,1 m", "2 m"],
+      "correta": 0,
+      "explicacao": "Primeiro ache f: f = 1/T = 1/0,5 = 2 Hz. Depois λ = v/f = 20/2 = 10 m. A (b) é 20·2 — erro de multiplicar em vez de dividir."
+    },
+    {
+      "id": "t1-q26",
+      "subtema": "velocidade",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "velocidade-luz-som",
+      "enunciado": "Um colega afirmou: 'O trovão chega depois do relâmpago porque o som é mais rápido que a luz.' Onde está o ERRO da afirmação?",
+      "respostaEsperada": "O erro é dizer que o som é mais rápido. Na verdade, a luz é muito mais rápida que o som. Vemos o relâmpago quase instantaneamente e só depois ouvimos o trovão justamente porque o som é mais lento (~340 m/s) e leva tempo para chegar até nós.",
+      "palavrasChave": ["luz é mais rápida", "som é mais lento", "300.000 km/s", "340 m/s"],
+      "explicacao": "A luz no ar é ~300.000 km/s; o som, ~340 m/s. A luz é cerca de 880.000 vezes mais rápida. O relâmpago é visto antes porque o som é LENTO comparado à luz."
+    },
+    {
+      "id": "t1-q27",
+      "subtema": "equacao-fundamental",
+      "tipo": "calculo_guiado",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "combinacao-v-lambda-f-T",
+      "enunciado": "Uma onda sonora tem período de 0,01 s e se propaga a 340 m/s. Qual é o comprimento de onda?",
+      "alternativas": ["3,4 m", "34 m", "340 m", "0,34 m"],
+      "correta": 0,
+      "explicacao": "Passo 1: f = 1/T = 1/0,01 = 100 Hz. Passo 2: λ = v/f = 340/100 = 3,4 m. Duas etapas: quem esquece de achar f primeiro se perde."
+    },
+    {
+      "id": "t1-q28",
+      "subtema": "definicao",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "transferencia-contexto",
+      "enunciado": "Descreva em 3 linhas uma situação do seu dia em que você percebeu uma onda (NÃO vale som). Explique o que era o meio e o que era a perturbação.",
+      "criterios": [
+        "Identificou uma situação concreta (não som)",
+        "Nomeou o meio corretamente",
+        "Nomeou a perturbação corretamente",
+        "Não confundiu onda com correnteza"
+      ],
+      "explicacao": "Espera-se algo como: 'vi a onda na piscina quando meu irmão pulou. O meio era a água e a perturbação era a água subindo e descendo a partir do ponto onde ele caiu.' O ponto central é distinguir meio (o que vibra) de perturbação (o que viaja)."
+    },
+    {
+      "id": "t1-q29",
+      "subtema": "velocidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "velocidade-meios",
+      "enunciado": "Por que, em geral, o som se propaga MAIS RÁPIDO em sólidos do que em gases?",
+      "alternativas": ["Porque os sólidos são mais frios", "Porque as partículas do sólido estão mais próximas e transmitem a vibração mais rapidamente", "Porque os sólidos são mais leves", "Porque os sólidos não têm partículas"],
+      "correta": 1,
+      "explicacao": "Em sólidos, as partículas estão mais próximas e fortemente ligadas — a vibração se transmite mais rapidamente de uma para a outra. Em gases, as partículas estão distantes e a transmissão é mais lenta."
+    },
+    {
+      "id": "t1-q30",
+      "subtema": "vacuidade-som",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "som-no-vacuo",
+      "enunciado": "Em um filme de ficção científica, uma nave explode no espaço e ouvimos um estrondo enorme. Explique, em 2–3 linhas, por que essa cena é fisicamente incorreta.",
+      "criterios": [
+        "Mencionou que o som precisa de meio material",
+        "Mencionou que no espaço há vácuo",
+        "Concluiu que o som não se propaga"
+      ],
+      "explicacao": "O som é uma onda mecânica e precisa de um meio material. No espaço, entre as estrelas, há vácuo — não há meio. Portanto, o estrondo não poderia ser ouvido. (A luz da explosão seria vista, mas o som, não.)"
+    }
+  ]
+}

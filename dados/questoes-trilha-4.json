@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 1,
+  "trilha": 4,
+  "questoes": [
+    {
+      "id": "t4-q01",
+      "subtema": "altura",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "A altura de um som está diretamente relacionada à:",
+      "alternativas": ["Amplitude da onda", "Frequência da onda", "Velocidade da onda", "Cor da fonte"],
+      "correta": 1,
+      "explicacao": "Altura = frequência. Frequências altas produzem sons agudos; frequências baixas, sons graves."
+    },
+    {
+      "id": "t4-q02",
+      "subtema": "intensidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "intensidade-amplitude",
+      "enunciado": "A intensidade de um som está relacionada à:",
+      "alternativas": ["Amplitude da onda", "Frequência da onda", "Duração do som", "Cor da fonte"],
+      "correta": 0,
+      "explicacao": "Intensidade = amplitude. Maior amplitude = som mais forte (volume maior)."
+    },
+    {
+      "id": "t4-q03",
+      "subtema": "timbre",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "timbre",
+      "enunciado": "O timbre permite distinguir:",
+      "alternativas": ["Um som agudo de um som grave", "Um som forte de um som fraco", "Um violão de um piano tocando a mesma nota", "Uma onda mecânica de uma eletromagnética"],
+      "correta": 2,
+      "explicacao": "O timbre é a 'personalidade' do som — diferença entre fontes sonoras mesmo na mesma altura e intensidade."
+    },
+    {
+      "id": "t4-q04",
+      "subtema": "audivel",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "faixa-audivel",
+      "enunciado": "A faixa audível humana (aproximada) vai de:",
+      "alternativas": ["0 Hz a 100 Hz", "20 Hz a 20.000 Hz", "100 Hz a 1.000 Hz", "1.000 Hz a 100.000 Hz"],
+      "correta": 1,
+      "explicacao": "20 Hz a 20.000 Hz. Abaixo = infrassom. Acima = ultrassom. A faixa diminui com a idade."
+    },
+    {
+      "id": "t4-q05",
+      "subtema": "infrassom-ultrassom",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "infra-ultra",
+      "enunciado": "Morcegos usam para se orientar no escuro:",
+      "alternativas": ["Infrassom", "Ultrassom", "Luz ultravioleta", "Ondas de rádio"],
+      "correta": 1,
+      "explicacao": "Morcegos emitem ultrassom e escutam o eco — ecolocalização. O ultrassom fica acima de 20.000 Hz."
+    },
+    {
+      "id": "t4-q06",
+      "subtema": "altura",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "Um som agudo tem, comparado a um som grave:",
+      "alternativas": ["Maior frequência", "Maior amplitude", "Maior comprimento de onda", "Maior velocidade"],
+      "correta": 0,
+      "explicacao": "Agudo = alta frequência. Grave = baixa frequência. A amplitude determina intensidade, não altura."
+    },
+    {
+      "id": "t4-q07",
+      "subtema": "intensidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "unidade-db",
+      "enunciado": "A intensidade sonora é medida em:",
+      "alternativas": ["Hertz (Hz)", "Metro (m)", "Decibel (dB)", "Metro por segundo (m/s)"],
+      "correta": 2,
+      "explicacao": "Intensidade em decibéis (dB). Hz é frequência; m é comprimento; m/s é velocidade."
+    },
+    {
+      "id": "t4-q08",
+      "subtema": "altura",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "Uma voz masculina costuma ser mais grave que uma voz feminina.",
+      "correta": true,
+      "explicacao": "VERDADEIRO em geral — vozes masculinas tendem a ter frequências mais baixas (~100-150 Hz) que as femininas (~180-250 Hz). Mas há enorme variação individual."
+    },
+    {
+      "id": "t4-q09",
+      "subtema": "infrassom-ultrassom",
+      "tipo": "multipla_escolha",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "infra-ultra",
+      "enunciado": "Frequências abaixo de 20 Hz são chamadas de:",
+      "alternativas": ["Ultrassom", "Infrassom", "Som audível", "Rádio"],
+      "correta": 1,
+      "explicacao": "Infrassom (< 20 Hz). Ultrassom é acima de 20.000 Hz."
+    },
+    {
+      "id": "t4-q10",
+      "subtema": "timbre",
+      "tipo": "verdadeiro_falso",
+      "dificuldade": "facil",
+      "misconcepcao_alvo": "timbre",
+      "enunciado": "Dois instrumentos tocando a mesma nota, no mesmo volume, produzem exatamente a mesma onda sonora.",
+      "correta": false,
+      "explicacao": "FALSO. Cada instrumento produz uma mistura diferente de harmônicos, resultando em timbres diferentes — mesmo com a mesma altura e intensidade."
+    },
+    {
+      "id": "t4-q11",
+      "subtema": "qualidades",
+      "tipo": "associacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "qualidades-som",
+      "enunciado": "Associe cada qualidade do som à sua característica física.",
+      "colunaA": ["Altura", "Intensidade", "Timbre", "Duração"],
+      "colunaB": ["Frequência", "Amplitude", "Forma de onda", "Tempo de emissão"],
+      "correta": [0, 1, 2, 3],
+      "explicacao": "Altura → frequência. Intensidade → amplitude. Timbre → forma de onda (harmônicos). Duração → tempo."
+    },
+    {
+      "id": "t4-q12",
+      "subtema": "altura",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "Ao afinar uma corda de violão, você aperta mais a corda (aumenta a tensão). O som produzido fica:",
+      "alternativas": ["Mais grave", "Mais agudo", "Mais intenso", "Mais longo"],
+      "correta": 1,
+      "explicacao": "Aumentar a tensão aumenta a frequência de vibração → som mais agudo. Afrouxar a corda diminui a frequência → som mais grave."
+    },
+    {
+      "id": "t4-q13",
+      "subtema": "intensidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "intensidade-amplitude",
+      "enunciado": "Bater mais forte num tambor produz som:",
+      "alternativas": ["Mais agudo", "Mais grave", "Mais intenso (mais alto em volume)", "Com outro timbre"],
+      "correta": 2,
+      "explicacao": "Bater mais forte aumenta a amplitude da vibração → som mais intenso. A frequência (altura) permanece praticamente a mesma."
+    },
+    {
+      "id": "t4-q14",
+      "subtema": "audivel",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "faixa-audivel",
+      "enunciado": "Com o passar da idade, o ouvido humano costuma:",
+      "alternativas": ["Aumentar a faixa audível", "Perder sensibilidade às frequências altas", "Perder sensibilidade às frequências baixas", "Não ter alteração"],
+      "correta": 1,
+      "explicacao": "Com a idade, perdemos principalmente a sensibilidade às frequências altas (presbiacusia). Por isso adolescentes às vezes ouvem apitos que adultos não escutam."
+    },
+    {
+      "id": "t4-q15",
+      "subtema": "infrassom-ultrassom",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "infra-ultra",
+      "enunciado": "Exames de ultrassom na medicina usam ondas com frequência:",
+      "alternativas": ["Abaixo de 20 Hz", "Na faixa audível humana", "Acima de 20.000 Hz", "Exatamente 440 Hz"],
+      "correta": 2,
+      "explicacao": "Ultrassom: acima de 20.000 Hz — inaudível ao ouvido humano, mas capaz de gerar imagens por eco. Por isso 'ultra' + 'som'."
+    },
+    {
+      "id": "t4-q16",
+      "subtema": "timbre",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "timbre",
+      "enunciado": "Um colega disse: 'Reconheço meu amigo ao telefone só pelo volume da voz.' Onde está o erro?",
+      "respostaEsperada": "Reconhecemos a voz pelo timbre, não pelo volume. Mesmo em volume baixo, o timbre permite reconhecer — porque o timbre é a 'personalidade' do som (mistura de harmônicos), e não depende da intensidade.",
+      "palavrasChave": ["timbre", "não volume", "harmônicos", "personalidade"],
+      "explicacao": "O volume (intensidade) não muda a identidade do som. Duas vozes com o mesmo volume têm timbres diferentes — é o timbre que permite reconhecer."
+    },
+    {
+      "id": "t4-q17",
+      "subtema": "altura",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "Uma corda vibra a 220 Hz. Se você tocar a metade dela (mesma tensão e mesma densidade), a frequência será:",
+      "alternativas": ["110 Hz", "220 Hz (não muda)", "440 Hz", "660 Hz"],
+      "correta": 2,
+      "explicacao": "Ao reduzir o comprimento à metade, a frequência dobra. Isso é a base dos instrumentos de corda: encurtar a corda (apertar uma casa) produz notas mais agudas."
+    },
+    {
+      "id": "t4-q18",
+      "subtema": "qualidades",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "qualidades-som",
+      "enunciado": "Um cantor canta a mesma nota em volume baixo e depois em volume alto. O que NÃO muda?",
+      "alternativas": ["A amplitude da onda", "A intensidade do som", "A frequência da nota", "A energia transportada"],
+      "correta": 2,
+      "explicacao": "Frequência determina a nota (altura). Se é a mesma nota, a frequência é a mesma. Volume alto/baixo altera amplitude (intensidade) e energia — não a nota."
+    },
+    {
+      "id": "t4-q19",
+      "subtema": "audivel",
+      "tipo": "multipla_escolha",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "faixa-audivel",
+      "enunciado": "Um apito para cães produz som que nós não ouvimos, mas o cão ouve. Isso significa que o som está:",
+      "alternativas": ["Abaixo de 20 Hz", "Entre 20 e 20.000 Hz", "Acima de 20.000 Hz", "Fora do ar"],
+      "correta": 2,
+      "explicacao": "Cães ouvem até ~45.000 Hz, bem acima do limite humano. O apito produz ultrassom (acima de 20.000 Hz) — inaudível para nós, audível para eles."
+    },
+    {
+      "id": "t4-q20",
+      "subtema": "qualidades",
+      "tipo": "ordenacao",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "altura-frequencia",
+      "enunciado": "Ordene do som mais GRAVE para o mais AGUDO:",
+      "itens": ["Tambor (~100 Hz)", "Voz masculina (~150 Hz)", "Voz feminina (~220 Hz)", "Apito de árbitro (~2.000 Hz)"],
+      "correta": ["Tambor (~100 Hz)", "Voz masculina (~150 Hz)", "Voz feminina (~220 Hz)", "Apito de árbitro (~2.000 Hz)"],
+      "explicacao": "Quanto maior a frequência, mais agudo. Tambor < voz masculina < voz feminina < apito."
+    },
+    {
+      "id": "t4-q21",
+      "subtema": "intensidade",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "intensidade-db",
+      "enunciado": "Uma conversa normal fica em torno de:",
+      "alternativas": ["10 dB", "60 dB", "120 dB", "300 dB"],
+      "correta": 1,
+      "explicacao": "Conversa normal: ~60 dB. Sussurro: ~30 dB. Trânsito intenso: ~85 dB. Show: ~110-120 dB. Limite de dor: ~120-130 dB."
+    },
+    {
+      "id": "t4-q22",
+      "subtema": "timbre",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "timbre",
+      "enunciado": "O timbre de um som depende principalmente de:",
+      "alternativas": ["Sua frequência fundamental", "Sua amplitude", "Da mistura de frequências (harmônicos)", "Sua duração"],
+      "correta": 2,
+      "explicacao": "O timbre vem da mistura de harmônicos que acompanham a frequência fundamental. Essa mistura forma a 'onda completa' que chega ao ouvido."
+    },
+    {
+      "id": "t4-q23",
+      "subtema": "infrassom-ultrassom",
+      "tipo": "multipla_escolha",
+      "dificuldade": "medio",
+      "misconcepcao_alvo": "infra-ultra",
+      "enunciado": "Qual destes animais usa infrassom para se comunicar a longas distâncias?",
+      "alternativas": ["Morcego", "Golfinho", "Elefante", "Beija-flor"],
+      "correta": 2,
+      "explicacao": "Elefantes emitem infrassom (abaixo de 20 Hz), que viaja muito longe na savana. Morcegos e golfinhos usam ultrassom, não infrassom."
+    },
+    {
+      "id": "t4-q24",
+      "subtema": "qualidades",
+      "tipo": "analise_erro",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "altura-vs-intensidade",
+      "enunciado": "Um colega disse: 'Aquele som é muito alto, deve ser agudo.' Explique o erro.",
+      "respostaEsperada": "A confusão é de linguagem. 'Alto' no popular pode significar volume alto (intensidade), não altura. Altura se refere a agudo/grave, ligada à frequência. Um som pode ser 'forte' (intenso) e grave ao mesmo tempo, ou 'fraco' (baixo volume) e agudo.",
+      "palavrasChave": ["intensidade", "altura", "frequência", "amplitude"],
+      "explicacao": "Altura = agudo/grave = frequência. Intensidade = forte/fraco = amplitude. São eixos independentes."
+    },
+    {
+      "id": "t4-q25",
+      "subtema": "qualidades",
+      "tipo": "aberta",
+      "dificuldade": "desafio",
+      "misconcepcao_alvo": "aplicacao",
+      "enunciado": "Um violino e uma flauta tocam a mesma nota (440 Hz), no mesmo volume. Explique por que conseguimos distinguir os dois.",
+      "criterios": [
+        "Mencionou timbre",
+        "Mencionou harmônicos / forma de onda",
+        "Não confundiu com altura nem intensidade"
+      ],
+      "explicacao": "A frequência fundamental é 440 Hz nos dois, mas cada instrumento acrescenta harmônicos diferentes (2f, 3f, 4f...), formando ondas com formas distintas. É essa mistura que define o timbre e nos permite reconhecer o instrumento."
+    }
+  ]
+}

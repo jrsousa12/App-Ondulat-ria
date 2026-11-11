@@ -1,0 +1,72 @@
+{
+  "id": "trilha-3",
+  "titulo": "O som como onda",
+  "subtitulo": "Produção, propagação e velocidade nos meios",
+  "tempoEstimadoMin": 6,
+  "secoes": [
+    {
+      "id": "s1",
+      "titulo": "Como o som é produzido",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Todo som nasce de uma vibração. Quando você fala, suas cordas vocais vibram. Quando bate num tambor, a pele vibra. Quando toca uma corda de violão, ela vibra.",
+        "Essa vibração é transmitida ao ar (ou à água, ou a outro meio) como uma sequência de compressões e rarefações — regiões onde as moléculas ficam mais juntas e mais afastadas.",
+        "É por isso que o som é uma onda longitudinal: a vibração acontece na mesma direção em que o som caminha."
+      ]
+    },
+    {
+      "id": "s2",
+      "titulo": "O som precisa de um meio",
+      "tempoEstimadoMin": 1.3,
+      "texto": [
+        "O som é uma onda mecânica: ele não pode viajar no vácuo. Precisa de um meio material — ar, água, metal, madeira, qualquer coisa com matéria.",
+        "No espaço (vácuo), o som não se propaga. Cenas de explosão em filmes espaciais são licença poética: na realidade, o astronauta não ouviria nada.",
+        "Por isso também os dois astronautas precisam de rádio para se comunicar no espaço — o rádio usa ondas eletromagnéticas, que viajam no vácuo."
+      ]
+    },
+    {
+      "id": "s3",
+      "titulo": "Velocidade do som em diferentes meios",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Em geral, o som viaja mais rápido em meios mais 'densos' — onde as moléculas estão mais próximas e interagem mais fortemente.",
+        "Valores aproximados a 20 °C: ar ≈ 340 m/s; água ≈ 1.500 m/s; aço ≈ 5.000 m/s. A velocidade do som no aço é cerca de 15 vezes maior que no ar.",
+        "Isso explica, por exemplo, por que escutamos um trem chegando antes pelos trilhos do que pelo ar — o som viaja muito mais rápido no metal."
+      ]
+    },
+    {
+      "id": "s4",
+      "titulo": "Compressões e rarefações",
+      "tempoEstimadoMin": 1.7,
+      "texto": [
+        "Quando uma fonte sonora vibra, ela empurra as moléculas de ar à sua frente. Essas moléculas empurram as seguintes, que empurram as seguintes — formando uma onda de pressão.",
+        "Nas regiões onde as moléculas estão mais juntas, temos uma compressão (alta pressão). Onde estão mais afastadas, uma rarefação (baixa pressão).",
+        "O ouvido humano detecta essas variações de pressão e o cérebro as interpreta como som.",
+        "Uma curiosidade: o som se propaga mais rápido em dias quentes. Isso acontece porque o ar quente é menos denso e as moléculas se movem mais rapidamente — facilitando a transmissão da vibração."
+      ]
+    }
+  ],
+  "perguntasCompreensao": [
+    {
+      "id": "t3-c1",
+      "pergunta": "Todo som é produzido por:",
+      "alternativas": ["Calor", "Vibração", "Luz", "Eletricidade"],
+      "correta": 1,
+      "explicacao": "Todo som nasce de uma vibração de algum material, que é transmitida ao meio como onda de pressão."
+    },
+    {
+      "id": "t3-c2",
+      "pergunta": "Por que não há som no espaço (vácuo)?",
+      "alternativas": ["Porque o espaço é muito frio", "Porque o som é uma onda mecânica e precisa de um meio material", "Porque não há gravidade", "Porque não há luz"],
+      "correta": 1,
+      "explicacao": "O som é mecânico: precisa de matéria para se propagar. No espaço, entre as estrelas, há vácuo — sem meio, sem som."
+    },
+    {
+      "id": "t3-c3",
+      "pergunta": "Em qual destes meios o som viaja mais rápido?",
+      "alternativas": ["Ar", "Água", "Aço", "Vácuo"],
+      "correta": 2,
+      "explicacao": "Aço (~5.000 m/s) é muito mais rápido que água (~1.500 m/s) e ar (~340 m/s). No vácuo, o som não se propaga."
+    }
+  ]
+}

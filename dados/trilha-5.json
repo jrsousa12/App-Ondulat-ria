@@ -1,0 +1,73 @@
+{
+  "id": "trilha-5",
+  "titulo": "Fenômenos sonoros",
+  "subtitulo": "Reflexão, refração, difração, interferência e ressonância",
+  "tempoEstimadoMin": 6,
+  "secoes": [
+    {
+      "id": "s1",
+      "titulo": "Reflexão: eco e reverberação",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Quando o som encontra um obstáculo, ele pode ser refletido — voltar. Esse é o mesmo princípio do espelho com a luz.",
+        "Se a reflexão chega ao ouvido mais de 0,1 s depois do som original, ouvimos dois sons separados: é o eco. Precisa de uma superfície a pelo menos 17 metros de distância.",
+        "Se a reflexão chega em menos de 0,1 s, o cérebro junta tudo: é a reverberação (aquele 'ecoar' em salas grandes). Auditórios são projetados para controlar isso."
+      ]
+    },
+    {
+      "id": "s2",
+      "titulo": "Refração e difração",
+      "tempoEstimadoMin": 1.4,
+      "texto": [
+        "Refração: quando o som passa de um meio para outro, muda de velocidade e desvia sua trajetória. É o que acontece com o som que atravessa uma parede — ele 'entorta' ligeiramente ao entrar.",
+        "Difração: quando o som contorna obstáculos. É por isso que escutamos alguém chamando de trás de uma parede, mesmo sem vê-la.",
+        "O som difrata muito mais que a luz porque seu comprimento de onda é maior (metros, versus nanômetros da luz). É por isso que você escuta música do quarto ao lado, mas não vê a luz dela."
+      ]
+    },
+    {
+      "id": "s3",
+      "titulo": "Interferência",
+      "tempoEstimadoMin": 1.5,
+      "texto": [
+        "Quando duas ondas sonoras se encontram, elas se somam — isso é interferência.",
+        "Interferência construtiva: os picos coincidem, e o som resultante fica mais forte.",
+        "Interferência destrutiva: um pico coincide com um vale, e o som resultante fica mais fraco — em casos extremos, pode se cancelar quase totalmente.",
+        "É esse fenômeno que permite os fones com cancelamento de ruído: eles emitem uma onda em oposição ao barulho externo, e as duas se cancelam."
+      ]
+    },
+    {
+      "id": "s4",
+      "titulo": "Ressonância",
+      "tempoEstimadoMin": 1.6,
+      "texto": [
+        "Ressonância é o fenômeno pelo qual um sistema vibra com grande amplitude quando recebe uma onda na sua frequência natural.",
+        "Exemplos clássicos: taças que quebram com uma nota específica, copos com níveis diferentes de água que vibram em frequências diferentes, tubos de órgão.",
+        "A ressonância pode ser perigosa: em 1940, a ponte de Tacoma Narrows oscilou até cair por ressonância com o vento. Soldados quebram o passo ao passar sobre pontes para não ressonar com elas.",
+        "Instrumentos musicais usam ressonância para amplificar o som: a caixa do violão ressoa com as cordas, tornando o som audível."
+      ]
+    }
+  ],
+  "perguntasCompreensao": [
+    {
+      "id": "t5-c1",
+      "pergunta": "A diferença entre eco e reverberação é:",
+      "alternativas": ["O eco é mais grave", "O eco é ouvido separado (chega em >0,1 s); a reverberação chega junto (<0,1 s)", "A reverberação é mais aguda", "Não há diferença"],
+      "correta": 1,
+      "explicacao": "Eco: sons percebidos separados (reflexão demorada). Reverberação: reflexão rápida, cérebro junta tudo. Por isso o eco precisa de distância maior."
+    },
+    {
+      "id": "t5-c2",
+      "pergunta": "Escutamos alguém chamando atrás de uma parede, mesmo sem vê-la, por causa da:",
+      "alternativas": ["Reflexão", "Refração", "Difração", "Ressonância"],
+      "correta": 2,
+      "explicacao": "Difração: o som contorna obstáculos. O comprimento de onda do som é da ordem de metros, então ele se difrata muito bem em obstáculos comuns."
+    },
+    {
+      "id": "t5-c3",
+      "pergunta": "Fones com cancelamento de ruído funcionam por:",
+      "alternativas": ["Reflexão", "Interferência destrutiva", "Ressonância", "Difração"],
+      "correta": 1,
+      "explicacao": "O fone emite uma onda em oposição ao ruído. Os picos de uma coincidem com os vales da outra — interferência destrutiva, e o som se cancela."
+    }
+  ]
+}
