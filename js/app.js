@@ -218,38 +218,178 @@ function renderOnboarding() {
 }
 
 /* ============ Páginas ============ */
+const TRILHAS = [
+  { id: '1', titulo: 'Ondas: o que são e como se propagam', curto: 'Ondas', desc: 'Revisão + classificação' },
+  { id: '2', titulo: 'As grandezas das ondas', curto: 'Grandezas', desc: 'λ, A, f, T e v = λ·f' },
+  { id: '3', titulo: 'O som como onda', curto: 'O som', desc: 'Produção, propagação e velocidade' },
+  { id: '4', titulo: 'As qualidades do som', curto: 'Qualidades', desc: 'Altura, intensidade, timbre' },
+  { id: '5', titulo: 'Fenômenos sonoros', curto: 'Fenômenos', desc: 'Reflexão, refração, difração, ressonância' },
+  { id: '6', titulo: 'Som no cotidiano e saúde auditiva', curto: 'Cotidiano', desc: 'Decibéis, poluição, proteção' }
+];
+
+const XP_POR_NIVEL = 100;
+
+const ICONES = {
+  praticar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M7 19h14V9"/></svg>',
+  lab: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 18.5A1.6 1.6 0 0 0 5.9 21h12.2a1.6 1.6 0 0 0 1.4-2.5L14 9V3"/><path d="M7.5 15h9"/></svg>',
+  perfil: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+  trilhas: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg>',
+  seta: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+  cadeado: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+};
+
+/** Etapas da trilha: leitura iniciada, compreensão feita, quiz aprovado. */
+function etapasTrilha(id) {
+  const t = dados.trilhas?.[id];
+  if (!t) return 0;
+  if (t.concluida) return 3;
+  if (t.compreensao) return 2;
+  return 1;
+}
+
+function proximaTrilha() {
+  return TRILHAS.find(t => !trilhaConcluida(t.id) && trilhaLiberada(t.id)) || null;
+}
+
+function saudacao() {
+  const h = new Date().getHours();
+  if (h < 12) return 'Bom dia';
+  if (h < 18) return 'Boa tarde';
+  return 'Boa noite';
+}
+
 function renderInicio() {
-  const nome = dados.aluno.primeiroNome ? `, ${esc(dados.aluno.primeiroNome)}` : '';
-  const concluidas = Object.values(dados.trilhas || {}).filter(t => t.concluida).length;
-  const pct = Math.round((concluidas / 6) * 100);
-  const badgeCount = (dados.badges || []).length;
+  const nome = esc(dados.aluno.primeiroNome || '');
+  const turma = dados.aluno.turma ? `<span class="home-chip">Turma ${esc(dados.aluno.turma)}</span>` : '';
+  const xp = dados.xp || 0;
+  const nivel = Math.floor(xp / XP_POR_NIVEL) + 1;
+  const xpNoNivel = xp % XP_POR_NIVEL;
+  const concluidas = TRILHAS.filter(t => trilhaConcluida(t.id)).length;
+  const pct = Math.round((concluidas / TRILHAS.length) * 100);
+  const badges = dados.badges || [];
+  const totalBadges = listarTodosBadges().length;
+  const flash = Object.keys(dados.flashcards || {}).length;
+
+  // Anel de progresso: circunferência de r=52 ≈ 326,7
+  const C = 2 * Math.PI * 52;
+  const anel = `
+    <svg class="home-anel" viewBox="0 0 120 120" role="img" aria-label="${pct}% das trilhas concluídas">
+      <defs>
+        <linearGradient id="grad-anel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="var(--ciano)"/><stop offset="1" stop-color="var(--sucesso)"/>
+        </linearGradient>
+      </defs>
+      <circle class="home-anel-fundo" cx="60" cy="60" r="52"/>
+      <circle class="home-anel-valor" cx="60" cy="60" r="52" stroke="url(#grad-anel)"
+        stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${(C * (1 - pct / 100)).toFixed(1)}"/>
+      <text x="60" y="58" class="home-anel-num">${concluidas}/${TRILHAS.length}</text>
+      <text x="60" y="78" class="home-anel-rot">trilhas</text>
+    </svg>`;
+
+  const prox = proximaTrilha();
+  let continuar;
+  if (prox) {
+    const etapas = etapasTrilha(prox.id);
+    const nomesEtapa = ['Leitura', 'Compreensão', 'Quiz'];
+    const passos = nomesEtapa.map((n, i) => `<li class="${i < etapas ? 'feito' : (i === etapas ? 'atual' : '')}">${n}</li>`).join('');
+    continuar = `
+      <a href="#trilha/${prox.id}" class="home-continuar">
+        <span class="home-rotulo">${etapas ? 'Continue de onde parou' : 'Próxima trilha'}</span>
+        <span class="home-continuar-num">Trilha ${prox.id}</span>
+        <strong class="home-continuar-titulo">${esc(prox.titulo)}</strong>
+        <span class="home-continuar-desc">${esc(prox.desc)}</span>
+        <ol class="home-etapas" aria-label="Etapas da trilha">${passos}</ol>
+        <span class="home-continuar-btn">${etapas ? 'Continuar' : 'Começar'} ${ICONES.seta}</span>
+      </a>`;
+  } else {
+    continuar = `
+      <div class="home-continuar home-continuar-fim">
+        <span class="home-rotulo">Parabéns!</span>
+        <strong class="home-continuar-titulo">Você concluiu todas as trilhas 🏆</strong>
+        <span class="home-continuar-desc">Continue treinando no Praticar e explore o Laboratório.</span>
+        <a href="#praticar" class="home-continuar-btn">Praticar ${ICONES.seta}</a>
+      </div>`;
+  }
+
+  const mapa = TRILHAS.map(t => {
+    const ok = trilhaConcluida(t.id);
+    const livre = trilhaLiberada(t.id);
+    const atual = prox && prox.id === t.id;
+    const cls = ok ? 'feita' : (atual ? 'atual' : (livre ? 'livre' : 'bloqueada'));
+    const icone = ok ? ICONES.check : (livre ? t.id : ICONES.cadeado);
+    const estado = ok ? 'concluída' : (livre ? 'disponível' : 'bloqueada');
+    const conteudo = `<span class="home-no">${icone}</span><span class="home-no-nome">${esc(t.curto)}</span>`;
+    return livre
+      ? `<li><a href="#trilha/${t.id}" class="home-mapa-item ${cls}" aria-label="Trilha ${t.id}: ${esc(t.titulo)} (${estado})">${conteudo}</a></li>`
+      : `<li><span class="home-mapa-item ${cls}" aria-label="Trilha ${t.id}: ${esc(t.titulo)} (${estado})">${conteudo}</span></li>`;
+  }).join('');
+
+  const recentes = badges.slice(-3).reverse();
+  const conquistas = recentes.length
+    ? recentes.map(b => `<li class="home-badge"><span class="home-badge-emoji" aria-hidden="true">${esc(b.emoji)}</span>${esc(b.nome)}</li>`).join('')
+    : '<li class="home-badge home-badge-vazio">Conclua atividades para ganhar sua primeira conquista.</li>';
+
   $('#conteudo').innerHTML = `
-    <section class="card">
-      <h2>Olá${nome}!</h2>
-      <p>Progresso fica <strong>só no seu aparelho</strong> — nada é enviado a servidores.</p>
+    <section class="home-hero" aria-labelledby="home-ola">
+      <svg class="home-hero-ondas" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,120 Q75,60 150,120 T300,120 T450,120 T600,120 V200 H0Z"/>
+        <path d="M0,140 Q75,95 150,140 T300,140 T450,140 T600,140 V200 H0Z"/>
+      </svg>
+      <div class="home-hero-texto">
+        <p class="home-saudacao">${saudacao()}${turma}</p>
+        <h2 id="home-ola">${nome ? `Olá, ${nome}!` : 'Olá!'}</h2>
+        <div class="home-nivel">
+          <div class="home-nivel-topo"><strong>Nível ${nivel}</strong><span>${xpNoNivel}/${XP_POR_NIVEL} XP</span></div>
+          <div class="home-nivel-barra" role="progressbar" aria-label="Progresso até o próximo nível"
+               aria-valuemin="0" aria-valuemax="${XP_POR_NIVEL}" aria-valuenow="${xpNoNivel}">
+            <div style="width:${xpNoNivel}%"></div>
+          </div>
+        </div>
+      </div>
+      ${anel}
     </section>
-    <section class="card">
-      <h3>Seu progresso</h3>
-      <p><strong>${concluidas} de 6</strong> trilhas concluídas · <strong>${dados.xp || 0} XP</strong> · <strong>${badgeCount}</strong> conquista(s)</p>
-      <div class="progresso-trilhas-barra"><div class="progresso-trilhas-fill" style="width:${pct}%"></div></div>
-      <div class="btn-grupo">
-        <a href="#trilhas" class="btn">Trilhas</a>
-        <a href="#praticar" class="btn btn-secundario">Praticar</a>
+
+    <ul class="home-stats" aria-label="Resumo">
+      <li><strong>${xp}</strong><span>XP total</span></li>
+      <li><strong>${badges.length}<small>/${totalBadges}</small></strong><span>Conquistas</span></li>
+      <li><strong>${flash}</strong><span>Flashcards</span></li>
+    </ul>
+
+    ${continuar}
+
+    <section class="home-secao" aria-labelledby="home-mapa-tit">
+      <div class="home-secao-topo">
+        <h3 id="home-mapa-tit">Sua jornada</h3>
+        <a href="#trilhas" class="home-link">Ver trilhas</a>
+      </div>
+      <ol class="home-mapa">${mapa}</ol>
+    </section>
+
+    <section class="home-secao" aria-labelledby="home-atalhos-tit">
+      <h3 id="home-atalhos-tit" class="sr-only">Atalhos</h3>
+      <div class="home-atalhos">
+        <a href="#praticar" class="home-atalho atalho-praticar">${ICONES.praticar}<strong>Praticar</strong><span>Flashcards e exercícios</span></a>
+        <a href="#lab" class="home-atalho atalho-lab">${ICONES.lab}<strong>Laboratório</strong><span>Simule e ouça ondas</span></a>
+        <a href="#trilhas" class="home-atalho atalho-trilhas">${ICONES.trilhas}<strong>Trilhas</strong><span>${concluidas} de ${TRILHAS.length} concluídas</span></a>
+        <a href="#perfil" class="home-atalho atalho-perfil">${ICONES.perfil}<strong>Perfil</strong><span>Conquistas e backup</span></a>
       </div>
     </section>
+
+    <section class="home-secao" aria-labelledby="home-conq-tit">
+      <div class="home-secao-topo">
+        <h3 id="home-conq-tit">Conquistas recentes</h3>
+        <a href="#perfil" class="home-link">Ver todas</a>
+      </div>
+      <ul class="home-badges">${conquistas}</ul>
+    </section>
+
+    <p class="home-privacidade">🔒 Seu progresso fica <strong>só neste aparelho</strong>. Nada é enviado a servidores.</p>
   `;
 }
 
 function renderTrilhas() {
-  const lista = [
-    { id: '1', titulo: 'Ondas: o que são e como se propagam', desc: 'Revisão + classificação' },
-    { id: '2', titulo: 'As grandezas das ondas', desc: 'λ, A, f, T e v = λ·f' },
-    { id: '3', titulo: 'O som como onda', desc: 'Produção, propagação e velocidade' },
-    { id: '4', titulo: 'As qualidades do som', desc: 'Altura, intensidade, timbre' },
-    { id: '5', titulo: 'Fenômenos sonoros', desc: 'Reflexão, refração, difração, ressonância' },
-    { id: '6', titulo: 'Som no cotidiano e saúde auditiva', desc: 'Decibéis, poluição, proteção' }
-  ];
-  const cards = lista.map(t => {
+  const cards = TRILHAS.map(t => {
     const liberada = trilhaLiberada(t.id);
     const concluida = trilhaConcluida(t.id);
     const iniciada = !!dados.trilhas?.[t.id];
