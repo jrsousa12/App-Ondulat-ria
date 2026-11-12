@@ -2,6 +2,9 @@ import { esc, shuffle, formatarDuracao } from './utils.js';
 import { avisar } from './dialogos.js';
 import { estaEmModoProfessor } from './modo-professor.js';
 import { carregarJSON, nomeSubtema } from './conteudo.js';
+import { iconeTrilha, esqueleto, etapas } from './ui.js';
+import * as fx from './fx.js';
+import { nivel } from './progresso.js';
 
 let cleanupAtual = null;
 let trilhaToken = 0;
@@ -134,7 +137,8 @@ export async function renderTrilha(id, dados, salvarDados) {
   const myToken = trilhaToken;
 
   const conteudo = document.querySelector('#conteudo');
-  conteudo.innerHTML = '<section class="card"><p>Carregando…</p></section>';
+  conteudo.dataset.trilha = id;
+  conteudo.innerHTML = esqueleto(3);
 
   let trilha, banco;
   try {
@@ -208,6 +212,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     if (cleanupFaseAtual) { try { cleanupFaseAtual(); } catch (_) {} cleanupFaseAtual = null; }
     document.removeEventListener('visibilitychange', onVisibilidade);
     pausarTimerLeitura();
+    delete conteudo.dataset.trilha;
   };
 
   function renderLeitura() {
@@ -220,26 +225,28 @@ export async function renderTrilha(id, dados, salvarDados) {
       <div class="progresso-leitura" aria-hidden="true">
         <div class="progresso-leitura-fill" id="prog-leitura"></div>
       </div>
-      <section class="card">
+      <a href="#trilhas" class="tela-voltar">← Trilhas</a>
+      <section class="leitura-hero">
+        <span class="leitura-icone">${iconeTrilha(id)}</span>
+        <p class="tela-rotulo">Trilha ${esc(id)}</p>
         <h2>${esc(trilha.titulo)}</h2>
-        <p style="color:var(--texto-fraco)">${esc(trilha.subtitulo || '')}</p>
+        <p class="leitura-sub">${esc(trilha.subtitulo || '')}</p>
         <div class="meta-leitura">
-          <span>⏱ Tempo estimado: ~${totalMin} min</span>
+          <span>⏱ ~${totalMin} min</span>
           <span>📖 ${trilha.secoes.length} seções</span>
+          <span>❓ 3 perguntas + quiz de 10</span>
         </div>
-        <p>Leia com calma. Ao terminar, você responderá <strong>3 perguntas de compreensão</strong> e depois um <strong>quiz de 10 questões</strong>.</p>
       </section>
+      ${etapas(0, 0)}
       ${trilha.secoes.map((s, i) => `
         <section class="card secao-leitura" data-secao="${esc(s.id)}">
-          <h3>${i + 1}. ${esc(s.titulo)}</h3>
+          <h3><span class="secao-num">${i + 1}</span>${esc(s.titulo)}</h3>
           ${s.texto.map(p => `<p>${esc(p)}</p>`).join('')}
         </section>
       `).join('')}
-      <section class="card">
-        <p id="msg-leitura" role="status" aria-live="polite" style="color:var(--texto-fraco)"></p>
-        <div class="btn-grupo">
-          <button class="btn" id="btn-ir-compreensao">Ir para as perguntas</button>
-        </div>
+      <section class="card leitura-fim">
+        <p id="msg-leitura" role="status" aria-live="polite"></p>
+        <button class="btn btn-grande" id="btn-ir-compreensao">Ir para as perguntas →</button>
       </section>
     `;
 
@@ -264,13 +271,13 @@ export async function renderTrilha(id, dados, salvarDados) {
       const minNecessario = Math.ceil((estado.tempoEstimadoMs * 0.6) / 60_000);
       if (estado.chegouAoFim && minDecorrido >= minNecessario) {
         msg.textContent = `✓ Leitura concluída em ${formatarDuracao(decorrido)}.`;
-        msg.style.color = 'var(--sucesso)';
+        msg.className = 'msg-ok';
       } else if (!estado.chegouAoFim) {
         msg.textContent = 'Role até o fim do texto para continuar.';
-        msg.style.color = 'var(--texto-fraco)';
+        msg.className = '';
       } else {
-        msg.textContent = `Continue lendo mais um pouco (${minDecorrido}/${minNecessario} min).`;
-        msg.style.color = 'var(--ambar)';
+        msg.textContent = `Continue lendo mais um pouco (${minDecorrido}/${minNecessario} min) — a leitura completa vale mais XP.`;
+        msg.className = 'msg-alerta';
       }
     }
 
@@ -301,7 +308,8 @@ export async function renderTrilha(id, dados, salvarDados) {
     const p = perguntas[indice];
     const total = perguntas.length;
     conteudo.innerHTML = `
-      <section class="card">
+      ${etapas(1, 1)}
+      <section class="card card-pergunta">
         <div class="quiz-header">
           <span>Compreensão ${indice + 1} de ${total}</span>
         </div>
@@ -333,6 +341,7 @@ export async function renderTrilha(id, dados, salvarDados) {
       if (i === p.correta) b.classList.add('correta');
       else if (i === escolha) b.classList.add('incorreta');
     });
+    if (acertou) fx.acerto(); else fx.erro();
 
     const fb = document.getElementById('feedback-compreensao');
     fb.innerHTML = `
@@ -398,9 +407,10 @@ export async function renderTrilha(id, dados, salvarDados) {
     estado.inicioQuestaoMs = Date.now();
 
     const header = `
+      ${etapas(2, 2)}
       <div class="quiz-header">
         <span>Questão ${idx + 1} de ${total}</span>
-        <span style="color:var(--texto-fraco);font-size:0.85rem">${esc(nomeSubtema(q.subtema))}</span>
+        <span class="quiz-conceito">${esc(nomeSubtema(q.subtema))}</span>
       </div>
       <div class="quiz-progresso-barra"><div style="width:${(idx / total) * 100}%"></div></div>
     `;
@@ -438,8 +448,8 @@ export async function renderTrilha(id, dados, salvarDados) {
     }
 
     conteudo.innerHTML = `
-      <section class="card">
-        ${header}
+      ${header}
+      <section class="card card-pergunta">
         ${corpo}
         <div id="feedback-quiz"></div>
       </section>
@@ -529,6 +539,7 @@ export async function renderTrilha(id, dados, salvarDados) {
       });
     }
 
+    if (acertou) fx.acerto(); else fx.erro();
     const primeiraTentativa = estado.tentativasQuiz === 1;
     const profMode = estaEmModoProfessor();
     const mostrarExplicacao = !primeiraTentativa || profMode || acertou;
@@ -594,7 +605,9 @@ export async function renderTrilha(id, dados, salvarDados) {
       t.concluidaEm = t.concluidaEm || new Date().toISOString();
     }
 
+    const nivelAntes = nivel(dados.xp || 0).nivel;
     dados.xp = (dados.xp || 0) + xpDelta;
+    const nivelDepois = nivel(dados.xp).nivel;
     registrarTentativaQuiz(dados, { trilha: id, acertos, total, tentativa: estado.tentativasQuiz });
     salvarDados();
 
@@ -624,7 +637,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     }).join('');
 
     conteudo.innerHTML = `
-      <section class="card resultado-hero">
+      <section class="card resultado-hero${passou ? ' passou' : ''}">
         <span class="emoji">${emoji}</span>
         <h2>${titulo}</h2>
         <div class="pontuacao">${acertos}/${total} (${pct.toFixed(0)}%)</div>
@@ -655,6 +668,12 @@ export async function renderTrilha(id, dados, salvarDados) {
     });
 
     window.scrollTo(0, 0);
+
+    if (passou) { fx.confete(); fx.vitoria(); }
+    if (xpDelta > 0) fx.xpFlutuante(document.getElementById('xp-total'), xpDelta);
+    if (nivelDepois > nivelAntes) {
+      setTimeout(() => avisar(`⬆️ Você subiu para o nível ${nivelDepois}!`, 'ok', 5000), 600);
+    }
   }
 
   renderLeitura();

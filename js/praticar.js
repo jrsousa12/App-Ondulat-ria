@@ -3,6 +3,7 @@ import { confirmar } from './dialogos.js';
 import { renderDiario } from './diario.js';
 import { renderAbertas } from './abertas.js';
 import { carregarJSON } from './conteudo.js';
+import { cabecalho, esqueleto } from './ui.js';
 
 let cleanupAtual = null;
 
@@ -51,6 +52,7 @@ export async function renderPraticar(dados, salvarDados) {
   const container = document.querySelector('#conteudo');
 
   container.innerHTML = `
+    ${cabecalho({ rotulo: 'Praticar', titulo: 'Praticar', sub: 'Revise com flashcards, registre sons do dia a dia e responda atividades para o professor.' })}
     <div class="lab-tabs" role="tablist" aria-label="Modo de prática">
       <button class="lab-tab ativo" data-sub="flash" role="tab" aria-selected="true">Flashcards</button>
       <button class="lab-tab" data-sub="diario" role="tab" aria-selected="false">Diário sonoro</button>
@@ -88,7 +90,7 @@ export async function renderPraticar(dados, salvarDados) {
 }
 
 async function renderFlashcards(container, dados, salvarDados, aindaAtual = () => true) {
-  container.innerHTML = '<section class="card"><p>Carregando flashcards…</p></section>';
+  container.innerHTML = esqueleto(2);
 
   let banco;
   try {
@@ -170,10 +172,24 @@ async function renderFlashcards(container, dados, salvarDados, aindaAtual = () =
           <span>Cartão ${idx + 1} de ${total}</span>
           <button class="btn btn-secundario btn-pequeno" id="btn-sair-flash">Sair</button>
         </div>
-        <div class="flash-cartao" id="flash-cartao" tabindex="0">
-          <p class="flash-label">Pergunta</p>
-          <p class="flash-frente">${esc(c.frente)}</p>
-          <p class="flash-dica">Toque ou pressione Enter para ver a resposta</p>
+        <div class="flash-cena">
+          <div class="flash-cartao" id="flash-cartao" tabindex="0" role="button" aria-label="Virar o cartão">
+            <div class="flash-face flash-face-frente">
+              <p class="flash-label">Pergunta</p>
+              <p class="flash-frente">${esc(c.frente)}</p>
+              <p class="flash-dica">Toque ou pressione Enter para ver a resposta</p>
+            </div>
+            <div class="flash-face flash-face-verso" aria-hidden="true">
+              <p class="flash-label">Resposta</p>
+              <p class="flash-verso">${esc(c.verso)}</p>
+            </div>
+          </div>
+        </div>
+        <div class="flash-acoes" id="flash-acoes" hidden>
+          <p class="flash-pergunta-auto">Como foi lembrar?</p>
+          <button class="btn btn-flash-dificil" data-r="dificil">Difícil</button>
+          <button class="btn btn-flash-medio" data-r="medio">Médio</button>
+          <button class="btn btn-flash-facil" data-r="facil">Fácil</button>
         </div>
       </section>
     `;
@@ -191,18 +207,17 @@ async function renderFlashcards(container, dados, salvarDados, aindaAtual = () =
     if (sessao.virado) return;
     sessao.virado = true;
     const el = document.getElementById('flash-cartao');
-    el.innerHTML = `<p class="flash-label">Resposta</p><p class="flash-verso">${esc(c.verso)}</p>`;
-    const acoes = document.createElement('div');
-    acoes.className = 'flash-acoes';
-    acoes.innerHTML = `
-      <button class="btn btn-flash-dificil" data-r="dificil">Difícil</button>
-      <button class="btn btn-flash-medio" data-r="medio">Médio</button>
-      <button class="btn btn-flash-facil" data-r="facil">Fácil</button>
-    `;
-    el.appendChild(acoes);
+    el.classList.add('virado');
+    el.removeAttribute('role');
+    el.setAttribute('aria-label', 'Resposta');
+    el.querySelector('.flash-face-frente').setAttribute('aria-hidden', 'true');
+    el.querySelector('.flash-face-verso').removeAttribute('aria-hidden');
+    const acoes = document.getElementById('flash-acoes');
+    acoes.hidden = false;
     acoes.querySelectorAll('button').forEach(b => {
-      b.addEventListener('click', (ev) => { ev.stopPropagation(); responder(c, b.dataset.r); });
+      b.addEventListener('click', () => responder(c, b.dataset.r));
     });
+    acoes.querySelector('button').focus();
   }
 
   function responder(c, resp) {

@@ -51,11 +51,15 @@ function confere(cond, msg) {
   try {
     console.log('Cadastro');
     await pagina.goto(base + '/index.html');
+    await pagina.click('#onb-avancar');
     await pagina.fill('#in-nome', 'Teste');
     await pagina.fill('#in-sobrenome', 'Automático');
     await pagina.fill('#in-turma', '9Z');
     await pagina.click('#form-onboarding button[type=submit]');
+    await pagina.click('[data-avatar="🦉"]');
+    await pagina.click('#onb-fim');
     await pagina.waitForSelector('.home-hero');
+    confere((await pagina.textContent('.home-saudacao')).includes('🦉'), 'avatar escolhido aparece na tela inicial');
     confere((await pagina.textContent('#home-ola')).includes('Teste'), 'tela inicial mostra o nome');
 
     console.log('Telas');

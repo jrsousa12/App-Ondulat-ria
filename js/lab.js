@@ -1,7 +1,33 @@
 import { audio } from './audio.js';
+import { cabecalho } from './ui.js';
 import { avisar } from './dialogos.js';
 
 let cleanupAtual = null;
+
+/** Cores do tema atual (lidas do CSS), para os desenhos acompanharem o tema claro/escuro. */
+function paleta() {
+  const cs = getComputedStyle(document.documentElement);
+  const v = n => cs.getPropertyValue(n).trim();
+  const comAlfa = (hex, a) => {
+    const m = /^#([0-9a-f]{6})$/i.exec(hex);
+    if (!m) return hex;
+    const n = parseInt(m[1], 16);
+    return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`;
+  };
+  const texto = v('--texto-fraco') || '#94A3B8';
+  return {
+    onda: v('--ciano') || P.onda,
+    ondaSuave: comAlfa(v('--ciano') || P.onda, 0.3),
+    ponto: v('--ambar') || P.ponto,
+    fundo: v('--bg-elev') || P.fundo,
+    grade: comAlfa(texto, 0.35),
+    gradeForte: comAlfa(texto, 0.55),
+    textoFraco: texto,
+    erro: v('--erro') || P.erro,
+    meio: { ar: v('--meio-ar'), agua: v('--meio-agua'), aco: v('--meio-aco') }
+  };
+}
+
 
 export function cleanupLab() {
   if (cleanupAtual) {
@@ -17,10 +43,7 @@ export function renderLab(dados, salvarDados) {
   let cleanupSubview = null;
 
   container.innerHTML = `
-    <section class="card">
-      <h2>Laboratório de ondas</h2>
-      <p>Simulações para você <strong>ver</strong> e <strong>ouvir</strong> as ondas. Experimente à vontade — nada sai do seu aparelho.</p>
-    </section>
+    ${cabecalho({ rotulo: 'Laboratório', titulo: 'Laboratório de ondas', sub: 'Simulações para você <strong>ver</strong> e <strong>ouvir</strong> as ondas. Experimente à vontade — nada sai do seu aparelho.' })}
     <div class="lab-tabs" role="tablist" aria-label="Experimentos">
       <button class="lab-tab ativo" data-tab="osciloscopio" role="tab" aria-selected="true">Osciloscópio</button>
       <button class="lab-tab" data-tab="meios" role="tab" aria-selected="false">Meios</button>
@@ -157,13 +180,14 @@ function montarOsciloscopio(area, dados, salvarDados) {
   }
 
   function draw() {
+    const P = paleta();
     if (!W1 || !H1) return;
 
     ctxOnda.clearRect(0, 0, W1, H1);
     ctxOnda.beginPath();
     ctxOnda.moveTo(0, H1 / 2);
     ctxOnda.lineTo(W1, H1 / 2);
-    ctxOnda.strokeStyle = 'rgba(148,163,184,0.3)';
+    ctxOnda.strokeStyle = P.grade;
     ctxOnda.lineWidth = 1;
     ctxOnda.stroke();
 
@@ -173,7 +197,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
     const A = state.amp * (H1 / 2 - 12);
 
     ctxOnda.beginPath();
-    ctxOnda.strokeStyle = '#22D3EE';
+    ctxOnda.strokeStyle = P.onda;
     ctxOnda.lineWidth = 2.5;
     ctxOnda.lineCap = 'round';
     for (let x = 0; x <= W1; x += 1.5) {
@@ -186,9 +210,9 @@ function montarOsciloscopio(area, dados, salvarDados) {
     const yM = H1 / 2 - A * Math.sin(2 * Math.PI * xM / lambdaPx - 2 * Math.PI * fVis * state.t);
     ctxOnda.beginPath();
     ctxOnda.arc(xM, yM, 6, 0, Math.PI * 2);
-    ctxOnda.fillStyle = '#F59E0B';
+    ctxOnda.fillStyle = P.ponto;
     ctxOnda.fill();
-    ctxOnda.strokeStyle = '#0F172A';
+    ctxOnda.strokeStyle = P.fundo;
     ctxOnda.lineWidth = 2;
     ctxOnda.stroke();
 
@@ -197,7 +221,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
     ctxTrace.beginPath();
     ctxTrace.moveTo(0, H2 / 2);
     ctxTrace.lineTo(W2, H2 / 2);
-    ctxTrace.strokeStyle = 'rgba(148,163,184,0.3)';
+    ctxTrace.strokeStyle = P.grade;
     ctxTrace.lineWidth = 1;
     ctxTrace.stroke();
 
@@ -206,7 +230,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
     const phase = Math.PI * numWaves;
 
     ctxTrace.beginPath();
-    ctxTrace.strokeStyle = '#F59E0B';
+    ctxTrace.strokeStyle = P.ponto;
     ctxTrace.lineWidth = 2.5;
     ctxTrace.lineCap = 'round';
     for (let x = 0; x <= W2; x += 2) {
@@ -298,9 +322,9 @@ function montarOsciloscopio(area, dados, salvarDados) {
 function montarMeios(area) {
   // Cores dos meios: canvas usa cores brilhantes; texto usa classes de tema.
   const meios = [
-    { nome: 'Ar', v: 340, cor: '#22D3EE', chave: 'ar', label: 'Gás' },
-    { nome: 'Água', v: 1500, cor: '#F59E0B', chave: 'agua', label: 'Líquido' },
-    { nome: 'Aço', v: 5000, cor: '#EF4444', chave: 'aco', label: 'Sólido' }
+    { nome: 'Ar', v: 340, chave: 'ar', label: 'Gás' },
+    { nome: 'Água', v: 1500, chave: 'agua', label: 'Líquido' },
+    { nome: 'Aço', v: 5000, chave: 'aco', label: 'Sólido' }
   ];
 
   let freq = 440;
@@ -336,7 +360,7 @@ function montarMeios(area) {
           <div class="barra-item">
             <span class="meio-cor-${m.chave}">${m.nome}</span>
             <div style="background:var(--borda);border-radius:4px;overflow:hidden;height:20px">
-              <div class="barra-fill" id="barra-${m.nome}" style="background:${m.cor};width:0%"></div>
+              <div class="barra-fill" id="barra-${m.nome}" style="background:var(--meio-${m.chave});width:0%"></div>
             </div>
             <span id="dist-${m.nome}" style="text-align:right;color:var(--texto-fraco)">${m.v.toLocaleString('pt-BR')} m</span>
           </div>
@@ -374,6 +398,7 @@ function montarMeios(area) {
   }
 
   function draw() {
+    const P = paleta();
     // Escala única: em 440 Hz, a onda no ar ocupa 1/3 da largura. Assim λ = v/f aparece na tela.
     const pxPorMetro = ((canvases['Ar'].W || 300) / 3) / (340 / 440);
     meios.forEach(m => {
@@ -385,7 +410,7 @@ function montarMeios(area) {
       ctx.beginPath();
       ctx.moveTo(0, c.H / 2);
       ctx.lineTo(c.W, c.H / 2);
-      ctx.strokeStyle = 'rgba(148,163,184,0.3)';
+      ctx.strokeStyle = P.grade;
       ctx.lineWidth = 1;
       ctx.stroke();
 
@@ -393,7 +418,7 @@ function montarMeios(area) {
       const A = c.H * 0.32;
 
       ctx.beginPath();
-      ctx.strokeStyle = m.cor;
+      ctx.strokeStyle = P.meio[m.chave];
       ctx.lineWidth = 2.5;
       ctx.lineCap = 'round';
       for (let x = 0; x <= c.W; x += 1.5) {
@@ -507,6 +532,7 @@ function montarRessonancia(area) {
   }
 
   function draw() {
+    const P = paleta();
     if (!W || !H) return;
     ctx.clearRect(0, 0, W, H);
 
@@ -515,7 +541,7 @@ function montarRessonancia(area) {
     const tubeH = H * 0.55;
     const tubeY = (H - tubeH) / 2;
 
-    ctx.strokeStyle = 'rgba(148,163,184,0.5)';
+    ctx.strokeStyle = P.gradeForte;
     ctx.lineWidth = 2;
     ctx.strokeRect(margemX, tubeY, tubeW, tubeH);
 
@@ -526,7 +552,7 @@ function montarRessonancia(area) {
     const cosWt = Math.cos(omega * state.t);
 
     ctx.beginPath();
-    ctx.strokeStyle = '#22D3EE';
+    ctx.strokeStyle = P.onda;
     ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
     for (let i = 0; i <= 200; i++) {
@@ -539,7 +565,7 @@ function montarRessonancia(area) {
     ctx.stroke();
 
     ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = 'rgba(34,211,238,0.3)';
+    ctx.strokeStyle = P.ondaSuave;
     ctx.lineWidth = 1;
     for (const sinal of [1, -1]) {
       ctx.beginPath();
@@ -559,9 +585,9 @@ function montarRessonancia(area) {
       const x = margemX + xRel * tubeW;
       ctx.beginPath();
       ctx.arc(x, centerY, 5, 0, Math.PI * 2);
-      ctx.fillStyle = '#F59E0B';
+      ctx.fillStyle = P.ponto;
       ctx.fill();
-      ctx.strokeStyle = '#0F172A';
+      ctx.strokeStyle = P.fundo;
       ctx.lineWidth = 1.5;
       ctx.stroke();
     }
@@ -571,18 +597,18 @@ function montarRessonancia(area) {
       const x = margemX + xRel * tubeW;
       ctx.beginPath();
       ctx.arc(x, centerY, 4, 0, Math.PI * 2);
-      ctx.fillStyle = '#EF4444';
+      ctx.fillStyle = P.erro;
       ctx.fill();
     }
 
-    ctx.fillStyle = 'rgba(148,163,184,0.9)';
+    ctx.fillStyle = P.textoFraco;
     ctx.font = '11px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Nó', margemX, tubeY - 8);
     ctx.fillText('Nó', W - margemX, tubeY - 8);
-    ctx.fillStyle = '#EF4444';
+    ctx.fillStyle = P.erro;
     ctx.fillText('● Antinó', W / 2, tubeY - 8);
-    ctx.fillStyle = '#F59E0B';
+    ctx.fillStyle = P.ponto;
     ctx.fillText('● Nó', margemX + 30, tubeY - 8);
   }
 
@@ -661,6 +687,7 @@ function montarMeuSom(area) {
   }
 
   function draw() {
+    const P = paleta();
     if (!state.ativo || !audio.isMicActive()) return;
     const analyser = audio.getMicAnalyser();
     if (!analyser) return;
@@ -674,12 +701,12 @@ function montarMeuSom(area) {
     ctx.beginPath();
     ctx.moveTo(0, H / 2);
     ctx.lineTo(W, H / 2);
-    ctx.strokeStyle = 'rgba(148,163,184,0.3)';
+    ctx.strokeStyle = P.grade;
     ctx.lineWidth = 1;
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.strokeStyle = '#22D3EE';
+    ctx.strokeStyle = P.onda;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
     const step = W / state.dataArray.length;

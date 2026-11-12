@@ -1,5 +1,6 @@
 import { esc, hojeLocal } from './utils.js';
 import { nomeSubtema } from './conteudo.js';
+import { cabecalho } from './ui.js';
 
 /* Página "Meu desempenho": tudo é calculado a partir dos dados salvos no aparelho. */
 
@@ -212,11 +213,7 @@ export function renderDesempenho(dados, trilhas, { totalBadges = 0 } = {}) {
   const passosHtml = passos.slice(0, 3).map(p => `<li><a href="${p.href}" class="des-passo"><span aria-hidden="true">${p.icone}</span><span>${p.texto}</span></a></li>`).join('');
 
   container.innerHTML = `
-    <section class="des-topo">
-      <a href="#perfil" class="home-link">← Perfil</a>
-      <h2>Meu desempenho</h2>
-      <p>Tudo calculado com o que você fez neste aparelho.</p>
-    </section>
+    ${cabecalho({ voltar: { href: '#perfil', texto: 'Perfil' }, rotulo: 'Desempenho', titulo: 'Meu desempenho', sub: 'Tudo calculado com o que você fez neste aparelho.' })}
 
     <ul class="des-kpis" aria-label="Resumo do desempenho">
       <li class="des-kpi-destaque"><strong>${totT ? aproveitamento + '%' : '—'}</strong><span>Aproveitamento nos quizzes</span></li>

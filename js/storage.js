@@ -1,5 +1,5 @@
 import { hojeISO, hojeLocal, clamp } from './utils.js';
-import { IDS_TRILHAS } from './conteudo.js';
+import { IDS_TRILHAS, AVATARES } from './conteudo.js';
 import { listarTodosBadges } from './badges.js';
 
 const SCHEMA_VERSION = 1;
@@ -56,7 +56,8 @@ export function sanitizarDados(bruto) {
     aluno: {
       primeiroNome: txt(aluno.primeiroNome, 30).trim(),
       ultimoNome: txt(aluno.ultimoNome, 30).trim(),
-      turma: txt(aluno.turma, 10).trim()
+      turma: txt(aluno.turma, 10).trim(),
+      avatar: AVATARES.includes(aluno.avatar) ? aluno.avatar : ''
     },
     nonceDispositivo: txt(d.nonceDispositivo, 64) || gerarNonce(),
     criadoEm: dataISO(d.criadoEm) || hojeISO(),

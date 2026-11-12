@@ -9,6 +9,8 @@ export const TRILHAS = [
   { id: '6', titulo: 'Som no cotidiano e saúde auditiva', curto: 'Cotidiano', desc: 'Decibéis, poluição, proteção', cor: '#FB7185' }
 ];
 
+export const AVATARES = ['🦊', '🐬', '🦉', '🐢', '🐙', '🦋', '🐝', '🐼', '🦁', '🐸', '🚀', '🎧'];
+
 export const IDS_TRILHAS = new Set(TRILHAS.map(t => t.id));
 
 export function trilhaPorId(id) {

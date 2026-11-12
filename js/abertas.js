@@ -1,6 +1,7 @@
 import { esc } from './utils.js';
 import { confirmar, avisar } from './dialogos.js';
 import { TRILHAS, carregarJSON } from './conteudo.js';
+import { esqueleto } from './ui.js';
 
 async function carregarAbertas(trilhaId) {
   try {
@@ -18,7 +19,7 @@ export async function renderAbertas(container, dados, salvarDados, aindaAtual = 
   }
 
   async function tela() {
-    container.innerHTML = '<section class="card"><p>Carregando…</p></section>';
+    container.innerHTML = esqueleto(3);
     const porTrilha = await Promise.all(
       TRILHAS.map(async t => ({ ...t, abertas: await carregarAbertas(t.id) }))
     );

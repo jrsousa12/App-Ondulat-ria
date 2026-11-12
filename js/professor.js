@@ -2,6 +2,7 @@ import { gerarParChaves, descriptografarRelatorio } from './crypto.js';
 import { hojeLocal } from './utils.js';
 import { hashPin } from './modo-professor.js';
 import { arrayBufferToBase64 } from './crypto.js';
+import { confirmar, informar, avisar } from './dialogos.js';
 
 const $ = sel => document.querySelector(sel);
 // A chave privada fica só em memória. Versões antigas guardavam no sessionStorage: apagamos.
@@ -35,7 +36,7 @@ function atualizarEstadoPrivada() {
 }
 
 $('#btn-gerar').addEventListener('click', async () => {
-  if (chavePublicaAtual && !confirm('Já existe uma chave nesta sessão. Substituir?')) return;
+  if (chavePublicaAtual && !await confirmar({ titulo: 'Substituir a chave desta sessão?', texto: 'Relatórios cifrados com a chave antiga só abrem com a chave privada antiga.', ok: 'Gerar nova', perigo: true })) return;
   const btn = $('#btn-gerar');
   btn.disabled = true;
   btn.textContent = 'Gerando…';
@@ -49,10 +50,10 @@ $('#btn-gerar').addEventListener('click', async () => {
     baixarChavePrivada(par.privadaBase64);
     atualizarEstadoChave();
     atualizarEstadoPrivada();
-    alert('Chave gerada. O download da chave privada deve ter iniciado. Guarde com cuidado.');
+    informar({ titulo: 'Chave gerada', texto: 'O download da chave privada começou. Guarde esse arquivo com muito cuidado: sem ele você não abre os relatórios.', icone: '🔑' });
   } catch (e) {
     console.error(e);
-    alert('Erro: ' + e.message);
+    avisar('Erro: ' + e.message, 'erro', 6000);
   } finally {
     btn.disabled = false;
     btn.textContent = '🔑 Gerar novo par de chaves';
@@ -89,7 +90,7 @@ $('#btn-copiar').addEventListener('click', async () => {
     const o = b.textContent;
     b.textContent = '✓ Copiado';
     setTimeout(() => { b.textContent = o; }, 2000);
-  } catch (_) { alert('Selecione e copie manualmente.'); }
+  } catch (_) { avisar('Não foi possível copiar. Selecione o texto e copie manualmente.', 'erro'); }
 });
 
 $('#btn-baixar-chave-publica').addEventListener('click', () => {
@@ -118,8 +119,8 @@ $('#input-privada').addEventListener('change', async (e) => {
     }
     chavePrivadaAtual = obj.chavePrivadaBase64;
     atualizarEstadoPrivada();
-    alert('Chave privada importada.');
-  } catch (err) { alert('Erro: ' + err.message); }
+    avisar('Chave privada importada.', 'ok');
+  } catch (err) { avisar('Erro: ' + err.message, 'erro', 6000); }
   e.target.value = '';
 });
 
@@ -327,8 +328,8 @@ $('#btn-exportar-csv').addEventListener('click', () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
-$('#btn-limpar').addEventListener('click', () => {
-  if (!confirm('Limpar todos os relatórios?')) return;
+$('#btn-limpar').addEventListener('click', async () => {
+  if (!await confirmar({ titulo: 'Limpar todos os relatórios da tela?', texto: 'Os arquivos dos alunos não são apagados.', ok: 'Limpar' })) return;
   relatoriosDecifrados = [];
   $('#card-resultados').hidden = true;
   renderizarResultados();
@@ -349,8 +350,8 @@ function baixarTexto(nome, conteudo, tipo) {
 $('#form-pin').addEventListener('submit', async (e) => {
   e.preventDefault();
   const pin = $('#pin-novo').value;
-  if (pin.length < 6) { alert('Use pelo menos 6 caracteres.'); return; }
-  if (pin !== $('#pin-conf').value) { alert('Os dois PINs não são iguais.'); return; }
+  if (pin.length < 6) { avisar('Use pelo menos 6 caracteres.', 'erro'); return; }
+  if (pin !== $('#pin-conf').value) { avisar('Os dois PINs não são iguais.', 'erro'); return; }
   const sal = arrayBufferToBase64(crypto.getRandomValues(new Uint8Array(16)).buffer);
   const iteracoes = 200000;
   const hash = await hashPin(pin, sal, iteracoes);
@@ -359,6 +360,7 @@ $('#form-pin').addEventListener('submit', async (e) => {
     `export const PIN_PROFESSOR = {\n  sal: '${sal}',\n  iteracoes: ${iteracoes},\n  hash: '${hash}'\n};\n`;
   baixarTexto('pin-professor.js', js, 'text/javascript');
   e.target.reset();
+  avisar('Arquivo pin-professor.js baixado. Substitua o arquivo em js/ no repositório.', 'ok', 6000);
 });
 
 (function init() {
