@@ -21,7 +21,7 @@
       "texto": [
         "O som é uma onda mecânica: ele não pode viajar no vácuo. Precisa de um meio material — ar, água, metal, madeira, qualquer coisa com matéria.",
         "No espaço (vácuo), o som não se propaga. Cenas de explosão em filmes espaciais são licença poética: na realidade, o astronauta não ouviria nada.",
-        "Por isso também os dois astronautas precisam de rádio para se comunicar no espaço — o rádio usa ondas eletromagnéticas, que viajam no vácuo."
+        "Por isso também os astronautas precisam de rádio para conversar fora da nave — o rádio usa ondas eletromagnéticas, que viajam no vácuo."
       ]
     },
     {
@@ -29,7 +29,7 @@
       "titulo": "Velocidade do som em diferentes meios",
       "tempoEstimadoMin": 1.5,
       "texto": [
-        "Em geral, o som viaja mais rápido em meios mais 'densos' — onde as moléculas estão mais próximas e interagem mais fortemente.",
+        "Em geral, o som viaja mais rápido nos sólidos, depois nos líquidos e mais devagar nos gases. O principal motivo é a rigidez: nos sólidos as partículas estão fortemente ligadas e passam o 'empurrão' adiante quase de imediato. (Não é só a densidade: se fosse, o som seria mais lento nos materiais mais pesados.)",
         "Valores aproximados a 20 °C: ar ≈ 340 m/s; água ≈ 1.500 m/s; aço ≈ 5.000 m/s. A velocidade do som no aço é cerca de 15 vezes maior que no ar.",
         "Isso explica, por exemplo, por que escutamos um trem chegando antes pelos trilhos do que pelo ar — o som viaja muito mais rápido no metal."
       ]

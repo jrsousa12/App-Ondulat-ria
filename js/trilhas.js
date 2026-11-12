@@ -170,6 +170,7 @@ export async function renderTrilha(id, dados, salvarDados) {
         </section>
       `).join('')}
       <section class="card leitura-fim">
+        <p class="leitura-links"><a href="#ficha/${esc(id)}">🖨️ Ficha da aula para imprimir</a> · <a href="#fontes/trilhas">📚 Fontes para aprofundar</a></p>
         <p id="msg-leitura" role="status" aria-live="polite"></p>
         <button class="btn btn-grande" id="btn-ir-compreensao">Ir para as perguntas →</button>
       </section>

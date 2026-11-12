@@ -59,6 +59,7 @@ export function renderPerfil(ctx) {
       </div>
     </section>
 
+    <a href="#fontes" class="perfil-link-fontes">📚 Fontes de referência</a>
     <a href="#desempenho" class="home-atalho atalho-trilhas perfil-desempenho">${ICONES.desempenho}<strong>Meu desempenho</strong><span>${totalConcluidas(dados)} de ${TRILHAS.length} trilhas · evolução nos quizzes e conceitos para revisar</span></a>
 
     <div class="perfil-grade">

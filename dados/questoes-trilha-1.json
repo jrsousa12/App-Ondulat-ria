@@ -320,9 +320,9 @@
       "dificuldade": "desafio",
       "misconcepcao_alvo": "velocidade-meios",
       "enunciado": "Por que, em geral, o som se propaga MAIS RÁPIDO em sólidos do que em gases?",
-      "alternativas": ["Porque os sólidos são mais frios", "Porque as partículas do sólido estão mais próximas e transmitem a vibração mais rapidamente", "Porque os sólidos são mais leves", "Porque os sólidos não têm partículas"],
+      "alternativas": ["Porque os sólidos são mais frios", "Porque as partículas do sólido estão fortemente ligadas e passam a vibração adiante mais rapidamente", "Porque os sólidos são mais leves", "Porque os sólidos não têm partículas"],
       "correta": 1,
-      "explicacao": "Em sólidos, as partículas estão mais próximas e fortemente ligadas — a vibração se transmite mais rapidamente de uma para a outra. Em gases, as partículas estão distantes e a transmissão é mais lenta."
+      "explicacao": "Em sólidos, as partículas estão fortemente ligadas (o material é rígido) — a vibração passa de uma para a outra quase de imediato. Em gases, as partículas estão distantes e soltas, e a transmissão é mais lenta. Atenção: não é a densidade que explica isso."
     },
     {
       "id": "t1-q30",

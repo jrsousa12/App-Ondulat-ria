@@ -76,3 +76,15 @@ export function carregarJSON(caminho) {
   }
   return cacheJSON.get(caminho);
 }
+
+/** Fontes de referência (mesma lista curada da Plataforma de Física). */
+export const FONTES = [
+  { nome: 'Toda Matéria · Física', url: 'https://www.todamateria.com.br/fisica/', desc: 'Resumos e exercícios com gabarito, em português', autor: 'Toda Matéria' },
+  { nome: 'PhET · Simulações', url: 'https://phet.colorado.edu/pt_BR/', desc: 'Simulações interativas em português (procure por "ondas" e "som")', autor: 'PhET, Universidade do Colorado' },
+  { nome: 'GREF/USP · Leituras de Física', url: 'https://fep.if.usp.br/~profis/gref.html', desc: 'Leituras de Física para o aluno', autor: 'GREF, Instituto de Física da USP' },
+  { nome: 'InfoEscola · Física', url: 'https://www.infoescola.com/fisica/', desc: 'Artigos de Física em português', autor: 'InfoEscola' },
+  { nome: 'PrePara Enem', url: 'https://www.preparaenem.com/', desc: 'Conteúdos de revisão em português', autor: 'PrePara Enem' },
+  { nome: 'OpenStax', url: 'https://openstax.org/', desc: 'Livros-texto gratuitos de Física (em inglês)', autor: 'OpenStax, Rice University' },
+  { nome: 'HyperPhysics', url: 'https://hyperphysics.phy-astr.gsu.edu/hbase/hframe.html', desc: 'Mapa de conceitos de Física (em inglês)', autor: 'HyperPhysics, Georgia State University' },
+  { nome: 'LibreTexts · Física', url: 'https://phys.libretexts.org/', desc: 'Livros abertos de Física (em inglês)', autor: 'LibreTexts' }
+];

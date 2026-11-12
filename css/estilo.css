@@ -934,6 +934,47 @@ a.trilha-card:focus-visible { outline: 2px solid var(--cor-trilha); outline-offs
   .etapas li span { width: 17px; height: 17px; font-size: 0.62rem; }
 }
 
+.fontes-lista { list-style: none; display: grid; gap: 10px; margin-bottom: var(--esp-2); }
+.fonte { display: flex; flex-direction: column; gap: 2px; padding: var(--esp-2); border-radius: var(--raio-g); background: var(--bg-elev); border: 1px solid var(--borda); color: var(--texto); text-decoration: none; transition: var(--transicao); }
+.fonte:hover { border-color: var(--ciano); transform: translateY(-1px); }
+.fonte:focus-visible { outline: 2px solid var(--ciano); outline-offset: 2px; }
+.fonte span { color: var(--texto-fraco); font-size: 0.9rem; }
+.fonte small { color: var(--ciano); font-size: 0.78rem; font-weight: 700; }
+.leitura-links a, .perfil-link-fontes { color: var(--ciano); font-weight: 700; text-decoration: none; }
+.perfil-link-fontes { display: inline-block; margin-bottom: var(--esp-1); padding: 6px 0; }
+@media (min-width: 960px) { .fontes-lista { grid-template-columns: 1fr 1fr; } }
+
+/* ============ Ficha da aula ============ */
+.ficha-acoes { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--esp-1); margin-bottom: var(--esp-2); }
+.ficha { padding: var(--esp-3); border-radius: var(--raio-g); background: var(--bg-elev); border: 1px solid var(--borda); line-height: 1.6; }
+.ficha-cab { border-bottom: 3px solid var(--cor-trilha, var(--ciano)); padding-bottom: var(--esp-2); margin-bottom: var(--esp-2); }
+.ficha-rotulo { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--cor-trilha, var(--ciano)); }
+.ficha h2 { font-size: 1.4rem; font-weight: 800; line-height: 1.25; margin: 4px 0 12px; }
+.ficha-campos { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 0.9rem; }
+.ficha h3 { font-size: 1.1rem; font-weight: 800; margin: var(--esp-3) 0 var(--esp-1); padding-bottom: 4px; border-bottom: 1px solid var(--borda); }
+.ficha h4 { font-size: 1rem; margin: 12px 0 4px; }
+.ficha p { margin-bottom: 8px; }
+.ficha-conceitos { display: grid; gap: 8px; }
+.ficha-conceitos div { padding: 8px 12px; border-left: 3px solid var(--cor-trilha, var(--ciano)); background: var(--bg); border-radius: 0 10px 10px 0; break-inside: avoid; }
+.ficha-conceitos dt { font-weight: 800; }
+.ficha-exercicios > ol { padding-left: 22px; display: grid; gap: 14px; }
+.ficha-exercicios li { break-inside: avoid; }
+.ficha-alts { padding-left: 22px; margin-top: 4px; }
+.ficha-linhas span { display: block; height: 28px; border-bottom: 1px solid var(--borda); }
+.ficha-gabarito { margin-top: var(--esp-3); font-size: 0.9rem; }
+
+@media print {
+  @page { margin: 14mm; }
+  html, body { background: #fff !important; color: #000 !important; padding: 0 !important; font-size: 11pt; }
+  .topo, .nav-inferior, #avisos, .nao-imprimir, .confete { display: none !important; }
+  .conteudo { max-width: none; padding: 0; }
+  .ficha { border: none; padding: 0; background: #fff; color: #000; }
+  .ficha *, .ficha-conceitos div { color: #000 !important; background: #fff !important; }
+  .ficha-cab, .ficha-conceitos div { border-color: #000 !important; }
+  .ficha-gabarito { break-before: page; }
+  .conteudo.entrando > * { animation: none !important; }
+}
+
 /* ============ Telas grandes: menu lateral e duas colunas ============ */
 @media (min-width: 960px) {
   body { padding-bottom: 24px; padding-left: 232px; }

@@ -19,7 +19,7 @@
       "titulo": "Refração e difração",
       "tempoEstimadoMin": 1.4,
       "texto": [
-        "Refração: quando o som passa de um meio para outro, muda de velocidade e desvia sua trajetória. É o que acontece com o som que atravessa uma parede — ele 'entorta' ligeiramente ao entrar.",
+        "Refração: quando o som passa de um meio para outro (ou por camadas de ar com temperaturas diferentes), muda de velocidade e desvia sua trajetória. É por isso que, à noite, ouvimos sons distantes com mais clareza: o ar frio perto do chão faz o som se curvar de volta para baixo.",
         "Difração: quando o som contorna obstáculos. É por isso que escutamos alguém chamando de trás de uma parede, mesmo sem vê-la.",
         "O som difrata muito mais que a luz porque seu comprimento de onda é maior (metros, versus nanômetros da luz). É por isso que você escuta música do quarto ao lado, mas não vê a luz dela."
       ]
@@ -42,7 +42,7 @@
       "texto": [
         "Ressonância é o fenômeno pelo qual um sistema vibra com grande amplitude quando recebe uma onda na sua frequência natural.",
         "Exemplos clássicos: taças que quebram com uma nota específica, copos com níveis diferentes de água que vibram em frequências diferentes, tubos de órgão.",
-        "A ressonância pode ser perigosa: em 1940, a ponte de Tacoma Narrows oscilou até cair por ressonância com o vento. Soldados quebram o passo ao passar sobre pontes para não ressonar com elas.",
+        "A ressonância pode ser perigosa: engenheiros projetam pontes e prédios para não vibrarem na mesma frequência de passos, máquinas ou ventos. Soldados quebram o passo ao atravessar pontes para não provocar ressonância. (A queda da ponte de Tacoma Narrows, em 1940, costuma ser citada como ressonância, mas a explicação aceita hoje é um efeito aerodinâmico parecido, chamado drapejamento.)",
         "Instrumentos musicais usam ressonância para amplificar o som: a caixa do violão ressoa com as cordas, tornando o som audível."
       ]
     }

@@ -33,7 +33,7 @@
       "enunciado": "Sons acima de qual nível, por períodos longos, podem causar danos ao ouvido?",
       "alternativas": ["20 dB", "45 dB", "85 dB", "200 dB"],
       "correta": 2,
-      "explicacao": "~85 dB por 8 horas já é risco. A OMS usa esse valor como limite de exposição ocupacional diária. Para lazer, ficar abaixo de 80 dB é mais seguro."
+      "explicacao": "~85 dB por 8 horas já é risco. As normas de segurança do trabalho (no Brasil, a NR-15) usam esse valor como limite diário de exposição. Para lazer, ficar abaixo de 80 dB é mais seguro."
     },
     {
       "id": "t6-q04",
@@ -66,7 +66,7 @@
       "enunciado": "A 'regra 80/90' para fones de ouvido significa:",
       "alternativas": ["80 dB por 90 minutos", "80% do volume por 90 min/dia", "80 minutos de música por dia", "90% do volume, mas só 80 min"],
       "correta": 1,
-      "explicacao": "Regra da OMS: até 80% do volume máximo, por no máximo 90 minutos por dia. É um guia conservador — alguns especialistas defendem 60/60."
+      "explicacao": "Regra prática 80/90: até 80% do volume máximo, por no máximo 90 minutos por dia. Alguns especialistas defendem uma regra ainda mais segura, a 60/60."
     },
     {
       "id": "t6-q07",

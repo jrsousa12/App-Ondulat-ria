@@ -19,6 +19,8 @@ import { aplicarPreferenciasSalvas, aplicarTema, temaAtual } from './preferencia
 import { movimentoReduzido } from './fx.js';
 import { cartaoEstudo } from './inicio.js';
 import { iniciarPwa } from './pwa.js';
+import { renderFontes } from './fontes.js';
+import { renderFicha } from './ficha.js';
 
 const $ = sel => document.querySelector(sel);
 
@@ -89,7 +91,7 @@ const ctx = {
 
 const TITULOS_ROTA = {
   inicio: 'Início', trilhas: 'Trilhas', praticar: 'Praticar', lab: 'Laboratório',
-  perfil: 'Perfil', desempenho: 'Meu desempenho'
+  perfil: 'Perfil', desempenho: 'Meu desempenho', fontes: 'Fontes', ficha: 'Ficha da aula'
 };
 
 function setTitulo(rota) {
@@ -249,11 +251,13 @@ function navegar(rota) {
     praticar: () => renderPraticar(dados, salvarDados, param),
     lab: () => renderLab(dados, salvarDados),
     perfil: () => renderPerfil(ctx),
-    desempenho: () => renderDesempenho(dados, TRILHAS, { totalBadges: listarTodosBadges().length })
+    desempenho: () => renderDesempenho(dados, TRILHAS, { totalBadges: listarTodosBadges().length }),
+    fontes: () => renderFontes(param),
+    ficha: () => renderFicha(param)
   };
   const nome = telas[base] ? base : 'inicio';
   telas[nome]();
-  marcarMenu(nome === 'desempenho' ? 'perfil' : nome);
+  marcarMenu({ desempenho: 'perfil', ficha: 'trilhas', fontes: param === 'trilhas' ? 'trilhas' : 'perfil' }[nome] || nome);
   setTitulo(nome);
   animarEntrada();
 }
