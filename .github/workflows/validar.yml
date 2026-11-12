@@ -1,0 +1,21 @@
+name: Validar app
+on: [push, pull_request]
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Sintaxe dos arquivos JavaScript
+        run: for f in js/*.js ferramentas/*.js sw.js; do [ -f "$f" ] || continue; node --check "$f" || exit 1; done
+      - name: Conferir dados (trilhas, questões e flashcards)
+        run: node ferramentas/validar-dados.js
+      - name: Instalar Playwright
+        run: |
+          npm install --no-save playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Teste de ponta a ponta no navegador
+        run: node ferramentas/teste-navegador.js

@@ -4,18 +4,14 @@ import { renderTrilha, cleanupTrilha } from './trilhas.js';
 import { renderLab as renderLabModule, cleanupLab } from './lab.js';
 import { renderPraticar as renderPraticarModule, cleanupPraticar } from './praticar.js';
 import { exportarParaProfessor, chaveConfigurada, fingerprintChave } from './relatorio.js';
-import { estaEmModoProfessor, ativarModoProfessor, desativarModoProfessor } from './modo-professor.js';
+import { estaEmModoProfessor, ativarModoProfessor, desativarModoProfessor, verificarPin } from './modo-professor.js';
 import { verificarNovosBadges, mostrarToastBadges, listarTodosBadges } from './badges.js';
 import { renderDesempenho } from './desempenho.js';
+import { TRILHAS, IDS_TRILHAS } from './conteudo.js';
 import { instalarGuardaSaida } from './sair.js';
+import { confirmar, informar, pedirTexto, avisar } from './dialogos.js';
 
 const $ = sel => document.querySelector(sel);
-
-// ⚠️ PIN em plaintext é FRICÇÃO, não segurança. Está documentado no relatório
-// de segurança do projeto. Trocar por hash daria falsa sensação de segurança
-// (o hash ficaria exposto no mesmo código). Se quiser autenticação real,
-// seria necessário backend.
-const PIN_PROFESSOR = 'ondas2026';
 
 // ORDEM CORRETA: carregar() primeiro (ele cria o backup se detectar corrupção),
 // depois lerCorrompido() para saber se há um backup pendente.
@@ -38,14 +34,11 @@ export function salvarDados() {
   return ok;
 }
 
+let ultimoAvisoQuota = 0;
 function mostrarAvisoQuota() {
-  if (document.querySelector('.aviso-quota')) return;
-  const el = document.createElement('div');
-  el.className = 'aviso-quota';
-  el.setAttribute('role', 'alert');
-  el.textContent = 'Não foi possível salvar. Verifique espaço no navegador ou modo privado.';
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 6000);
+  if (Date.now() - ultimoAvisoQuota < 6000) return;
+  ultimoAvisoQuota = Date.now();
+  avisar('Não foi possível salvar. Verifique o espaço do navegador ou se está em modo privado.', 'erro', 6000);
 }
 
 function atualizarXP() {
@@ -99,8 +92,9 @@ function renderRecuperacao() {
     document.body.removeChild(a);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
-  document.getElementById('btn-comecar-zero').addEventListener('click', () => {
-    if (!confirm('Começar do zero apaga o arquivo danificado. Continuar?')) return;
+  document.getElementById('btn-comecar-zero').addEventListener('click', async () => {
+    const ok = await confirmar({ titulo: 'Começar do zero?', texto: 'O arquivo danificado será apagado deste aparelho.', ok: 'Começar do zero', perigo: true });
+    if (!ok) return;
     storage.limparCorrompido();
     dados = storage.inicializar();
     corrompido = null;
@@ -120,8 +114,8 @@ function atualizarBadgeProfessor() {
       el.textContent = '👨‍🏫 Modo professor';
       el.title = 'Clique para desativar';
       el.style.cursor = 'pointer';
-      el.addEventListener('click', () => {
-        if (confirm('Desativar modo professor?')) {
+      el.addEventListener('click', async () => {
+        if (await confirmar({ titulo: 'Desativar o modo professor?', ok: 'Desativar' })) {
           desativarModoProfessor();
           atualizarBadgeProfessor();
           navegar(location.hash.slice(1) || 'inicio');
@@ -133,41 +127,46 @@ function atualizarBadgeProfessor() {
   } else if (badge) badge.remove();
 }
 
+async function pedirPinProfessor() {
+  const pin = await pedirTexto({ titulo: 'Modo professor', texto: 'Digite o PIN do professor.', tipo: 'password', ok: 'Entrar', icone: '👨‍🏫', maxlength: 64 });
+  if (pin === null || pin === '') return;
+  try {
+    const r = await verificarPin(pin);
+    if (r.ok) {
+      ativarModoProfessor();
+      atualizarBadgeProfessor();
+      avisar('Modo professor ativado.', 'ok');
+      navegar(location.hash.slice(1) || 'inicio');
+    } else {
+      avisar(r.motivo, 'erro');
+    }
+  } catch (e) {
+    avisar(e.message, 'erro');
+  }
+}
+
+// Atalho escondido: 7 toques no logotipo, ou abrir o app com #prof.
 let tapCount = 0, tapTimer = null;
 const logoEl = document.querySelector('.logo');
 if (logoEl) {
-  logoEl.style.cursor = 'pointer';
   logoEl.addEventListener('click', () => {
     tapCount++;
     if (tapTimer) clearTimeout(tapTimer);
     tapTimer = setTimeout(() => { tapCount = 0; }, 800);
     if (tapCount >= 7) {
       tapCount = 0;
-      const pin = prompt('PIN do professor:');
-      if (pin === null) return;
-      if (pin === PIN_PROFESSOR) {
-        ativarModoProfessor();
-        atualizarBadgeProfessor();
-        alert('Modo professor ativado.');
-        navegar(location.hash.slice(1) || 'inicio');
-      } else alert('PIN incorreto.');
+      pedirPinProfessor();
     }
   });
 }
 
-if (location.hash === '#prof') {
-  history.replaceState(null, '', location.pathname);
-  const pin = prompt('PIN do professor:');
-  if (pin === PIN_PROFESSOR) {
-    ativarModoProfessor();
-    atualizarBadgeProfessor();
-    alert('Modo professor ativado.');
-  } else if (pin !== null) alert('PIN incorreto.');
-}
+const abrirComProf = location.hash === '#prof';
+if (abrirComProf) history.replaceState(null, '', location.pathname);
 
 /* ============ Tema ============ */
 (function aplicarTema() {
-  const salvo = localStorage.getItem('ondulatoria_tema');
+  let salvo = null;
+  try { salvo = localStorage.getItem('ondulatoria_tema'); } catch (_) {}
   if (salvo === 'claro' || salvo === 'escuro') {
     document.documentElement.setAttribute('data-tema', salvo);
     return;
@@ -211,7 +210,11 @@ function renderOnboarding() {
     const p = $('#in-nome').value.trim();
     const u = $('#in-sobrenome').value.trim();
     const t = $('#in-turma').value.trim();
-    if (!p || !u) { alert('Preencha primeiro e último nome.'); return; }
+    if (!p || !u) {
+      avisar('Preencha o primeiro e o último nome.', 'erro');
+      (!p ? $('#in-nome') : $('#in-sobrenome')).focus();
+      return;
+    }
     dados.aluno.primeiroNome = p;
     dados.aluno.ultimoNome = u;
     dados.aluno.turma = t;
@@ -221,15 +224,6 @@ function renderOnboarding() {
 }
 
 /* ============ Páginas ============ */
-const TRILHAS = [
-  { id: '1', titulo: 'Ondas: o que são e como se propagam', curto: 'Ondas', desc: 'Revisão + classificação' },
-  { id: '2', titulo: 'As grandezas das ondas', curto: 'Grandezas', desc: 'λ, A, f, T e v = λ·f' },
-  { id: '3', titulo: 'O som como onda', curto: 'O som', desc: 'Produção, propagação e velocidade' },
-  { id: '4', titulo: 'As qualidades do som', curto: 'Qualidades', desc: 'Altura, intensidade, timbre' },
-  { id: '5', titulo: 'Fenômenos sonoros', curto: 'Fenômenos', desc: 'Reflexão, refração, difração, ressonância' },
-  { id: '6', titulo: 'Som no cotidiano e saúde auditiva', curto: 'Cotidiano', desc: 'Decibéis, poluição, proteção' }
-];
-
 const XP_POR_NIVEL = 100;
 
 const ICONES = {
@@ -427,7 +421,6 @@ function renderPerfil() {
   const a = dados.aluno;
   const totalFlags = (dados.flags || []).length;
   const temChave = chaveConfigurada();
-  const fingerprint = fingerprintChave();
   const totalFlash = Object.keys(dados.flashcards || {}).length;
   const totalDiario = (dados.diario || []).length;
   const totalAbertas = Object.keys(dados.atividadesAbertas || {}).length;
@@ -462,14 +455,14 @@ function renderPerfil() {
       <h3>Enviar para o professor</h3>
       <p>Arquivo cifrado que <strong>só o professor consegue abrir</strong>. Envie pelo canal combinado.</p>
       ${temChave
-        ? `<p style="color:var(--texto-fraco);font-size:0.9rem">Chave: <code>${esc(fingerprint)}</code></p>
+        ? `<p style="color:var(--texto-fraco);font-size:0.9rem">Código da chave: <code id="fp-chave">…</code></p>
            <div class="btn-grupo"><button class="btn" id="btn-enviar-prof">📤 Gerar arquivo</button></div>`
         : `<div class="feedback info">O professor ainda não configurou a chave de envio.</div>`}
     </section>
 
     <section class="card">
       <h3>Backup e privacidade</h3>
-      <p>Guarda <strong>apenas no navegador</strong>: nome, turma, progresso, respostas e diário. Nada vai a servidores.</p>
+      <p>Guarda <strong>apenas neste navegador</strong>: nome, turma, progresso, respostas e diário. Nada vai a servidores — o professor só recebe o arquivo que você gerar acima.</p>
       <div class="btn-grupo">
         <button class="btn btn-secundario" id="btn-exportar">Baixar backup (.json)</button>
         <button class="btn btn-secundario" id="btn-importar">Importar progresso</button>
@@ -479,6 +472,9 @@ function renderPerfil() {
     </section>
   `;
 
+  const fp = document.getElementById('fp-chave');
+  if (fp) fingerprintChave().then(v => { fp.textContent = v; }).catch(() => { fp.textContent = '—'; });
+
   const btnEnviar = document.getElementById('btn-enviar-prof');
   if (btnEnviar) {
     btnEnviar.addEventListener('click', async () => {
@@ -486,8 +482,8 @@ function renderPerfil() {
       btnEnviar.textContent = 'Gerando…';
       try {
         await exportarParaProfessor(dados);
-        alert('Arquivo gerado. Envie para o professor.');
-      } catch (e) { alert('Erro: ' + e.message); }
+        avisar('Arquivo gerado. Envie para o professor pelo canal combinado.', 'ok');
+      } catch (e) { avisar('Não foi possível gerar o arquivo: ' + e.message, 'erro', 6000); }
       finally {
         btnEnviar.disabled = false;
         btnEnviar.textContent = '📤 Gerar arquivo';
@@ -496,35 +492,44 @@ function renderPerfil() {
   }
 
   $('#btn-exportar').addEventListener('click', () => {
-    if (!storage.exportar()) alert('Não foi possível exportar.');
+    if (storage.exportar()) avisar('Backup baixado.', 'ok');
+    else avisar('Não foi possível gerar o backup.', 'erro');
   });
   $('#btn-importar').addEventListener('click', () => $('#input-importar').click());
-  $('#input-importar').addEventListener('change', (e) => {
+  $('#input-importar').addEventListener('change', async (e) => {
     const file = e.target.files[0];
+    e.target.value = '';
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      const novo = storage.importar(reader.result);
-      if (novo) { dados = novo; atualizarXP(); alert('Importado!'); navegar('perfil'); }
-      else alert('Arquivo inválido.');
-    };
-    reader.onerror = () => alert('Erro ao ler o arquivo.');
-    reader.readAsText(file);
+    if (file.size > 2 * 1024 * 1024) { avisar('Arquivo grande demais para ser um backup.', 'erro'); return; }
+    const ok = await confirmar({
+      titulo: 'Importar este backup?',
+      texto: 'O progresso atual deste aparelho será substituído pelo do arquivo. A importação fica registrada no relatório do professor.',
+      ok: 'Importar', perigo: true
+    });
+    if (!ok) return;
+    let texto;
+    try { texto = await file.text(); } catch (_) { avisar('Não foi possível ler o arquivo.', 'erro'); return; }
+    const novo = storage.importar(texto, dados?.nonceDispositivo);
+    if (novo) { dados = novo; atualizarXP(); avisar('Backup importado.', 'ok'); navegar('perfil'); }
+    else avisar('Este arquivo não é um backup válido do Ondulatória.', 'erro', 6000);
   });
-  $('#btn-apagar').addEventListener('click', () => {
-    if (confirm('Apagar TUDO?') && confirm('Tem certeza?')) {
-      storage.apagar();
-      dados = storage.inicializar();
-      corrompido = null;
-      atualizarXP();
-      alert('Dados apagados.');
-      navegar('inicio');
-    }
+  $('#btn-apagar').addEventListener('click', async () => {
+    const ok = await confirmar({
+      titulo: 'Apagar todo o progresso?',
+      texto: 'Nome, trilhas, XP, conquistas, flashcards e diário serão apagados deste aparelho. Não dá para desfazer. Se quiser, baixe um backup antes.',
+      ok: 'Apagar tudo', perigo: true, icone: '⚠️'
+    });
+    if (!ok) return;
+    storage.apagar();
+    dados = storage.inicializar();
+    corrompido = null;
+    atualizarXP();
+    avisar('Dados apagados.', 'ok');
+    navegar('inicio');
   });
 }
 
 const rotasBase = { 'inicio': renderInicio, 'trilhas': renderTrilhas, 'perfil': renderPerfil };
-const TRILHAS_VALIDAS = new Set(['1', '2', '3', '4', '5', '6']);
 
 function navegar(rota) {
   cleanupLab();
@@ -550,7 +555,7 @@ function navegar(rota) {
   const param = partes[1];
 
   if (base === 'trilha' && param) {
-    if (!TRILHAS_VALIDAS.has(param)) {
+    if (!IDS_TRILHAS.has(param)) {
       document.querySelectorAll('.nav-item').forEach(el => {
         el.classList.toggle('ativo', el.dataset.rota === 'trilhas');
       });
@@ -566,7 +571,8 @@ function navegar(rota) {
       return;
     }
     if (!trilhaLiberada(param)) {
-      alert('Trilha bloqueada. Conclua a anterior.');
+      avisar('Trilha bloqueada. Conclua a anterior para liberar.', 'info');
+      history.replaceState(history.state, '', '#trilhas');
       navegar('trilhas');
       return;
     }
@@ -602,3 +608,4 @@ window.addEventListener('hashchange', () => navegar(location.hash.slice(1) || 'i
 navegar(location.hash.slice(1) || 'inicio');
 atualizarXP();
 atualizarBadgeProfessor();
+if (abrirComProf) pedirPinProfessor();

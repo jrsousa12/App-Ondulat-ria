@@ -1,8 +1,12 @@
 import { gerarParChaves, descriptografarRelatorio } from './crypto.js';
 import { hojeLocal } from './utils.js';
+import { hashPin } from './modo-professor.js';
+import { arrayBufferToBase64 } from './crypto.js';
 
 const $ = sel => document.querySelector(sel);
-const CHAVE_SESSAO = 'ondulatoria_prof_priv';
+// A chave privada fica só em memória. Versões antigas guardavam no sessionStorage: apagamos.
+try { sessionStorage.removeItem('ondulatoria_prof_priv'); } catch (_) {}
+const TAMANHO_MAX_ARQUIVO = 5 * 1024 * 1024;
 let chavePrivadaAtual = null;
 let chavePublicaAtual = null;
 let relatoriosDecifrados = [];
@@ -39,7 +43,6 @@ $('#btn-gerar').addEventListener('click', async () => {
     const par = await gerarParChaves();
     chavePublicaAtual = par.publicaBase64;
     chavePrivadaAtual = par.privadaBase64;
-    try { sessionStorage.setItem(CHAVE_SESSAO, par.privadaBase64); } catch (_) {}
     $('#publica-valor').textContent = par.publicaBase64;
     $('#card-publica').hidden = false;
     $('#card-privada').hidden = false;
@@ -108,12 +111,12 @@ $('#input-privada').addEventListener('change', async (e) => {
   const f = e.target.files[0];
   if (!f) return;
   try {
+    if (f.size > TAMANHO_MAX_ARQUIVO) throw new Error('Arquivo grande demais.');
     const obj = JSON.parse(await f.text());
     if (obj.tipo !== 'chave-privada-professor-ondulatoria' || !obj.chavePrivadaBase64) {
       throw new Error('Chave inválida.');
     }
     chavePrivadaAtual = obj.chavePrivadaBase64;
-    try { sessionStorage.setItem(CHAVE_SESSAO, chavePrivadaAtual); } catch (_) {}
     atualizarEstadoPrivada();
     alert('Chave privada importada.');
   } catch (err) { alert('Erro: ' + err.message); }
@@ -132,6 +135,7 @@ $('#input-relatorios').addEventListener('change', async (e) => {
   try {
     for (const f of files) {
       try {
+        if (f.size > TAMANHO_MAX_ARQUIVO) throw new Error('arquivo grande demais');
         const pacote = JSON.parse(await f.text());
         if (pacote.para !== 'professor' || !pacote.chaveCifrada || !pacote.dadosCifrados) {
           relatoriosDecifrados.push({ arquivo: f.name, erro: 'Formato inválido.' });
@@ -245,6 +249,7 @@ function renderizarResultados() {
             <span>⭐ ${numFmt(res.xp)} XP</span>
             <span>📚 ${numFmt(res.trilhasConcluidas)}/${numFmt(res.totalTrilhas, 0, '6')} trilhas</span>
             <span>🃏 ${numFmt(res.flashcardsEstudados)} flashcards</span>
+            ${rel.questoes?.aproveitamento != null ? `<span>🎯 ${numFmt(rel.questoes.aproveitamento)}% de acertos</span>` : ''}
             <span>📅 ${escapeHtml(formatarData(rel.exportadoEm))}</span>
           </div>
           <div class="relatorio-bloco"><h4>Progresso</h4><ul>${trilhasHtml}</ul></div>
@@ -280,11 +285,13 @@ function celulaCSV(valor) {
 $('#btn-exportar-csv').addEventListener('click', () => {
   const linhas = [[
     'Arquivo', 'Nome', 'Sobrenome', 'Turma', 'XP', 'Trilhas concluídas',
-    'Flashcards', 'Diário', 'Abertas', 'Badges', 'Flags', 'Integridade', 'Exportado em'
+    'Flashcards', 'Diário', 'Abertas', 'Badges', 'Aproveitamento (%)',
+    'Trilha 1 (%)', 'Trilha 2 (%)', 'Trilha 3 (%)', 'Trilha 4 (%)', 'Trilha 5 (%)', 'Trilha 6 (%)',
+    'Flags', 'Integridade', 'Exportado em'
   ]];
   for (const r of relatoriosDecifrados) {
     if (r.erro) {
-      linhas.push([r.arquivo, 'ERRO', '', '', '', '', '', '', '', '', '', r.erro, '']);
+      linhas.push([r.arquivo, 'ERRO', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', r.erro, '']);
       continue;
     }
     const rel = r.relatorio || {};
@@ -301,6 +308,8 @@ $('#btn-exportar-csv').addEventListener('click', () => {
       numFmt(res.registrosDiario, 0, '0'),
       numFmt(res.atividadesAbertas, 0, '0'),
       numFmt(res.badgesGanhos, 0, '0'),
+      numFmt(rel.questoes?.aproveitamento, 0, ''),
+      ...['1', '2', '3', '4', '5', '6'].map(id => numFmt(rel.trilhas?.[id]?.quiz?.pct, 0, '')),
       Array.isArray(rel.flags) ? rel.flags.length : 0,
       r.integro ? 'OK' : 'FALHA',
       rel.exportadoEm || ''
@@ -325,11 +334,34 @@ $('#btn-limpar').addEventListener('click', () => {
   renderizarResultados();
 });
 
+function baixarTexto(nome, conteudo, tipo) {
+  const blob = new Blob([conteudo], { type: tipo });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nome;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+$('#form-pin').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const pin = $('#pin-novo').value;
+  if (pin.length < 6) { alert('Use pelo menos 6 caracteres.'); return; }
+  if (pin !== $('#pin-conf').value) { alert('Os dois PINs não são iguais.'); return; }
+  const sal = arrayBufferToBase64(crypto.getRandomValues(new Uint8Array(16)).buffer);
+  const iteracoes = 200000;
+  const hash = await hashPin(pin, sal, iteracoes);
+  const js = `// PIN do modo professor, guardado só como hash (PBKDF2-SHA256 com sal).\n` +
+    `// Gerado por professor.html em ${hojeLocal()}.\n` +
+    `export const PIN_PROFESSOR = {\n  sal: '${sal}',\n  iteracoes: ${iteracoes},\n  hash: '${hash}'\n};\n`;
+  baixarTexto('pin-professor.js', js, 'text/javascript');
+  e.target.reset();
+});
+
 (function init() {
-  try {
-    const p = sessionStorage.getItem(CHAVE_SESSAO);
-    if (p) chavePrivadaAtual = p;
-  } catch (_) {}
   atualizarEstadoChave();
   atualizarEstadoPrivada();
 })();

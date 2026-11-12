@@ -1,50 +1,10 @@
 import { esc, hojeLocal } from './utils.js';
+import { nomeSubtema } from './conteudo.js';
 
 /* Página "Meu desempenho": tudo é calculado a partir dos dados salvos no aparelho. */
 
-const NOMES_SUBTEMA = {
-  'altura': 'Altura do som',
-  'amplitude': 'Amplitude',
-  'audivel': 'Faixa audível',
-  'classificacao-geral': 'Classificação das ondas',
-  'compressao': 'Compressão e rarefação',
-  'comprimento-onda': 'Comprimento de onda',
-  'decibel': 'Decibéis',
-  'definicao': 'O que é uma onda',
-  'difracao': 'Difração',
-  'eco': 'Eco',
-  'equacao-fundamental': 'Equação v = λ·f',
-  'fenomenos-gerais': 'Fenômenos sonoros',
-  'fones': 'Uso de fones',
-  'frequencia': 'Frequência',
-  'grandezas-gerais': 'Grandezas das ondas',
-  'infrassom-ultrassom': 'Infrassom e ultrassom',
-  'intensidade': 'Intensidade',
-  'interferencia': 'Interferência',
-  'longitudinal': 'Ondas longitudinais',
-  'mecanica-eletromagnetica': 'Mecânicas × eletromagnéticas',
-  'meio': 'Meios de propagação',
-  'periodo': 'Período',
-  'poluicao': 'Poluição sonora',
-  'producao-som': 'Produção do som',
-  'qualidades': 'Qualidades do som',
-  'reflexao': 'Reflexão',
-  'refracao': 'Refração',
-  'ressonancia': 'Ressonância',
-  'reverberacao': 'Reverberação',
-  'saude': 'Saúde auditiva',
-  'timbre': 'Timbre',
-  'transversal-longitudinal': 'Transversais × longitudinais',
-  'vacuidade-som': 'Som no vácuo',
-  'velocidade': 'Velocidade de propagação'
-};
-
 const META_QUIZ = 80;
 const PONTOS_GRAFICO = 12;
-
-function nomeSubtema(s) {
-  return NOMES_SUBTEMA[s] || (s ? s.replace(/-/g, ' ') : 'Outros');
-}
 
 function pct(a, t) {
   return t ? Math.round((a / t) * 100) : 0;

@@ -1,5 +1,7 @@
 import { esc, shuffle, formatarDuracao } from './utils.js';
+import { avisar } from './dialogos.js';
 import { estaEmModoProfessor } from './modo-professor.js';
+import { carregarJSON, nomeSubtema } from './conteudo.js';
 
 let cleanupAtual = null;
 let trilhaToken = 0;
@@ -10,12 +12,6 @@ export function cleanupTrilha() {
     try { cleanupAtual(); } catch (_) {}
     cleanupAtual = null;
   }
-}
-
-async function carregarJSON(caminho) {
-  const res = await fetch(caminho, { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`HTTP ${res.status} em ${caminho}`);
-  return res.json();
 }
 
 function calcularTempoEstimadoMs(secoes) {
@@ -208,18 +204,9 @@ export async function renderTrilha(id, dados, salvarDados) {
   };
   document.addEventListener('visibilitychange', onVisibilidade);
 
-  const onBeforeUnload = (e) => {
-    if (estado.fase === 'quiz' || estado.fase === 'compreensao') {
-      e.preventDefault();
-      e.returnValue = 'Você tem certeza? Seu progresso na atividade atual pode ser perdido.';
-    }
-  };
-  window.addEventListener('beforeunload', onBeforeUnload);
-
   cleanupAtual = () => {
     if (cleanupFaseAtual) { try { cleanupFaseAtual(); } catch (_) {} cleanupFaseAtual = null; }
     document.removeEventListener('visibilitychange', onVisibilidade);
-    window.removeEventListener('beforeunload', onBeforeUnload);
     pausarTimerLeitura();
   };
 
@@ -269,9 +256,6 @@ export async function renderTrilha(id, dados, salvarDados) {
     window.addEventListener('scroll', atualizarProg, { passive: true });
     setTimeout(atualizarProg, 100);
 
-    const observer = new IntersectionObserver((entries) => { void entries; }, { threshold: 0.4 });
-    conteudo.querySelectorAll('[data-secao]').forEach(el => observer.observe(el));
-
     function atualizarMensagemLeitura() {
       const msg = document.getElementById('msg-leitura');
       if (!msg) return;
@@ -295,7 +279,6 @@ export async function renderTrilha(id, dados, salvarDados) {
 
     registrarCleanup(() => {
       window.removeEventListener('scroll', atualizarProg);
-      observer.disconnect();
       clearInterval(interval);
     });
 
@@ -417,7 +400,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     const header = `
       <div class="quiz-header">
         <span>Questão ${idx + 1} de ${total}</span>
-        <span style="color:var(--texto-fraco);font-size:0.85rem">${esc(q.subtema || '')}</span>
+        <span style="color:var(--texto-fraco);font-size:0.85rem">${esc(nomeSubtema(q.subtema))}</span>
       </div>
       <div class="quiz-progresso-barra"><div style="width:${(idx / total) * 100}%"></div></div>
     `;
@@ -487,14 +470,14 @@ export async function renderTrilha(id, dados, salvarDados) {
       document.getElementById('btn-responder-assoc').addEventListener('click', () => {
         const selects = document.querySelectorAll('#assoc-container select');
         const resposta = Array.from(selects).map(s => s.value === '' ? -1 : parseInt(s.value, 10));
-        if (resposta.some(v => v < 0)) { alert('Selecione uma opção para cada item.'); return; }
+        if (resposta.some(v => v < 0)) { avisar('Selecione uma opção para cada item.', 'erro'); return; }
         responderQuiz('assoc', resposta);
       });
     } else if (q.tipo === 'ordenacao') {
       document.getElementById('btn-responder-ord').addEventListener('click', () => {
         const selects = document.querySelectorAll('#ord-container select');
         const ordem = Array.from(selects).map(s => parseInt(s.value, 10) - 1);
-        if (new Set(ordem).size !== ordem.length) { alert('Cada item precisa de uma posição diferente.'); return; }
+        if (new Set(ordem).size !== ordem.length) { avisar('Cada item precisa de uma posição diferente.', 'erro'); return; }
         responderQuiz('ord', ordem);
       });
     }
@@ -551,7 +534,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     const mostrarExplicacao = !primeiraTentativa || profMode || acertou;
     const explicacao = mostrarExplicacao
       ? `<p style="margin-top:6px">${esc(q.explicacao || '')}</p>`
-      : `<p style="margin-top:6px;color:var(--texto-fraco)">Conceito a revisar: <strong>${esc(q.subtema || '')}</strong>. A explicação completa aparece no final do quiz.</p>`;
+      : `<p style="margin-top:6px;color:var(--texto-fraco)">Conceito a revisar: <strong>${esc(nomeSubtema(q.subtema))}</strong>. A explicação completa aparece no final do quiz.</p>`;
 
     const feedback = document.getElementById('feedback-quiz');
     feedback.innerHTML = `
@@ -632,7 +615,7 @@ export async function renderTrilha(id, dados, salvarDados) {
       return `
         <div class="revisao-item ${r.acertou ? 'ok' : 'erro'}">
           <div class="topo-revisao">
-            <span>${r.acertou ? '✓' : '✗'} Questão ${i + 1} · ${esc(q.subtema || '')}</span>
+            <span>${r.acertou ? '✓' : '✗'} Questão ${i + 1} · ${esc(nomeSubtema(q.subtema))}</span>
             <span>${formatarDuracao(r.tempoMs)}</span>
           </div>
           <p style="font-size:0.95rem">${esc(q.enunciado)}</p>
@@ -650,6 +633,7 @@ export async function renderTrilha(id, dados, salvarDados) {
         <div class="btn-grupo" style="justify-content:center;margin-top:var(--esp-3)">
           <a href="#trilhas" class="btn">Voltar às trilhas</a>
           <button class="btn btn-secundario" id="btn-refazer">Refazer o quiz</button>
+          <button class="btn btn-secundario" id="btn-reler-texto">Reler o texto</button>
         </div>
       </section>
       <section class="card">
@@ -659,7 +643,13 @@ export async function renderTrilha(id, dados, salvarDados) {
       </section>
     `;
 
+    // Refazer vai direto ao quiz (a compreensão já foi aprovada); a nova tentativa conta para o XP.
     document.getElementById('btn-refazer').addEventListener('click', () => {
+      window.scrollTo(0, 0);
+      estado.tentativasQuiz++;
+      iniciarQuiz();
+    });
+    document.getElementById('btn-reler-texto').addEventListener('click', () => {
       window.scrollTo(0, 0);
       renderTrilha(id, dados, salvarDados);
     });

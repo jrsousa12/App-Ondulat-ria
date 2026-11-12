@@ -12,7 +12,7 @@
     { "id": "f09", "trilha": 1, "frente": "Por que não há som no espaço?", "verso": "Porque o som é mecânico e precisa de meio. No espaço há vácuo — sem meio, sem som." },
     { "id": "f10", "trilha": 1, "frente": "Qual a velocidade aproximada do som no ar a 20°C?", "verso": "~340 m/s (mais precisamente 343 m/s)." },
     { "id": "f11", "trilha": 2, "frente": "O que é comprimento de onda (λ)?", "verso": "Distância entre dois pontos iguais consecutivos da onda (crista a crista, vale a vale). Medido em metros." },
-    { "id": "f12", "trilha": 2, "frente": "O que é amplitude (A)?", "verso": "Altura da onda (do repouso até a crista). Ligada à energia — maior amplitude, mais energia." },
+    { "id": "f12", "trilha": 2, "frente": "O que é amplitude (A)?", "verso": "Distância da posição de equilíbrio (repouso) até a crista. Ligada à energia — maior amplitude, mais energia." },
     { "id": "f13", "trilha": 2, "frente": "O que é frequência (f)?", "verso": "Número de oscilações por segundo. Medida em hertz (Hz)." },
     { "id": "f14", "trilha": 2, "frente": "O que é período (T)?", "verso": "Tempo de uma oscilação completa. Medido em segundos. T = 1/f." },
     { "id": "f15", "trilha": 2, "frente": "Qual a equação fundamental das ondas?", "verso": "v = λ · f (velocidade = comprimento de onda × frequência)." },
@@ -37,7 +37,7 @@
     { "id": "f34", "trilha": 6, "frente": "O que significa a escala de decibéis ser 'logarítmica'?", "verso": "Cada +10 dB significa 10× mais intensidade. Não é soma simples." },
     { "id": "f35", "trilha": 6, "frente": "A partir de qual nível (em dB) o som começa a ser perigoso para o ouvido?", "verso": "~85 dB por períodos longos. Para lazer, ficar abaixo de 80 dB é mais seguro." },
     { "id": "f36", "trilha": 6, "frente": "As células ciliadas do ouvido se regeneram?", "verso": "Não. Em mamíferos, uma vez destruídas, não voltam. Por isso perda auditiva por ruído é permanente." },
-    { "id": "f37", "trilha": 6, "frente": "Regra prática da OMS para volume de fones?", "verso": "80/90 — até 80% do volume, no máximo 90 min/dia. Alguns especialistas recomendam 60/60 (mais restritivo)." },
+    { "id": "f37", "trilha": 6, "frente": "Regra prática para o volume dos fones?", "verso": "80/90 — até 80% do volume, no máximo 90 min/dia. Alguns especialistas recomendam a regra 60/60 (mais segura)." },
     { "id": "f38", "trilha": 6, "frente": "O que é poluição sonora?", "verso": "Excesso de som que prejudica saúde e bem-estar, mesmo que não doa no ouvido. Pode causar estresse, insônia, hipertensão." },
     { "id": "f39", "trilha": 6, "frente": "Por que fones com cancelamento de ruído protegem a audição?", "verso": "Reduzem o ruído externo, permitindo ouvir em volume mais baixo. Menos volume = menos risco." },
     { "id": "f40", "trilha": 5, "frente": "Como usar o tempo entre relâmpago e trovão para estimar distância?", "verso": "d = v × t = 340 × t. Se ouviu 3 s depois, o raio caiu a ~1.020 m (1 km)." }

@@ -1,4 +1,5 @@
 import { audio } from './audio.js';
+import { avisar } from './dialogos.js';
 
 let cleanupAtual = null;
 
@@ -240,12 +241,13 @@ function montarOsciloscopio(area, dados, salvarDados) {
 
   window.addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', onVisibility);
-  state.raf = requestAnimationFrame(loop);
+  if (!reduceMotion) state.raf = requestAnimationFrame(loop);
   atualizarValores();
 
   document.getElementById('freq').addEventListener('input', (e) => {
     state.freq = parseInt(e.target.value, 10);
     atualizarValores();
+    draw();
     if (state.playing) audio.setFrequency(state.freq);
     salvarDebounced();
   });
@@ -253,6 +255,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
   document.getElementById('amp').addEventListener('input', (e) => {
     state.amp = parseInt(e.target.value, 10) / 100;
     atualizarValores();
+    draw();
     // ⚠️ Amplitude afeta o volume percebido (#19)
     if (state.playing) audio.setAmplitude(state.amp);
     salvarDebounced();
@@ -262,7 +265,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
   const chkMute = document.getElementById('chk-mute');
 
   btnAudio.addEventListener('click', async () => {
-    if (!audio.isSupported()) { alert('Seu navegador não suporta reprodução de áudio.'); return; }
+    if (!audio.isSupported()) { avisar('Seu navegador não toca áudio gerado pelo app.', 'erro'); return; }
     if (state.playing) {
       audio.stopContinuous();
       state.playing = false;
@@ -270,7 +273,7 @@ function montarOsciloscopio(area, dados, salvarDados) {
       btnAudio.setAttribute('aria-label', 'Tocar som');
     } else {
       const ok = await audio.unlock();
-      if (!ok) { alert('Não foi possível ativar o áudio. Verifique as permissões.'); return; }
+      if (!ok) { avisar('Não foi possível ativar o áudio. Verifique as permissões do navegador.', 'erro'); return; }
       audio.setMuted(chkMute.checked);
       audio.setAmplitude(state.amp);
       audio.startContinuous(state.freq);
@@ -296,8 +299,8 @@ function montarMeios(area) {
   // Cores dos meios: canvas usa cores brilhantes; texto usa classes de tema.
   const meios = [
     { nome: 'Ar', v: 340, cor: '#22D3EE', chave: 'ar', label: 'Gás' },
-    { nome: 'Água', v: 1480, cor: '#F59E0B', chave: 'agua', label: 'Líquido' },
-    { nome: 'Aço', v: 5960, cor: '#EF4444', chave: 'aco', label: 'Sólido' }
+    { nome: 'Água', v: 1500, cor: '#F59E0B', chave: 'agua', label: 'Líquido' },
+    { nome: 'Aço', v: 5000, cor: '#EF4444', chave: 'aco', label: 'Sólido' }
   ];
 
   let freq = 440;
@@ -313,7 +316,7 @@ function montarMeios(area) {
           <div class="meio-item">
             <div class="meio-label">
               <strong class="meio-cor-${m.chave}">${m.nome}</strong>
-              <span>${m.label} · v = ${m.v} m/s</span>
+              <span>${m.label} · v ≈ ${m.v.toLocaleString('pt-BR')} m/s</span>
               <span class="meio-lambda">λ = <strong id="lam-${m.nome}">--</strong> m</span>
             </div>
             <canvas class="meio-canvas" id="cv-meio-${m.nome}" aria-label="Onda no ${m.nome}"></canvas>
@@ -335,14 +338,14 @@ function montarMeios(area) {
             <div style="background:var(--borda);border-radius:4px;overflow:hidden;height:20px">
               <div class="barra-fill" id="barra-${m.nome}" style="background:${m.cor};width:0%"></div>
             </div>
-            <span id="dist-${m.nome}" style="text-align:right;color:var(--texto-fraco)">${m.v} m</span>
+            <span id="dist-${m.nome}" style="text-align:right;color:var(--texto-fraco)">${m.v.toLocaleString('pt-BR')} m</span>
           </div>
         `).join('')}
       </div>
       <div class="btn-grupo">
         <button class="btn" id="btn-animar-barras">▶ Animar 1 segundo</button>
       </div>
-      <p class="lab-aviso">⚡ Escala real: em 1 s, o som no ar percorre 340 m; na água, 1.480 m; no aço, 5.960 m. A barra cresce na mesma proporção.</p>
+      <p class="lab-aviso">⚡ Escala real: em 1 s, o som no ar percorre cerca de 340 m; na água, 1.500 m; no aço, 5.000 m (valores aproximados, como nas trilhas). As barras crescem com velocidade constante, como o som.</p>
     </section>
   `;
 
@@ -371,7 +374,8 @@ function montarMeios(area) {
   }
 
   function draw() {
-    const lambdaArPx = (canvases['Ar'].W || 300) / 3;
+    // Escala única: em 440 Hz, a onda no ar ocupa 1/3 da largura. Assim λ = v/f aparece na tela.
+    const pxPorMetro = ((canvases['Ar'].W || 300) / 3) / (340 / 440);
     meios.forEach(m => {
       const c = canvases[m.nome];
       if (!c.W || !c.H) return;
@@ -385,7 +389,7 @@ function montarMeios(area) {
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      const lambdaPx = lambdaArPx * (m.v / 340);
+      const lambdaPx = (m.v / freq) * pxPorMetro;
       const A = c.H * 0.32;
 
       ctx.beginPath();
@@ -417,7 +421,7 @@ function montarMeios(area) {
     draw();
   });
 
-  const maxV = 5960;
+  const maxV = Math.max(...meios.map(m => m.v));
 
   function resetarBarras() {
     meios.forEach(m => {
@@ -428,7 +432,7 @@ function montarMeios(area) {
     void document.body.offsetWidth;
     meios.forEach(m => {
       const b = document.getElementById(`barra-${m.nome}`);
-      b.style.transition = 'width 1200ms ease-out';
+      b.style.transition = 'width 1000ms linear';
     });
   }
 
@@ -603,7 +607,7 @@ function montarRessonancia(area) {
 
   window.addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', onVisibility);
-  state.raf = requestAnimationFrame(loop);
+  if (!reduceMotion) state.raf = requestAnimationFrame(loop);
 
   area.querySelectorAll('.lab-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {

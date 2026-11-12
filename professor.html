@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F172A'/%3E%3Cpath d='M0,16 Q4,8 8,16 T16,16 T24,16 T32,16' fill='none' stroke='%2322D3EE' stroke-width='2.5'/%3E%3C/svg%3E">
   <title>Ferramenta do Professor — Ondulatória</title>
   <link rel="stylesheet" href="css/professor.css">
 </head>
 <body>
-  <!-- CSP removida deliberadamente: esta é uma ferramenta local do professor,
-       sem input de terceiros perigoso. Todos os dados decifrados passam por
-       escapeHtml antes de renderizar. A remoção permite que o aviso de
-       file:// funcione por script clássico externo. -->
   <div id="aviso-file" hidden>
     ⚠️ Esta página precisa ser aberta por um servidor HTTP.
     Rode <code>python -m http.server 8000</code> na pasta do projeto e acesse
@@ -80,6 +79,19 @@
     </section>
 
     <section class="card">
+      <h2>3. PIN do modo professor</h2>
+      <p>O modo professor do app (7 toques no logotipo) mostra as explicações das questões. O PIN fica guardado no app apenas como <em>hash</em>, nunca em texto.</p>
+      <form id="form-pin" class="form-pin" autocomplete="off">
+        <label for="pin-novo">Novo PIN (mínimo 6 caracteres)</label>
+        <input id="pin-novo" type="password" minlength="6" maxlength="64" required>
+        <label for="pin-conf">Repita o PIN</label>
+        <input id="pin-conf" type="password" minlength="6" maxlength="64" required>
+        <div class="btn-grupo"><button class="btn" type="submit">⬇ Gerar pin-professor.js</button></div>
+      </form>
+      <p class="aviso-privacidade">Substitua <code>js/pin-professor.js</code> no repositório pelo arquivo baixado e envie (commit e push).</p>
+    </section>
+
+    <section class="card">
       <h2>Limitações importantes</h2>
       <ul style="line-height:1.8">
         <li>✅ O arquivo é cifrado com a sua chave pública. Só você (com a chave privada) consegue abrir.</li>
@@ -88,6 +100,8 @@
         <li>⚠️ Um aluno com conhecimento técnico poderia criar um relatório "do zero" e cifrar com a sua chave pública (que está no app). A integridade passaria, mas os dados seriam falsos.</li>
         <li>⚠️ Isso é <strong>dificultar</strong>, não <strong>impedir</strong>. Use as flags de comportamento (troca de aba, resposta rápida) como pistas.</li>
         <li>⚠️ Sem a chave privada, você <strong>não abre</strong> nenhum relatório. Guarde-a com muito cuidado (pendrive + backup).</li>
+        <li>🔒 A chave privada fica só na memória desta aba: ao recarregar ou fechar a página, importe-a de novo.</li>
+        <li>⚠️ O PIN do modo professor é uma barreira simples (o app não tem servidor). Use um PIN que você não usa em outros lugares.</li>
       </ul>
     </section>
   </main>

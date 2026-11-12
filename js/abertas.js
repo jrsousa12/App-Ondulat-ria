@@ -1,32 +1,18 @@
 import { esc } from './utils.js';
-
-const TRILHAS = [
-  { id: '1', titulo: 'Ondas: o que são e como se propagam' },
-  { id: '2', titulo: 'As grandezas das ondas' },
-  { id: '3', titulo: 'O som como onda' },
-  { id: '4', titulo: 'As qualidades do som' },
-  { id: '5', titulo: 'Fenômenos sonoros' },
-  { id: '6', titulo: 'Som no cotidiano e saúde auditiva' }
-];
-
-const cache = {};
+import { confirmar, avisar } from './dialogos.js';
+import { TRILHAS, carregarJSON } from './conteudo.js';
 
 async function carregarAbertas(trilhaId) {
-  if (cache[trilhaId]) return cache[trilhaId];
   try {
-    const res = await fetch(`dados/questoes-trilha-${trilhaId}.json`, { cache: 'no-cache' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const banco = await res.json();
-    const abertas = banco.questoes.filter(q => q.tipo === 'aberta' || q.tipo === 'analise_erro');
-    cache[trilhaId] = abertas;
-    return abertas;
+    const banco = await carregarJSON(`dados/questoes-trilha-${trilhaId}.json`);
+    return banco.questoes.filter(q => q.tipo === 'aberta' || q.tipo === 'analise_erro');
   } catch (e) {
     console.error('[abertas]', e);
     return [];
   }
 }
 
-export async function renderAbertas(container, dados, salvarDados) {
+export async function renderAbertas(container, dados, salvarDados, aindaAtual = () => true) {
   if (!dados.atividadesAbertas || typeof dados.atividadesAbertas !== 'object') {
     dados.atividadesAbertas = {};
   }
@@ -36,6 +22,7 @@ export async function renderAbertas(container, dados, salvarDados) {
     const porTrilha = await Promise.all(
       TRILHAS.map(async t => ({ ...t, abertas: await carregarAbertas(t.id) }))
     );
+    if (!aindaAtual()) return;
 
     container.innerHTML = `
       <section class="card">
@@ -48,19 +35,18 @@ export async function renderAbertas(container, dados, salvarDados) {
         const total = t.abertas.length;
         const ok = respondidas === total;
         return `
-          <a href="#" class="card card-interativo" data-trilha="${t.id}" style="display:block;text-decoration:none;color:inherit">
+          <button type="button" class="card card-interativo card-botao" data-trilha="${t.id}">
             <h3 style="margin:0 0 4px;color:var(--ciano)">Trilha ${t.id} — ${esc(t.titulo)}</h3>
             <p style="margin:0;color:var(--texto-fraco);font-size:0.9rem">
               ${ok ? '✓ ' : ''}${respondidas} de ${total} respondida(s)
             </p>
-          </a>
+          </button>
         `;
       }).join('')}
     `;
 
     container.querySelectorAll('[data-trilha]').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.preventDefault();
+      el.addEventListener('click', () => {
         const t = porTrilha.find(x => x.id === el.dataset.trilha);
         if (t) iniciar(t);
       });
@@ -111,14 +97,14 @@ export async function renderAbertas(container, dados, salvarDados) {
       const foiAlterado = () => textarea && textarea.value.trim() !== original.trim();
 
       const btnSair = container.querySelector('#btn-sair');
-      if (btnSair) btnSair.addEventListener('click', () => {
-        if (foiAlterado() && !confirm('Descartar o que você digitou?')) return;
+      if (btnSair) btnSair.addEventListener('click', async () => {
+        if (foiAlterado() && !await confirmar({ titulo: 'Descartar o que você digitou?', ok: 'Descartar', perigo: true })) return;
         tela();
       });
 
       const btnPular = container.querySelector('#btn-pular');
-      if (btnPular) btnPular.addEventListener('click', () => {
-        if (foiAlterado() && !confirm('Descartar o que você digitou?')) return;
+      if (btnPular) btnPular.addEventListener('click', async () => {
+        if (foiAlterado() && !await confirmar({ titulo: 'Descartar o que você digitou?', ok: 'Descartar', perigo: true })) return;
         indice++;
         render();
       });
@@ -126,7 +112,7 @@ export async function renderAbertas(container, dados, salvarDados) {
       const btnEnviar = container.querySelector('#btn-enviar');
       if (btnEnviar) btnEnviar.addEventListener('click', () => {
         const resp = textarea.value.trim();
-        if (resp.length < 10) { alert('Escreva pelo menos uma frase.'); return; }
+        if (resp.length < 10) { avisar('Escreva pelo menos uma frase.', 'erro'); textarea.focus(); return; }
         dados.atividadesAbertas[q.id] = {
           resposta: resp,
           quando: new Date().toISOString(),

@@ -1,6 +1,8 @@
 import { esc, hojeLocal, localMaisDias } from './utils.js';
+import { confirmar } from './dialogos.js';
 import { renderDiario } from './diario.js';
 import { renderAbertas } from './abertas.js';
+import { carregarJSON } from './conteudo.js';
 
 let cleanupAtual = null;
 
@@ -8,10 +10,8 @@ export function cleanupPraticar() {
   if (cleanupAtual) { try { cleanupAtual(); } catch (_) {} cleanupAtual = null; }
 }
 
-async function carregarFlashcards() {
-  const res = await fetch('dados/flashcards.json', { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+function carregarFlashcards() {
+  return carregarJSON('dados/flashcards.json');
 }
 
 const INTERVALO_MAX = 180;
@@ -61,16 +61,22 @@ export async function renderPraticar(dados, salvarDados) {
 
   const sub = document.getElementById('sub-content');
 
+  // Cada troca de aba invalida a anterior: um carregamento lento não sobrescreve a aba nova.
+  let abaToken = 0;
   async function trocarAba(tab) {
+    const meu = ++abaToken;
     document.querySelectorAll('.lab-tab').forEach(b => {
       const ativo = b.dataset.sub === tab;
       b.classList.toggle('ativo', ativo);
       b.setAttribute('aria-selected', String(ativo));
     });
     sub.innerHTML = '';
-    if (tab === 'flash') await renderFlashcards(sub, dados, salvarDados);
-    else if (tab === 'diario') renderDiario(sub, dados, salvarDados);
-    else if (tab === 'abertas') await renderAbertas(sub, dados, salvarDados);
+    const alvo = document.createElement('div');
+    sub.appendChild(alvo);
+    const aindaAtual = () => meu === abaToken;
+    if (tab === 'flash') await renderFlashcards(alvo, dados, salvarDados, aindaAtual);
+    else if (tab === 'diario') renderDiario(alvo, dados, salvarDados);
+    else if (tab === 'abertas') await renderAbertas(alvo, dados, salvarDados, aindaAtual);
   }
 
   document.querySelectorAll('.lab-tab').forEach(b => {
@@ -81,16 +87,18 @@ export async function renderPraticar(dados, salvarDados) {
   await trocarAba('flash');
 }
 
-async function renderFlashcards(container, dados, salvarDados) {
+async function renderFlashcards(container, dados, salvarDados, aindaAtual = () => true) {
   container.innerHTML = '<section class="card"><p>Carregando flashcards…</p></section>';
 
   let banco;
   try {
     banco = await carregarFlashcards();
   } catch (e) {
+    if (!aindaAtual()) return;
     container.innerHTML = `<section class="card"><p class="erro-carregamento">Erro ao carregar: ${esc(e.message)}</p></section>`;
     return;
   }
+  if (!aindaAtual()) return;
 
   if (!dados.flashcards || typeof dados.flashcards !== 'object') dados.flashcards = {};
   let sessao = null;
@@ -174,8 +182,8 @@ async function renderFlashcards(container, dados, salvarDados) {
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); virar(c); }
     });
-    document.getElementById('btn-sair-flash').addEventListener('click', () => {
-      if (confirm('Sair da sessão?')) telaInicial();
+    document.getElementById('btn-sair-flash').addEventListener('click', async () => {
+      if (await confirmar({ titulo: 'Sair da sessão?', texto: 'Os cartões já respondidos ficam salvos.', ok: 'Sair' })) telaInicial();
     });
   }
 

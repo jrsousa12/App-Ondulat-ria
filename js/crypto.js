@@ -151,8 +151,6 @@ export {
   gerarParChaves,
   criptografarRelatorio,
   descriptografarRelatorio,
-  importarChavePublica,
-  importarChavePrivada,
   arrayBufferToBase64,
   base64ToArrayBuffer,
   sha256Hex

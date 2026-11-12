@@ -1,3 +1,5 @@
+import { avisarDestaque } from './dialogos.js';
+
 const BADGES = [
   { id: 'iniciante', emoji: '🌱', nome: 'Iniciante', desc: 'Começou a jornada na Ondulatória', cond: d => !!d.aluno?.primeiroNome },
   { id: 'primeira-leitura', emoji: '📖', nome: 'Leitor Atento', desc: 'Concluiu a leitura de uma trilha', cond: d => Object.values(d.trilhas || {}).some(t => t.compreensao) },
@@ -35,11 +37,6 @@ export function verificarNovosBadges(dados) {
 
 export function mostrarToastBadges(novos) {
   novos.forEach((b, i) => {
-    const el = document.createElement('div');
-    el.className = 'badge-toast';
-    el.setAttribute('role', 'status');
-    el.innerHTML = `<span style="font-size:1.6rem">${b.emoji}</span><div><strong>${b.nome}</strong><br><small>${b.desc}</small></div>`;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 4500 + i * 300);
+    setTimeout(() => avisarDestaque({ emoji: b.emoji, titulo: `Conquista: ${b.nome}`, texto: b.desc }), i * 600);
   });
 }
