@@ -1,5 +1,13 @@
 import { esc, shuffle, formatarDuracao } from './utils.js';
+import { avisar } from './dialogos.js';
 import { estaEmModoProfessor } from './modo-professor.js';
+import { carregarJSON, nomeSubtema } from './conteudo.js';
+import { iconeTrilha, esqueleto, etapas } from './ui.js';
+import * as fx from './fx.js';
+import { nivel } from './progresso.js';
+import { TIPOS_AUTO, embaralharQuestao, htmlPergunta, ligarResposta, verificarResposta, marcarResposta, formatarTexto } from './quiz.js';
+import { registrarResposta, registrarTentativaQuiz } from './registro.js';
+import { iniciarSessao } from './treino.js';
 
 let cleanupAtual = null;
 let trilhaToken = 0;
@@ -12,12 +20,6 @@ export function cleanupTrilha() {
   }
 }
 
-async function carregarJSON(caminho) {
-  const res = await fetch(caminho, { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`HTTP ${res.status} em ${caminho}`);
-  return res.json();
-}
-
 function calcularTempoEstimadoMs(secoes) {
   let palavras = 0;
   for (const s of secoes) {
@@ -27,8 +29,6 @@ function calcularTempoEstimadoMs(secoes) {
   return Math.max(60_000, minutos * 60_000);
 }
 
-const TIPOS_AUTO = ['multipla_escolha', 'predicao', 'calculo_guiado', 'verdadeiro_falso', 'associacao', 'ordenacao'];
-const LETRAS = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 function sortearQuestoes(banco, total) {
   const auto = banco.filter(q => TIPOS_AUTO.includes(q.tipo));
@@ -57,69 +57,13 @@ function sortearQuestoes(banco, total) {
   return shuffle(escolhidas.slice(0, total));
 }
 
-/**
- * Embaralha alternativas e ajusta:
- * - `correta` para o novo índice
- * - `explicacao` para que referências "(a)", "(b)" etc. apontem para a nova posição
- * Também embaralha associação (colunaB) e ordenação (itens) para evitar triviais.
- */
-function embaralharQuestao(q) {
-  if (['multipla_escolha', 'predicao', 'calculo_guiado'].includes(q.tipo)) {
-    const n = q.alternativas.length;
-    const idx = q.alternativas.map((_, i) => i);
-    const shuffled = shuffle(idx);
-    // mapa[orig] = nova posição
-    const mapa = {};
-    shuffled.forEach((orig, nova) => { mapa[orig] = nova; });
-
-    let explicacao = q.explicacao || '';
-    explicacao = explicacao.replace(/\(([a-fA-F])\)/g, (match, letra) => {
-      const origIdx = LETRAS.indexOf(letra.toLowerCase());
-      if (origIdx < 0 || origIdx >= n) return match;
-      const novaIdx = mapa[origIdx];
-      return `(${LETRAS[novaIdx]})`;
-    });
-
-    return {
-      ...q,
-      alternativas: shuffled.map(i => q.alternativas[i]),
-      correta: shuffled.indexOf(q.correta),
-      explicacao
-    };
-  }
-
-  if (q.tipo === 'associacao') {
-    const idxB = q.colunaB.map((_, i) => i);
-    const shuffledB = shuffle(idxB);
-    const novaCorreta = q.correta.map(origIdx => shuffledB.indexOf(origIdx));
-    return {
-      ...q,
-      colunaB: shuffledB.map(i => q.colunaB[i]),
-      correta: novaCorreta
-    };
-  }
-
-  if (q.tipo === 'ordenacao') {
-    const idx = q.itens.map((_, i) => i);
-    const shuffled = shuffle(idx);
-    // Para cada item exibido (na posição nova i), qual é a posição correta (0-based)?
-    const novaCorreta = shuffled.map(origIdx => q.correta.indexOf(q.itens[origIdx]));
-    return {
-      ...q,
-      itens: shuffled.map(i => q.itens[i]),
-      correta: novaCorreta
-    };
-  }
-
-  return q;
-}
-
 export async function renderTrilha(id, dados, salvarDados) {
   cleanupTrilha();
   const myToken = trilhaToken;
 
   const conteudo = document.querySelector('#conteudo');
-  conteudo.innerHTML = '<section class="card"><p>Carregando…</p></section>';
+  conteudo.dataset.trilha = id;
+  conteudo.innerHTML = esqueleto(3);
 
   let trilha, banco;
   try {
@@ -189,19 +133,11 @@ export async function renderTrilha(id, dados, salvarDados) {
   };
   document.addEventListener('visibilitychange', onVisibilidade);
 
-  const onBeforeUnload = (e) => {
-    if (estado.fase === 'quiz' || estado.fase === 'compreensao') {
-      e.preventDefault();
-      e.returnValue = 'Você tem certeza? Seu progresso na atividade atual pode ser perdido.';
-    }
-  };
-  window.addEventListener('beforeunload', onBeforeUnload);
-
   cleanupAtual = () => {
     if (cleanupFaseAtual) { try { cleanupFaseAtual(); } catch (_) {} cleanupFaseAtual = null; }
     document.removeEventListener('visibilitychange', onVisibilidade);
-    window.removeEventListener('beforeunload', onBeforeUnload);
     pausarTimerLeitura();
+    delete conteudo.dataset.trilha;
   };
 
   function renderLeitura() {
@@ -214,26 +150,29 @@ export async function renderTrilha(id, dados, salvarDados) {
       <div class="progresso-leitura" aria-hidden="true">
         <div class="progresso-leitura-fill" id="prog-leitura"></div>
       </div>
-      <section class="card">
+      <a href="#trilhas" class="tela-voltar">← Trilhas</a>
+      <section class="leitura-hero">
+        <span class="leitura-icone">${iconeTrilha(id)}</span>
+        <p class="tela-rotulo">Trilha ${esc(id)}</p>
         <h2>${esc(trilha.titulo)}</h2>
-        <p style="color:var(--texto-fraco)">${esc(trilha.subtitulo || '')}</p>
+        <p class="leitura-sub">${esc(trilha.subtitulo || '')}</p>
         <div class="meta-leitura">
-          <span>⏱ Tempo estimado: ~${totalMin} min</span>
+          <span>⏱ ~${totalMin} min</span>
           <span>📖 ${trilha.secoes.length} seções</span>
+          <span>❓ 3 perguntas + quiz de 10</span>
         </div>
-        <p>Leia com calma. Ao terminar, você responderá <strong>3 perguntas de compreensão</strong> e depois um <strong>quiz de 10 questões</strong>.</p>
       </section>
+      ${etapas(0, 0)}
       ${trilha.secoes.map((s, i) => `
         <section class="card secao-leitura" data-secao="${esc(s.id)}">
-          <h3>${i + 1}. ${esc(s.titulo)}</h3>
+          <h3><span class="secao-num">${i + 1}</span>${esc(s.titulo)}</h3>
           ${s.texto.map(p => `<p>${esc(p)}</p>`).join('')}
         </section>
       `).join('')}
-      <section class="card">
-        <p id="msg-leitura" role="status" aria-live="polite" style="color:var(--texto-fraco)"></p>
-        <div class="btn-grupo">
-          <button class="btn" id="btn-ir-compreensao">Ir para as perguntas</button>
-        </div>
+      <section class="card leitura-fim">
+        <p class="leitura-links"><a href="#ficha/${esc(id)}">🖨️ Ficha da aula para imprimir</a> · <a href="#fontes/trilhas">📚 Fontes para aprofundar</a></p>
+        <p id="msg-leitura" role="status" aria-live="polite"></p>
+        <button class="btn btn-grande" id="btn-ir-compreensao">Ir para as perguntas →</button>
       </section>
     `;
 
@@ -250,9 +189,6 @@ export async function renderTrilha(id, dados, salvarDados) {
     window.addEventListener('scroll', atualizarProg, { passive: true });
     setTimeout(atualizarProg, 100);
 
-    const observer = new IntersectionObserver((entries) => { void entries; }, { threshold: 0.4 });
-    conteudo.querySelectorAll('[data-secao]').forEach(el => observer.observe(el));
-
     function atualizarMensagemLeitura() {
       const msg = document.getElementById('msg-leitura');
       if (!msg) return;
@@ -261,13 +197,13 @@ export async function renderTrilha(id, dados, salvarDados) {
       const minNecessario = Math.ceil((estado.tempoEstimadoMs * 0.6) / 60_000);
       if (estado.chegouAoFim && minDecorrido >= minNecessario) {
         msg.textContent = `✓ Leitura concluída em ${formatarDuracao(decorrido)}.`;
-        msg.style.color = 'var(--sucesso)';
+        msg.className = 'msg-ok';
       } else if (!estado.chegouAoFim) {
         msg.textContent = 'Role até o fim do texto para continuar.';
-        msg.style.color = 'var(--texto-fraco)';
+        msg.className = '';
       } else {
-        msg.textContent = `Continue lendo mais um pouco (${minDecorrido}/${minNecessario} min).`;
-        msg.style.color = 'var(--ambar)';
+        msg.textContent = `Continue lendo mais um pouco (${minDecorrido}/${minNecessario} min) — a leitura completa vale mais XP.`;
+        msg.className = 'msg-alerta';
       }
     }
 
@@ -276,7 +212,6 @@ export async function renderTrilha(id, dados, salvarDados) {
 
     registrarCleanup(() => {
       window.removeEventListener('scroll', atualizarProg);
-      observer.disconnect();
       clearInterval(interval);
     });
 
@@ -299,7 +234,8 @@ export async function renderTrilha(id, dados, salvarDados) {
     const p = perguntas[indice];
     const total = perguntas.length;
     conteudo.innerHTML = `
-      <section class="card">
+      ${etapas(1, 1)}
+      <section class="card card-pergunta">
         <div class="quiz-header">
           <span>Compreensão ${indice + 1} de ${total}</span>
         </div>
@@ -331,6 +267,7 @@ export async function renderTrilha(id, dados, salvarDados) {
       if (i === p.correta) b.classList.add('correta');
       else if (i === escolha) b.classList.add('incorreta');
     });
+    if (acertou) fx.acerto(); else fx.erro();
 
     const fb = document.getElementById('feedback-compreensao');
     fb.innerHTML = `
@@ -396,103 +333,22 @@ export async function renderTrilha(id, dados, salvarDados) {
     estado.inicioQuestaoMs = Date.now();
 
     const header = `
+      ${etapas(2, 2)}
       <div class="quiz-header">
         <span>Questão ${idx + 1} de ${total}</span>
-        <span style="color:var(--texto-fraco);font-size:0.85rem">${esc(q.subtema || '')}</span>
+        <span class="quiz-conceito">${esc(nomeSubtema(q.subtema))}</span>
       </div>
       <div class="quiz-progresso-barra"><div style="width:${(idx / total) * 100}%"></div></div>
     `;
 
-    let corpo = `<h3>${esc(q.enunciado)}</h3>`;
-
-    if (['multipla_escolha', 'predicao', 'calculo_guiado', 'verdadeiro_falso'].includes(q.tipo)) {
-      corpo += `<div id="alt-container"></div>`;
-    } else if (q.tipo === 'associacao') {
-      corpo += `<div id="assoc-container">
-        ${q.colunaA.map((item, i) => `
-          <div class="assoc-item">
-            <label for="assoc-${i}">${esc(item)}</label>
-            <select id="assoc-${i}" data-i="${i}">
-              <option value="">— selecione —</option>
-              ${q.colunaB.map((op, j) => `<option value="${j}">${esc(op)}</option>`).join('')}
-            </select>
-          </div>`).join('')}
-      </div>
-      <div class="btn-grupo"><button class="btn" id="btn-responder-assoc">Responder</button></div>`;
-    } else if (q.tipo === 'ordenacao') {
-      corpo += `<p style="color:var(--texto-fraco);font-size:0.95rem">Atribua a posição de cada item (1 = primeiro).</p>
-        <div id="ord-container">
-        ${q.itens.map((item, i) => `
-          <div class="ord-item">
-            <span>${esc(item)}</span>
-            <select data-i="${i}" class="ord-select">
-              ${q.itens.map((_, j) => `<option value="${j + 1}">${j + 1}º</option>`).join('')}
-            </select>
-          </div>`).join('')}
-        </div>
-        <div class="btn-grupo"><button class="btn" id="btn-responder-ord">Responder</button></div>`;
-    } else {
-      corpo += `<p>Formato não suportado.</p>`;
-    }
-
     conteudo.innerHTML = `
-      <section class="card">
-        ${header}
-        ${corpo}
+      ${header}
+      <section class="card card-pergunta">
+        ${htmlPergunta(q)}
         <div id="feedback-quiz"></div>
       </section>
     `;
-
-    if (['multipla_escolha', 'predicao', 'calculo_guiado'].includes(q.tipo)) {
-      const alts = document.getElementById('alt-container');
-      q.alternativas.forEach((txt, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'alternativa';
-        const letra = LETRAS[i].toUpperCase();
-        b.innerHTML = `<strong>${letra})</strong> ${esc(txt)}`;
-        b.addEventListener('click', () => responderQuiz('mc', i));
-        alts.appendChild(b);
-      });
-    } else if (q.tipo === 'verdadeiro_falso') {
-      const alts = document.getElementById('alt-container');
-      [['Verdadeiro', true], ['Falso', false]].forEach(([txt, val]) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'alternativa';
-        b.textContent = txt;
-        b.addEventListener('click', () => responderQuiz('vf', val));
-        alts.appendChild(b);
-      });
-    } else if (q.tipo === 'associacao') {
-      document.getElementById('btn-responder-assoc').addEventListener('click', () => {
-        const selects = document.querySelectorAll('#assoc-container select');
-        const resposta = Array.from(selects).map(s => s.value === '' ? -1 : parseInt(s.value, 10));
-        if (resposta.some(v => v < 0)) { alert('Selecione uma opção para cada item.'); return; }
-        responderQuiz('assoc', resposta);
-      });
-    } else if (q.tipo === 'ordenacao') {
-      document.getElementById('btn-responder-ord').addEventListener('click', () => {
-        const selects = document.querySelectorAll('#ord-container select');
-        const ordem = Array.from(selects).map(s => parseInt(s.value, 10) - 1);
-        if (new Set(ordem).size !== ordem.length) { alert('Cada item precisa de uma posição diferente.'); return; }
-        responderQuiz('ord', ordem);
-      });
-    }
-  }
-
-  function verificarResposta(q, tipo, resposta) {
-    if (tipo === 'mc') return resposta === q.correta;
-    if (tipo === 'vf') return resposta === q.correta;
-    if (tipo === 'assoc') {
-      if (!Array.isArray(resposta) || resposta.length !== q.correta.length) return false;
-      return resposta.every((v, i) => v === q.correta[i]);
-    }
-    if (tipo === 'ord') {
-      if (!Array.isArray(resposta) || resposta.length !== q.itens.length) return false;
-      return resposta.every((pos, i) => pos === q.correta[i]);
-    }
-    return false;
+    ligarResposta(conteudo, q, responderQuiz);
   }
 
   function responderQuiz(tipo, resposta) {
@@ -500,6 +356,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     const acertou = verificarResposta(q, tipo, resposta);
     const tempoMs = Date.now() - estado.inicioQuestaoMs;
     estado.respostasQuiz.push({ id: q.id, acertou, tempoMs, tipo });
+    const caderno = registrarResposta(dados, q, id, acertou);
 
     if (tempoMs < 4000) {
       dados.flags = dados.flags || [];
@@ -507,37 +364,23 @@ export async function renderTrilha(id, dados, salvarDados) {
       salvarDados();
     }
 
-    document.querySelectorAll('.alternativa').forEach(b => b.disabled = true);
-    document.querySelectorAll('#assoc-container select, #ord-container select').forEach(s => s.disabled = true);
-    const btnR = document.getElementById('btn-responder-assoc') || document.getElementById('btn-responder-ord');
-    if (btnR) btnR.disabled = true;
+    marcarResposta(conteudo, q, tipo, resposta);
 
-    if (tipo === 'mc') {
-      document.querySelectorAll('#alt-container .alternativa').forEach((b, i) => {
-        if (i === q.correta) b.classList.add('correta');
-        else if (i === resposta) b.classList.add('incorreta');
-      });
-    } else if (tipo === 'vf') {
-      const corretaIdx = q.correta ? 0 : 1;
-      const escolhaIdx = resposta ? 0 : 1;
-      document.querySelectorAll('#alt-container .alternativa').forEach((b, i) => {
-        if (i === corretaIdx) b.classList.add('correta');
-        else if (i === escolhaIdx) b.classList.add('incorreta');
-      });
-    }
-
+    if (acertou) fx.acerto(); else fx.erro();
     const primeiraTentativa = estado.tentativasQuiz === 1;
     const profMode = estaEmModoProfessor();
     const mostrarExplicacao = !primeiraTentativa || profMode || acertou;
     const explicacao = mostrarExplicacao
-      ? `<p style="margin-top:6px">${esc(q.explicacao || '')}</p>`
-      : `<p style="margin-top:6px;color:var(--texto-fraco)">Conceito a revisar: <strong>${esc(q.subtema || '')}</strong>. A explicação completa aparece no final do quiz.</p>`;
+      ? `<p style="margin-top:6px">${formatarTexto(q.explicacao || '')}</p>`
+      : `<p style="margin-top:6px;color:var(--texto-fraco)">Conceito a revisar: <strong>${esc(nomeSubtema(q.subtema))}</strong>. A explicação completa aparece no final do quiz.</p>`;
 
     const feedback = document.getElementById('feedback-quiz');
     feedback.innerHTML = `
       <div class="feedback ${acertou ? 'ok' : 'erro'}">
         <strong>${acertou ? '✓ Correto!' : '✗ Não foi essa.'}</strong>
         ${explicacao}
+        ${caderno === 'entrou' ? '<p class="feedback-caderno">📒 Guardada no seu caderno de erros para treinar depois.</p>' : ''}
+        ${caderno === 'saiu' ? '<p class="feedback-caderno">🎉 Saiu do caderno de erros: 2 acertos seguidos!</p>' : ''}
       </div>
       <div class="btn-grupo">
         <button class="btn" id="btn-proxima-q">${estado.indiceQuestao + 1 < estado.questoesQuiz.length ? 'Próxima' : 'Ver resultado'}</button>
@@ -591,7 +434,10 @@ export async function renderTrilha(id, dados, salvarDados) {
       t.concluidaEm = t.concluidaEm || new Date().toISOString();
     }
 
+    const nivelAntes = nivel(dados.xp || 0).nivel;
     dados.xp = (dados.xp || 0) + xpDelta;
+    const nivelDepois = nivel(dados.xp).nivel;
+    registrarTentativaQuiz(dados, { trilha: id, acertos, total, tentativa: estado.tentativasQuiz });
     salvarDados();
 
     const emoji = passou ? '🎉' : (t.concluida ? '💪' : '💡');
@@ -606,21 +452,22 @@ export async function renderTrilha(id, dados, salvarDados) {
       ? `<div class="resultado-xp">+${xpDelta} XP</div>`
       : `<div class="resultado-xp sem-ganho">0 XP nesta tentativa<br><small>Você já tinha ${xpAnterior} XP nesta trilha</small></div>`;
 
+    const erradas = estado.questoesQuiz.filter((_, i) => !estado.respostasQuiz[i].acertou);
     const revisaoHtml = estado.questoesQuiz.map((q, i) => {
       const r = estado.respostasQuiz[i];
       return `
         <div class="revisao-item ${r.acertou ? 'ok' : 'erro'}">
           <div class="topo-revisao">
-            <span>${r.acertou ? '✓' : '✗'} Questão ${i + 1} · ${esc(q.subtema || '')}</span>
+            <span>${r.acertou ? '✓' : '✗'} Questão ${i + 1} · ${esc(nomeSubtema(q.subtema))}</span>
             <span>${formatarDuracao(r.tempoMs)}</span>
           </div>
-          <p style="font-size:0.95rem">${esc(q.enunciado)}</p>
-          <p style="margin-top:8px;font-size:0.95rem;color:var(--texto-fraco)"><strong>Explicação:</strong> ${esc(q.explicacao || '')}</p>
+          <p style="font-size:0.95rem">${formatarTexto(q.enunciado)}</p>
+          <p style="margin-top:8px;font-size:0.95rem;color:var(--texto-fraco)"><strong>Explicação:</strong> ${formatarTexto(q.explicacao || '')}</p>
         </div>`;
     }).join('');
 
     conteudo.innerHTML = `
-      <section class="card resultado-hero">
+      <section class="card resultado-hero${passou ? ' passou' : ''}">
         <span class="emoji">${emoji}</span>
         <h2>${titulo}</h2>
         <div class="pontuacao">${acertos}/${total} (${pct.toFixed(0)}%)</div>
@@ -628,7 +475,9 @@ export async function renderTrilha(id, dados, salvarDados) {
         ${xpHtml}
         <div class="btn-grupo" style="justify-content:center;margin-top:var(--esp-3)">
           <a href="#trilhas" class="btn">Voltar às trilhas</a>
+          ${erradas.length ? `<button class="btn btn-secundario" id="btn-rever-erros">🔎 Rever só as ${erradas.length} que errei</button>` : ''}
           <button class="btn btn-secundario" id="btn-refazer">Refazer o quiz</button>
+          <button class="btn btn-secundario" id="btn-reler-texto">Reler o texto</button>
         </div>
       </section>
       <section class="card">
@@ -638,12 +487,30 @@ export async function renderTrilha(id, dados, salvarDados) {
       </section>
     `;
 
+    // Refazer vai direto ao quiz (a compreensão já foi aprovada); a nova tentativa conta para o XP.
     document.getElementById('btn-refazer').addEventListener('click', () => {
+      window.scrollTo(0, 0);
+      estado.tentativasQuiz++;
+      iniciarQuiz();
+    });
+    document.getElementById('btn-rever-erros')?.addEventListener('click', () => {
+      window.scrollTo(0, 0);
+      iniciarSessao(conteudo, dados, salvarDados, erradas.map(q => ({ ...q, trilha: id })), {
+        titulo: 'Revendo os erros', modo: 'revisao', aoTerminar: () => renderTrilha(id, dados, salvarDados)
+      });
+    });
+    document.getElementById('btn-reler-texto').addEventListener('click', () => {
       window.scrollTo(0, 0);
       renderTrilha(id, dados, salvarDados);
     });
 
     window.scrollTo(0, 0);
+
+    if (passou) { fx.confete(); fx.vitoria(); }
+    if (xpDelta > 0) fx.xpFlutuante(document.getElementById('xp-total'), xpDelta);
+    if (nivelDepois > nivelAntes) {
+      setTimeout(() => avisar(`⬆️ Você subiu para o nível ${nivelDepois}!`, 'ok', 5000), 600);
+    }
   }
 
   renderLeitura();

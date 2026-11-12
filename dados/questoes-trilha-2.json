@@ -151,7 +151,7 @@
       "misconcepcao_alvo": "grandezas-ondas",
       "enunciado": "Associe cada grandeza à sua definição.",
       "colunaA": ["Comprimento de onda", "Amplitude", "Frequência", "Período"],
-      "colunaB": ["Distância entre duas cristas", "Altura da onda", "Oscilações por segundo", "Tempo de uma oscilação"],
+      "colunaB": ["Distância entre duas cristas", "Distância do equilíbrio até a crista", "Oscilações por segundo", "Tempo de uma oscilação"],
       "correta": [0, 1, 2, 3],
       "explicacao": "λ = distância entre cristas. A = altura. f = oscilações/segundo. T = tempo de uma oscilação."
     },

@@ -32,7 +32,7 @@
         "O ouvido é um órgão delicado. Sons muito altos (acima de 85 dB por períodos longos) podem lesionar células ciliadas da cóclea — e essas células NÃO se regeneram.",
         "Uma exposição única a 140 dB (como uma explosão perto do ouvido) pode causar perda auditiva permanente em segundos.",
         "Sintomas de alerta: zumbido após um show, sensação de 'ouvido tampado', dificuldade em ouvir conversas em ambientes barulhentos. Se aparecerem, procure um médico.",
-        "OMS (Organização Mundial da Saúde) recomenda no máximo 85 dB por 8 horas diárias no trabalho. Para lazer, ficar abaixo de 80 dB é mais seguro."
+        "As normas de segurança do trabalho (no Brasil, a NR-15) limitam a exposição a 85 dB por 8 horas diárias. Para lazer, ficar abaixo de 80 dB é mais seguro."
       ]
     },
     {
@@ -41,7 +41,7 @@
       "tempoEstimadoMin": 1.2,
       "texto": [
         "Fones de ouvido são a principal fonte de exposição a sons altos para adolescentes. A OMS estima que mais de 1 bilhão de jovens estão em risco de perda auditiva por causa disso.",
-        "Regra prática (OMS): usar o '80/90' — no máximo 80% do volume por, no máximo, 90 minutos por dia. Alguns especialistas defendem uma regra ainda mais conservadora (60/60).",
+        "Regra prática: usar o '80/90' — no máximo 80% do volume por, no máximo, 90 minutos por dia. Alguns especialistas defendem uma regra ainda mais conservadora (60/60).",
         "Fones do tipo intra-auricular (que entram no canal) chegam mais perto do tímpano — costumam ser mais perigosos em volumes altos. Fones com cancelamento de ruído ajudam: você escuta em volume menor sem perder detalhes.",
         "Regra do polegar: se a pessoa ao lado consegue ouvir a música do seu fone, o volume está alto demais."
       ]
@@ -60,14 +60,14 @@
       "pergunta": "Exposição prolongada a sons acima de qual nível pode causar danos ao ouvido?",
       "alternativas": ["30 dB", "60 dB", "85 dB", "150 dB"],
       "correta": 2,
-      "explicacao": "~85 dB por períodos longos já é risco. Por isso a OMS recomenda esse como limite diário no trabalho. Para lazer, ficar abaixo de 80 dB é mais seguro."
+      "explicacao": "~85 dB por períodos longos já é risco. Por isso as normas de segurança do trabalho (no Brasil, a NR-15) usam esse valor como limite diário. Para lazer, ficar abaixo de 80 dB é mais seguro."
     },
     {
       "id": "t6-c3",
       "pergunta": "Uma regra prática para volume seguro de fones é:",
       "alternativas": ["Volume máximo, mas pouco tempo", "80% do volume por, no máximo, 90 minutos por dia", "Sempre 100% do volume", "Volume não importa, só a duração"],
       "correta": 1,
-      "explicacao": "Regra 80/90: até 80% do volume, no máximo 90 min/dia. É uma diretriz conservadora da OMS. Alguns especialistas usam 60/60 (mais restritivo ainda)."
+      "explicacao": "Regra 80/90: até 80% do volume, no máximo 90 min/dia. Alguns especialistas usam 60/60 (mais restritivo ainda)."
     }
   ]
 }

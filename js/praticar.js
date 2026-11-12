@@ -1,6 +1,10 @@
 import { esc, hojeLocal, localMaisDias } from './utils.js';
+import { confirmar } from './dialogos.js';
 import { renderDiario } from './diario.js';
 import { renderAbertas } from './abertas.js';
+import { renderTreino } from './treino.js';
+import { carregarJSON } from './conteudo.js';
+import { cabecalho, esqueleto } from './ui.js';
 
 let cleanupAtual = null;
 
@@ -8,10 +12,8 @@ export function cleanupPraticar() {
   if (cleanupAtual) { try { cleanupAtual(); } catch (_) {} cleanupAtual = null; }
 }
 
-async function carregarFlashcards() {
-  const res = await fetch('dados/flashcards.json', { cache: 'no-cache' });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+function carregarFlashcards() {
+  return carregarJSON('dados/flashcards.json');
 }
 
 const INTERVALO_MAX = 180;
@@ -46,13 +48,17 @@ function aplicarResposta(estado, resposta) {
   return e;
 }
 
-export async function renderPraticar(dados, salvarDados) {
+const ABAS = ['treino', 'flash', 'diario', 'abertas'];
+
+export async function renderPraticar(dados, salvarDados, abaInicial = 'treino') {
   cleanupPraticar();
   const container = document.querySelector('#conteudo');
 
   container.innerHTML = `
+    ${cabecalho({ rotulo: 'Praticar', titulo: 'Praticar', sub: 'Revise com flashcards, registre sons do dia a dia e responda atividades para o professor.' })}
     <div class="lab-tabs" role="tablist" aria-label="Modo de prática">
-      <button class="lab-tab ativo" data-sub="flash" role="tab" aria-selected="true">Flashcards</button>
+      <button class="lab-tab" data-sub="treino" role="tab" aria-selected="false">Treino</button>
+      <button class="lab-tab" data-sub="flash" role="tab" aria-selected="false">Flashcards</button>
       <button class="lab-tab" data-sub="diario" role="tab" aria-selected="false">Diário sonoro</button>
       <button class="lab-tab" data-sub="abertas" role="tab" aria-selected="false">Atividades abertas</button>
     </div>
@@ -61,16 +67,23 @@ export async function renderPraticar(dados, salvarDados) {
 
   const sub = document.getElementById('sub-content');
 
+  // Cada troca de aba invalida a anterior: um carregamento lento não sobrescreve a aba nova.
+  let abaToken = 0;
   async function trocarAba(tab) {
+    const meu = ++abaToken;
     document.querySelectorAll('.lab-tab').forEach(b => {
       const ativo = b.dataset.sub === tab;
       b.classList.toggle('ativo', ativo);
       b.setAttribute('aria-selected', String(ativo));
     });
     sub.innerHTML = '';
-    if (tab === 'flash') await renderFlashcards(sub, dados, salvarDados);
-    else if (tab === 'diario') renderDiario(sub, dados, salvarDados);
-    else if (tab === 'abertas') await renderAbertas(sub, dados, salvarDados);
+    const alvo = document.createElement('div');
+    sub.appendChild(alvo);
+    const aindaAtual = () => meu === abaToken;
+    if (tab === 'flash') await renderFlashcards(alvo, dados, salvarDados, aindaAtual);
+    else if (tab === 'diario') renderDiario(alvo, dados, salvarDados);
+    else if (tab === 'abertas') await renderAbertas(alvo, dados, salvarDados, aindaAtual);
+    else if (tab === 'treino') await renderTreino(alvo, dados, salvarDados, aindaAtual);
   }
 
   document.querySelectorAll('.lab-tab').forEach(b => {
@@ -78,19 +91,21 @@ export async function renderPraticar(dados, salvarDados) {
   });
 
   cleanupAtual = () => {};
-  await trocarAba('flash');
+  await trocarAba(ABAS.includes(abaInicial) ? abaInicial : 'treino');
 }
 
-async function renderFlashcards(container, dados, salvarDados) {
-  container.innerHTML = '<section class="card"><p>Carregando flashcards…</p></section>';
+async function renderFlashcards(container, dados, salvarDados, aindaAtual = () => true) {
+  container.innerHTML = esqueleto(2);
 
   let banco;
   try {
     banco = await carregarFlashcards();
   } catch (e) {
+    if (!aindaAtual()) return;
     container.innerHTML = `<section class="card"><p class="erro-carregamento">Erro ao carregar: ${esc(e.message)}</p></section>`;
     return;
   }
+  if (!aindaAtual()) return;
 
   if (!dados.flashcards || typeof dados.flashcards !== 'object') dados.flashcards = {};
   let sessao = null;
@@ -162,10 +177,24 @@ async function renderFlashcards(container, dados, salvarDados) {
           <span>Cartão ${idx + 1} de ${total}</span>
           <button class="btn btn-secundario btn-pequeno" id="btn-sair-flash">Sair</button>
         </div>
-        <div class="flash-cartao" id="flash-cartao" tabindex="0">
-          <p class="flash-label">Pergunta</p>
-          <p class="flash-frente">${esc(c.frente)}</p>
-          <p class="flash-dica">Toque ou pressione Enter para ver a resposta</p>
+        <div class="flash-cena">
+          <div class="flash-cartao" id="flash-cartao" tabindex="0" role="button" aria-label="Virar o cartão">
+            <div class="flash-face flash-face-frente">
+              <p class="flash-label">Pergunta</p>
+              <p class="flash-frente">${esc(c.frente)}</p>
+              <p class="flash-dica">Toque ou pressione Enter para ver a resposta</p>
+            </div>
+            <div class="flash-face flash-face-verso" aria-hidden="true">
+              <p class="flash-label">Resposta</p>
+              <p class="flash-verso">${esc(c.verso)}</p>
+            </div>
+          </div>
+        </div>
+        <div class="flash-acoes" id="flash-acoes" hidden>
+          <p class="flash-pergunta-auto">Como foi lembrar?</p>
+          <button class="btn btn-flash-dificil" data-r="dificil">Difícil</button>
+          <button class="btn btn-flash-medio" data-r="medio">Médio</button>
+          <button class="btn btn-flash-facil" data-r="facil">Fácil</button>
         </div>
       </section>
     `;
@@ -174,8 +203,8 @@ async function renderFlashcards(container, dados, salvarDados) {
     el.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); virar(c); }
     });
-    document.getElementById('btn-sair-flash').addEventListener('click', () => {
-      if (confirm('Sair da sessão?')) telaInicial();
+    document.getElementById('btn-sair-flash').addEventListener('click', async () => {
+      if (await confirmar({ titulo: 'Sair da sessão?', texto: 'Os cartões já respondidos ficam salvos.', ok: 'Sair' })) telaInicial();
     });
   }
 
@@ -183,18 +212,17 @@ async function renderFlashcards(container, dados, salvarDados) {
     if (sessao.virado) return;
     sessao.virado = true;
     const el = document.getElementById('flash-cartao');
-    el.innerHTML = `<p class="flash-label">Resposta</p><p class="flash-verso">${esc(c.verso)}</p>`;
-    const acoes = document.createElement('div');
-    acoes.className = 'flash-acoes';
-    acoes.innerHTML = `
-      <button class="btn btn-flash-dificil" data-r="dificil">Difícil</button>
-      <button class="btn btn-flash-medio" data-r="medio">Médio</button>
-      <button class="btn btn-flash-facil" data-r="facil">Fácil</button>
-    `;
-    el.appendChild(acoes);
+    el.classList.add('virado');
+    el.removeAttribute('role');
+    el.setAttribute('aria-label', 'Resposta');
+    el.querySelector('.flash-face-frente').setAttribute('aria-hidden', 'true');
+    el.querySelector('.flash-face-verso').removeAttribute('aria-hidden');
+    const acoes = document.getElementById('flash-acoes');
+    acoes.hidden = false;
     acoes.querySelectorAll('button').forEach(b => {
-      b.addEventListener('click', (ev) => { ev.stopPropagation(); responder(c, b.dataset.r); });
+      b.addEventListener('click', () => responder(c, b.dataset.r));
     });
+    acoes.querySelector('button').focus();
   }
 
   function responder(c, resp) {

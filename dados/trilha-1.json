@@ -44,7 +44,7 @@
       "tempoEstimadoMin": 1.0,
       "texto": [
         "Quando você fala, suas cordas vocais vibram. Essa vibração empurra o ar, que empurra mais ar, que empurra mais ar... até chegar ao ouvido de quem escuta. É assim que o som viaja.",
-        "A velocidade do som depende do meio — e, em geral, quanto mais 'junto' o material, mais rápido o som passa. Valores aproximados (a 20 °C): ar ~340 m/s; água ~1.500 m/s; aço ~5.000 m/s; no vácuo não se propaga.",
+        "A velocidade do som depende do meio: em geral é maior nos sólidos, depois nos líquidos, e menor nos gases. Valores aproximados (a 20 °C): ar ~340 m/s; água ~1.500 m/s; aço ~5.000 m/s; no vácuo não se propaga.",
         "E tem mais: o ouvido humano só escuta frequências entre 20 Hz e 20.000 Hz. Abaixo disso é infrassom (o elefante escuta!). Acima disso é ultrassom (o morcego usa para 'enxergar' no escuro!)."
       ]
     },

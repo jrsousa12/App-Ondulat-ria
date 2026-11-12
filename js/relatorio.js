@@ -1,6 +1,19 @@
-import { criptografarRelatorio } from './crypto.js';
+import { criptografarRelatorio, sha256Hex } from './crypto.js';
 import { CHAVE_PUBLICA_PROFESSOR } from './chave-publica.js';
 import { hojeLocal } from './utils.js';
+import { TRILHAS } from './conteudo.js';
+
+function resumoQuestoes(dados) {
+  const qs = Object.values(dados.questoes || {});
+  const tentativas = qs.reduce((s, q) => s + (q.tentativas || 0), 0);
+  const acertos = qs.reduce((s, q) => s + (q.acertos || 0), 0);
+  return {
+    respondidas: qs.length,
+    tentativas,
+    acertos,
+    aproveitamento: tentativas ? Math.round((acertos / tentativas) * 100) : null
+  };
+}
 
 function construirRelatorio(dados) {
   const trilhas = {};
@@ -28,12 +41,15 @@ function construirRelatorio(dados) {
     resumo: {
       xp: dados.xp || 0,
       trilhasConcluidas: Object.values(dados.trilhas || {}).filter(t => t.concluida).length,
-      totalTrilhas: 6,
+      totalTrilhas: TRILHAS.length,
       flashcardsEstudados: Object.keys(dados.flashcards || {}).length,
       registrosDiario: (dados.diario || []).length,
       atividadesAbertas: Object.keys(dados.atividadesAbertas || {}).length,
-      badgesGanhos: (dados.badges || []).length
+      badgesGanhos: (dados.badges || []).length,
+      questoesNoCaderno: Object.keys(dados.cadernoErros || {}).length
     },
+    questoes: resumoQuestoes(dados),
+    historicoQuizzes: dados.historico || [],
     trilhas,
     atividadesAbertas: dados.atividadesAbertas || {},
     diario: dados.diario || [],
@@ -47,9 +63,14 @@ export function chaveConfigurada() {
   return typeof CHAVE_PUBLICA_PROFESSOR === 'string' && CHAVE_PUBLICA_PROFESSOR.trim().length > 50;
 }
 
-export function fingerprintChave() {
+/**
+ * Código curto da chave (16 primeiros dígitos do SHA-256), para o aluno conferir com o professor.
+ * (O início da chave em base64 é igual em todas as chaves RSA-2048, por isso não serve.)
+ */
+export async function fingerprintChave() {
   if (!chaveConfigurada()) return null;
-  return CHAVE_PUBLICA_PROFESSOR.slice(0, 8) + '…';
+  const h = await sha256Hex(CHAVE_PUBLICA_PROFESSOR.trim());
+  return h.slice(0, 16).toUpperCase().match(/.{4}/g).join('-');
 }
 
 function normalizarNomeArquivo(s) {

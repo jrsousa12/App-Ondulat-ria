@@ -1,4 +1,5 @@
 import { esc } from './utils.js';
+import { confirmar, avisar } from './dialogos.js';
 
 function formatarData(iso) {
   if (!iso) return '—';
@@ -19,7 +20,7 @@ export function renderDiario(container, dados, salvarDados) {
     container.innerHTML = `
       <section class="card">
         <h2>Diário sonoro</h2>
-        <p>Registre sons do seu dia e reflita. Fica <strong>só no seu aparelho</strong> — nada é enviado.</p>
+        <p>Registre sons do seu dia e reflita. Fica <strong>só no seu aparelho</strong> e só vai para o professor no arquivo que você gerar no Perfil.</p>
         <div class="btn-grupo"><button class="btn" id="btn-novo-reg">✍️ Novo registro</button></div>
       </section>
       ${registros.length === 0
@@ -42,8 +43,8 @@ export function renderDiario(container, dados, salvarDados) {
     const btnNovo = container.querySelector('#btn-novo-reg');
     if (btnNovo) btnNovo.addEventListener('click', novo);
     container.querySelectorAll('[data-del]').forEach(b => {
-      b.addEventListener('click', () => {
-        if (!confirm('Apagar este registro?')) return;
+      b.addEventListener('click', async () => {
+        if (!await confirmar({ titulo: 'Apagar este registro?', ok: 'Apagar', perigo: true })) return;
         dados.diario = dados.diario.filter(r => r.id !== b.dataset.del);
         salvarDados();
         tela();
@@ -91,8 +92,8 @@ export function renderDiario(container, dados, salvarDados) {
     }
 
     const btnCancelar = container.querySelector('#btn-cancelar');
-    if (btnCancelar) btnCancelar.addEventListener('click', () => {
-      if (algoFoiDigitado() && !confirm('Descartar o que você digitou?')) return;
+    if (btnCancelar) btnCancelar.addEventListener('click', async () => {
+      if (algoFoiDigitado() && !await confirmar({ titulo: 'Descartar o que você digitou?', ok: 'Descartar', perigo: true })) return;
       tela();
     });
 
@@ -101,7 +102,7 @@ export function renderDiario(container, dados, salvarDados) {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const desc = container.querySelector('#di-desc').value.trim();
-      if (!desc) { alert('Descreva o som.'); return; }
+      if (!desc) { avisar('Descreva o som que você ouviu.', 'erro'); container.querySelector('#di-desc').focus(); return; }
       dados.diario.push({
         id: 'reg-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
         quando: new Date().toISOString(),

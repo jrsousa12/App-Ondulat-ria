@@ -9,9 +9,9 @@
       "titulo": "Comprimento de onda (λ)",
       "tempoEstimadoMin": 1.5,
       "texto": [
-        "O comprimento de onda é a distância entre dois pontos iguais consecutivos da onda. Pode ser de uma crista até a próxima crista, de um vale até o próximo vale, ou entre dois nós consecutivos.",
+        "O comprimento de onda é a distância entre dois pontos iguais consecutivos da onda. Pode ser de uma crista até a próxima crista ou de um vale até o próximo vale.",
         "É representado pela letra grega λ (lambda) e medido em metros (m).",
-        "Numa corda de violão, o comprimento de onda é a distância entre duas 'barrigas' da corda vibrando. Em uma onda do mar, é a distância entre duas cristas."
+        "Em uma onda do mar, é a distância entre duas cristas seguidas. Cuidado com a corda de violão vibrando: a distância entre duas 'barrigas' seguidas é só metade do comprimento de onda."
       ]
     },
     {
@@ -44,7 +44,7 @@
         "Onde v é a velocidade (m/s), λ é o comprimento de onda (m) e f é a frequência (Hz).",
         "Exemplo: um som de 170 Hz viajando no ar a 340 m/s tem λ = 340 / 170 = 2 metros.",
         "Um detalhe importante: quando a onda muda de meio, a frequência NÃO muda (a fonte continua a mesma), mas a velocidade e o comprimento de onda mudam juntos, mantendo a equação v = λ · f válida.",
-        "Por isso o mesmo som de 170 Hz tem λ = 2 m no ar e λ ≈ 0,068 m no aço (que é ~29 vezes mais rápido)."
+        "Por isso o mesmo som de 170 Hz tem λ = 2 m no ar e λ ≈ 29 m no aço (onde o som é cerca de 15 vezes mais rápido): λ = 5000 / 170 ≈ 29 m."
       ]
     }
   ],
