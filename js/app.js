@@ -17,6 +17,7 @@ import { renderOnboarding } from './onboarding.js';
 import { trilhaLiberada } from './progresso.js';
 import { aplicarPreferenciasSalvas, aplicarTema, temaAtual } from './preferencias.js';
 import { movimentoReduzido } from './fx.js';
+import { cartaoEstudo } from './inicio.js';
 
 const $ = sel => document.querySelector(sel);
 
@@ -241,9 +242,9 @@ function navegar(rota) {
   }
 
   const telas = {
-    inicio: () => renderInicio(ctx),
+    inicio: () => renderInicio(ctx, { estudo: cartaoEstudo(dados) }),
     trilhas: () => renderListaTrilhas(ctx),
-    praticar: () => renderPraticar(dados, salvarDados),
+    praticar: () => renderPraticar(dados, salvarDados, param),
     lab: () => renderLab(dados, salvarDados),
     perfil: () => renderPerfil(ctx),
     desempenho: () => renderDesempenho(dados, TRILHAS, { totalBadges: listarTodosBadges().length })

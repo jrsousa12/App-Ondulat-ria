@@ -72,8 +72,14 @@ export function sanitizarDados(bruto) {
     atividadesAbertas: {},
     questoes: {},
     historico: [],
-    cadernoErros: {}
+    cadernoErros: {},
+    treino: {}
   };
+
+  const tr = obj(d.treino);
+  if (typeof tr.dia === 'string' && DATA_DIA.test(tr.dia)) out.treino.dia = tr.dia;
+  if (tr.xp !== undefined) out.treino.xp = int(tr.xp, 0, 1000);
+  if (tr.recordeCronometrado !== undefined) out.treino.recordeCronometrado = int(tr.recordeCronometrado, 0, 100);
 
   for (const [id, bruta] of Object.entries(obj(d.trilhas))) {
     if (!trilhaOk(id)) continue;
@@ -205,7 +211,8 @@ function estadoInicial() {
     atividadesAbertas: {},
     questoes: {},
     historico: [],
-    cadernoErros: {}
+    cadernoErros: {},
+    treino: {}
   };
 }
 

@@ -2,6 +2,7 @@ import { esc, hojeLocal, localMaisDias } from './utils.js';
 import { confirmar } from './dialogos.js';
 import { renderDiario } from './diario.js';
 import { renderAbertas } from './abertas.js';
+import { renderTreino } from './treino.js';
 import { carregarJSON } from './conteudo.js';
 import { cabecalho, esqueleto } from './ui.js';
 
@@ -47,14 +48,17 @@ function aplicarResposta(estado, resposta) {
   return e;
 }
 
-export async function renderPraticar(dados, salvarDados) {
+const ABAS = ['treino', 'flash', 'diario', 'abertas'];
+
+export async function renderPraticar(dados, salvarDados, abaInicial = 'treino') {
   cleanupPraticar();
   const container = document.querySelector('#conteudo');
 
   container.innerHTML = `
     ${cabecalho({ rotulo: 'Praticar', titulo: 'Praticar', sub: 'Revise com flashcards, registre sons do dia a dia e responda atividades para o professor.' })}
     <div class="lab-tabs" role="tablist" aria-label="Modo de prática">
-      <button class="lab-tab ativo" data-sub="flash" role="tab" aria-selected="true">Flashcards</button>
+      <button class="lab-tab" data-sub="treino" role="tab" aria-selected="false">Treino</button>
+      <button class="lab-tab" data-sub="flash" role="tab" aria-selected="false">Flashcards</button>
       <button class="lab-tab" data-sub="diario" role="tab" aria-selected="false">Diário sonoro</button>
       <button class="lab-tab" data-sub="abertas" role="tab" aria-selected="false">Atividades abertas</button>
     </div>
@@ -79,6 +83,7 @@ export async function renderPraticar(dados, salvarDados) {
     if (tab === 'flash') await renderFlashcards(alvo, dados, salvarDados, aindaAtual);
     else if (tab === 'diario') renderDiario(alvo, dados, salvarDados);
     else if (tab === 'abertas') await renderAbertas(alvo, dados, salvarDados, aindaAtual);
+    else if (tab === 'treino') await renderTreino(alvo, dados, salvarDados, aindaAtual);
   }
 
   document.querySelectorAll('.lab-tab').forEach(b => {
@@ -86,7 +91,7 @@ export async function renderPraticar(dados, salvarDados) {
   });
 
   cleanupAtual = () => {};
-  await trocarAba('flash');
+  await trocarAba(ABAS.includes(abaInicial) ? abaInicial : 'treino');
 }
 
 async function renderFlashcards(container, dados, salvarDados, aindaAtual = () => true) {

@@ -882,6 +882,55 @@ a.trilha-card:focus-visible { outline: 2px solid var(--cor-trilha); outline-offs
 .flash-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--esp-1); margin-top: var(--esp-2); }
 .flash-pergunta-auto { flex-basis: 100%; text-align: center; color: var(--texto-fraco); font-size: 0.9rem; }
 
+/* ============ Treino, caderno de erros e frações ============ */
+.frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 2px; font-size: 0.88em; line-height: 1.15; }
+.frac > span:first-child { border-bottom: 1.5px solid currentColor; padding: 0 3px; }
+.frac > span:last-child { padding: 0 3px; }
+
+.home-estudo { padding: var(--esp-3); margin-bottom: var(--esp-3); border-radius: var(--raio-g); background: var(--bg-elev); border: 1px solid var(--borda); }
+.home-estudo h3 { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+.home-estudo h3 svg { width: 22px; height: 22px; fill: none; stroke: var(--ambar); stroke-width: 2.2; stroke-linejoin: round; }
+.home-estudo ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: var(--esp-2); }
+.home-estudo li a { display: flex; flex-direction: column; padding: 12px; border-radius: 14px; background: var(--bg); border: 1px solid var(--borda); color: var(--texto); text-decoration: none; }
+.home-estudo li a:hover { border-color: var(--ambar); }
+.home-estudo li strong { font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+.home-estudo li span { font-size: 0.78rem; color: var(--texto-fraco); }
+
+.treino-card .treino-topo { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 8px; }
+.treino-topo > svg, .treino-emoji { flex-shrink: 0; width: 48px; height: 48px; padding: 11px; border-radius: 14px; background: color-mix(in srgb, var(--ambar) 16%, transparent); color: var(--ambar-texto); fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.treino-emoji { display: grid; place-items: center; padding: 0; font-size: 1.5rem; }
+.treino-topo h3 { margin-bottom: 4px; }
+.treino-topo p { color: var(--texto-fraco); font-size: 0.92rem; margin: 0; }
+.treino-adaptativo { border-color: color-mix(in srgb, var(--ambar) 45%, var(--borda)); }
+.treino-info { font-size: 0.85rem; color: var(--texto-fraco); margin: 8px 0 12px; }
+.caderno-lista { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.caderno-item { padding: 10px 12px; border-radius: 12px; background: var(--bg); border-left: 4px solid var(--cor-trilha, var(--erro)); }
+.caderno-enunciado { display: block; font-size: 0.9rem; line-height: 1.4; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.caderno-meta { display: block; font-size: 0.75rem; color: var(--texto-fraco); margin-top: 4px; }
+.caderno-progresso { color: var(--sucesso-texto); letter-spacing: 2px; }
+
+.sessao-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.chip-aprof, .chip-caderno { padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+.chip-aprof { background: color-mix(in srgb, #A78BFA 18%, transparent); color: #A78BFA; }
+[data-tema="claro"] .chip-aprof { color: #6D28D9; }
+.chip-caderno { background: color-mix(in srgb, var(--erro) 14%, transparent); color: var(--erro-texto); }
+.btn-dica { margin-top: 4px; padding: 8px 14px; border-radius: 999px; border: 1px dashed var(--ambar); background: transparent; color: var(--ambar-texto); font: inherit; font-size: 0.9rem; font-weight: 700; cursor: pointer; }
+.dica { margin-top: 8px; padding: 10px 14px; border-radius: 12px; background: color-mix(in srgb, var(--ambar) 10%, transparent); font-size: 0.92rem; }
+.feedback-comentario { margin-top: 6px; font-weight: 600; }
+.feedback-caderno { margin-top: 8px; font-size: 0.88rem; font-weight: 700; }
+.cronometro { position: relative; height: 26px; margin-bottom: var(--esp-2); border-radius: 999px; background: var(--borda); overflow: hidden; }
+.cronometro > div { height: 100%; width: 100%; background: var(--sucesso); transition: width 200ms linear, background 300ms; }
+.cronometro > div.acabando { background: var(--erro); }
+.cronometro span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.8rem; font-weight: 800; color: var(--texto); }
+.resultado-recorde, .resultado-caderno { margin-top: var(--esp-1); color: var(--texto-fraco); }
+.ord-instrucao { color: var(--texto-fraco); font-size: 0.95rem; }
+
+@media (max-width: 420px) {
+  .etapas { gap: 4px; }
+  .etapas li { padding: 6px 7px; gap: 4px; font-size: 0.72rem; }
+  .etapas li span { width: 17px; height: 17px; font-size: 0.62rem; }
+}
+
 /* ============ Telas grandes: menu lateral e duas colunas ============ */
 @media (min-width: 960px) {
   body { padding-bottom: 24px; padding-left: 232px; }

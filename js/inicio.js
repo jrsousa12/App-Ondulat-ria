@@ -1,5 +1,5 @@
 /* Tela inicial. */
-import { esc } from './utils.js';
+import { esc, hojeLocal } from './utils.js';
 import { TRILHAS } from './conteudo.js';
 import { listarTodosBadges } from './badges.js';
 import { ICONES, iconeTrilha, etapas } from './ui.js';
@@ -69,6 +69,22 @@ function mapaJornada(dados) {
       ? `<li><a href="#trilha/${t.id}" class="home-mapa-item ${cls}" data-trilha="${t.id}" aria-label="${rotulo}">${miolo}</a></li>`
       : `<li><span class="home-mapa-item ${cls}" role="img" aria-label="${rotulo}">${miolo}</span></li>`;
   }).join('');
+}
+
+/** Cartão "Treino de hoje": caderno de erros e flashcards a revisar. */
+export function cartaoEstudo(dados) {
+  const caderno = Object.keys(dados.cadernoErros || {}).length;
+  const dia = hojeLocal();
+  const flash = Object.values(dados.flashcards || {}).filter(c => c.proximaRevisao && c.proximaRevisao <= dia).length;
+  return `
+    <section class="home-estudo" aria-labelledby="home-estudo-tit">
+      <h3 id="home-estudo-tit">${ICONES.treino}Treino de hoje</h3>
+      <ul>
+        <li><a href="#praticar/treino"><strong>${caderno}</strong><span>no caderno de erros</span></a></li>
+        <li><a href="#praticar/flash"><strong>${flash}</strong><span>flashcards para revisar</span></a></li>
+      </ul>
+      <a href="#praticar/treino" class="btn btn-grande">Treinar agora</a>
+    </section>`;
 }
 
 export function renderInicio(ctx, extras = {}) {

@@ -105,6 +105,31 @@ for (const t of TRILHAS) {
   }
 }
 
+const extra = ler('questoes-extra.json');
+if (extra) {
+  if (!Array.isArray(extra.questoes)) erros.push('questoes-extra.json: falta a lista "questoes"');
+  for (const q of extra.questoes || []) {
+    const onde = `questoes-extra.json ${q.id || '(sem id)'}`;
+    registrarId(q.id, onde);
+    if (!TRILHAS.includes(String(q.trilha))) erros.push(`${onde}: trilha inválida "${q.trilha}"`);
+    if (!['basico', 'aprofundamento'].includes(q.nivel)) erros.push(`${onde}: nível inválido "${q.nivel}"`);
+    if (!DIFICULDADES.has(q.dificuldade)) erros.push(`${onde}: dificuldade inválida`);
+    if (!texto(q.enunciado) || !texto(q.explicacao)) erros.push(`${onde}: enunciado ou explicação vazios`);
+    if (!texto(q.subtema)) erros.push(`${onde}: sem subtema`);
+    if (['multipla_escolha', 'calculo_guiado'].includes(q.tipo)) {
+      conferirAlternativas(q, onde);
+      for (const k of Object.keys(q.feedbackErro || {})) {
+        if (+k === q.correta || !(+k >= 0 && +k < (q.alternativas || []).length)) erros.push(`${onde}: comentário para alternativa inválida (${k})`);
+      }
+    } else if (q.tipo === 'verdadeiro_falso') {
+      if (typeof q.correta !== 'boolean') erros.push(`${onde}: correta deve ser true/false`);
+      for (const k of Object.keys(q.feedbackErro || {})) {
+        if (k !== String(!q.correta)) erros.push(`${onde}: comentário para a resposta certa (${k})`);
+      }
+    } else erros.push(`${onde}: tipo não suportado no treino "${q.tipo}"`);
+  }
+}
+
 const flash = ler('flashcards.json');
 if (flash) {
   if (!Array.isArray(flash.cartoes) || !flash.cartoes.length) erros.push('flashcards.json: sem cartões');

@@ -51,7 +51,12 @@ export const NOMES_SUBTEMA = {
   'timbre': 'Timbre',
   'transversal-longitudinal': 'Transversais × longitudinais',
   'vacuidade-som': 'Som no vácuo',
-  'velocidade': 'Velocidade de propagação'
+  'velocidade': 'Velocidade de propagação',
+  'doppler': 'Efeito Doppler',
+  'ondas-estacionarias': 'Ondas estacionárias',
+  'cordas-vibrantes': 'Cordas vibrantes',
+  'tubos-sonoros': 'Tubos sonoros',
+  'historia': 'Cientistas e história'
 };
 
 export function nomeSubtema(s) {

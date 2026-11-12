@@ -89,7 +89,8 @@ function confere(cond, msg) {
         const certa = q.alternativas[q.correta];
         const botoes = await pagina.$$('#alt-container .alternativa');
         for (const b of botoes) {
-          if ((await b.textContent()).replace(/^[A-F]\)\s*/, '').trim() === certa.trim()) { await b.click(); break; }
+          const norm = t => t.replace(/^[A-F]\)\s*/, '').replace(/[\s/]/g, '');
+          if (norm(await b.textContent()) === norm(certa)) { await b.click(); break; }
         }
       } else if (q.tipo === 'associacao') {
         for (let k = 0; k < q.colunaA.length; k++) {
@@ -112,6 +113,36 @@ function confere(cond, msg) {
     confere(salvo.trilhas['1'].concluida === true, 'trilha 1 marcada como concluída');
     confere(salvo.historico.length === 1 && Object.keys(salvo.questoes).length === 10, 'histórico e questões registrados');
     confere(salvo.badges.some(b => b.id === 'gabaritou'), 'conquista "Gabaritou" concedida');
+
+    console.log('Treino e caderno de erros');
+    async function responderSessao() {
+      let n = 0;
+      while (await pagina.$('.sessao')) {
+        if (await pagina.$('#alt-container .alternativa')) await pagina.click('#alt-container .alternativa >> nth=0');
+        else if (await pagina.$('#btn-responder-assoc')) {
+          for (const sel of await pagina.$$('#assoc-container select')) await sel.selectOption({ index: 1 });
+          await pagina.click('#btn-responder-assoc');
+        } else await pagina.click('#btn-responder-ord');
+        await pagina.click('#btn-proxima-q');
+        n++;
+      }
+      return n;
+    }
+    await pagina.evaluate(() => { location.hash = 'praticar/treino'; });
+    await pagina.waitForSelector('#btn-adaptativo');
+    await pagina.click('#btn-adaptativo');
+    const respondidas = await responderSessao();
+    await pagina.waitForSelector('.resultado-hero');
+    confere(respondidas === 10, 'treino adaptativo tem 10 questões');
+    const t1 = await pagina.evaluate(() => JSON.parse(localStorage.getItem('ondulatoria_dados_v1')).dados);
+    const placar = (await pagina.textContent('.pontuacao')).match(/(\d+)\/10/);
+    const qtdErros = 10 - Number(placar[1]);
+    confere(Object.keys(t1.cadernoErros).length === qtdErros, `os ${qtdErros} erros foram para o caderno`);
+    confere(t1.treino.xp <= 40, 'XP de treino respeita o limite diário');
+    if (qtdErros) {
+      await pagina.click('#btn-rever');
+      confere(await responderSessao() === qtdErros, '"Rever só as que errei" traz exatamente as erradas');
+    }
 
     console.log('Backup');
     const malicioso = JSON.stringify({ app: 'ondulatoria', para: 'backup', versao: 1, dados: {

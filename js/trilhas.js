@@ -5,6 +5,9 @@ import { carregarJSON, nomeSubtema } from './conteudo.js';
 import { iconeTrilha, esqueleto, etapas } from './ui.js';
 import * as fx from './fx.js';
 import { nivel } from './progresso.js';
+import { TIPOS_AUTO, embaralharQuestao, htmlPergunta, ligarResposta, verificarResposta, marcarResposta, formatarTexto } from './quiz.js';
+import { registrarResposta, registrarTentativaQuiz } from './registro.js';
+import { iniciarSessao } from './treino.js';
 
 let cleanupAtual = null;
 let trilhaToken = 0;
@@ -26,8 +29,6 @@ function calcularTempoEstimadoMs(secoes) {
   return Math.max(60_000, minutos * 60_000);
 }
 
-const TIPOS_AUTO = ['multipla_escolha', 'predicao', 'calculo_guiado', 'verdadeiro_falso', 'associacao', 'ordenacao'];
-const LETRAS = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 function sortearQuestoes(banco, total) {
   const auto = banco.filter(q => TIPOS_AUTO.includes(q.tipo));
@@ -54,82 +55,6 @@ function sortearQuestoes(banco, total) {
     while (escolhidas.length < total && restantes.length) escolhidas.push(restantes.pop());
   }
   return shuffle(escolhidas.slice(0, total));
-}
-
-/**
- * Embaralha alternativas e ajusta:
- * - `correta` para o novo índice
- * - `explicacao` para que referências "(a)", "(b)" etc. apontem para a nova posição
- * Também embaralha associação (colunaB) e ordenação (itens) para evitar triviais.
- */
-function embaralharQuestao(q) {
-  if (['multipla_escolha', 'predicao', 'calculo_guiado'].includes(q.tipo)) {
-    const n = q.alternativas.length;
-    const idx = q.alternativas.map((_, i) => i);
-    const shuffled = shuffle(idx);
-    // mapa[orig] = nova posição
-    const mapa = {};
-    shuffled.forEach((orig, nova) => { mapa[orig] = nova; });
-
-    let explicacao = q.explicacao || '';
-    explicacao = explicacao.replace(/\(([a-fA-F])\)/g, (match, letra) => {
-      const origIdx = LETRAS.indexOf(letra.toLowerCase());
-      if (origIdx < 0 || origIdx >= n) return match;
-      const novaIdx = mapa[origIdx];
-      return `(${LETRAS[novaIdx]})`;
-    });
-
-    return {
-      ...q,
-      alternativas: shuffled.map(i => q.alternativas[i]),
-      correta: shuffled.indexOf(q.correta),
-      explicacao
-    };
-  }
-
-  if (q.tipo === 'associacao') {
-    const idxB = q.colunaB.map((_, i) => i);
-    const shuffledB = shuffle(idxB);
-    const novaCorreta = q.correta.map(origIdx => shuffledB.indexOf(origIdx));
-    return {
-      ...q,
-      colunaB: shuffledB.map(i => q.colunaB[i]),
-      correta: novaCorreta
-    };
-  }
-
-  if (q.tipo === 'ordenacao') {
-    const idx = q.itens.map((_, i) => i);
-    const shuffled = shuffle(idx);
-    // Para cada item exibido (na posição nova i), qual é a posição correta (0-based)?
-    const novaCorreta = shuffled.map(origIdx => q.correta.indexOf(q.itens[origIdx]));
-    return {
-      ...q,
-      itens: shuffled.map(i => q.itens[i]),
-      correta: novaCorreta
-    };
-  }
-
-  return q;
-}
-
-const HISTORICO_MAX = 200;
-
-/** Estatística por questão: tentativas, acertos, último resultado e data. Alimenta a página de desempenho. */
-function registrarRespostaQuestao(dados, q, trilha, acertou) {
-  if (!dados.questoes || typeof dados.questoes !== 'object') dados.questoes = {};
-  const e = dados.questoes[q.id] || { trilha, subtema: q.subtema || '', tentativas: 0, acertos: 0 };
-  e.tentativas++;
-  if (acertou) e.acertos++;
-  e.ultimoAcerto = acertou;
-  e.em = new Date().toISOString();
-  dados.questoes[q.id] = e;
-}
-
-function registrarTentativaQuiz(dados, { trilha, acertos, total, tentativa }) {
-  if (!Array.isArray(dados.historico)) dados.historico = [];
-  dados.historico.push({ trilha, acertos, total, tentativa, em: new Date().toISOString() });
-  if (dados.historico.length > HISTORICO_MAX) dados.historico.splice(0, dados.historico.length - HISTORICO_MAX);
 }
 
 export async function renderTrilha(id, dados, salvarDados) {
@@ -415,96 +340,14 @@ export async function renderTrilha(id, dados, salvarDados) {
       <div class="quiz-progresso-barra"><div style="width:${(idx / total) * 100}%"></div></div>
     `;
 
-    let corpo = `<h3>${esc(q.enunciado)}</h3>`;
-
-    if (['multipla_escolha', 'predicao', 'calculo_guiado', 'verdadeiro_falso'].includes(q.tipo)) {
-      corpo += `<div id="alt-container"></div>`;
-    } else if (q.tipo === 'associacao') {
-      corpo += `<div id="assoc-container">
-        ${q.colunaA.map((item, i) => `
-          <div class="assoc-item">
-            <label for="assoc-${i}">${esc(item)}</label>
-            <select id="assoc-${i}" data-i="${i}">
-              <option value="">— selecione —</option>
-              ${q.colunaB.map((op, j) => `<option value="${j}">${esc(op)}</option>`).join('')}
-            </select>
-          </div>`).join('')}
-      </div>
-      <div class="btn-grupo"><button class="btn" id="btn-responder-assoc">Responder</button></div>`;
-    } else if (q.tipo === 'ordenacao') {
-      corpo += `<p style="color:var(--texto-fraco);font-size:0.95rem">Atribua a posição de cada item (1 = primeiro).</p>
-        <div id="ord-container">
-        ${q.itens.map((item, i) => `
-          <div class="ord-item">
-            <span>${esc(item)}</span>
-            <select data-i="${i}" class="ord-select">
-              ${q.itens.map((_, j) => `<option value="${j + 1}">${j + 1}º</option>`).join('')}
-            </select>
-          </div>`).join('')}
-        </div>
-        <div class="btn-grupo"><button class="btn" id="btn-responder-ord">Responder</button></div>`;
-    } else {
-      corpo += `<p>Formato não suportado.</p>`;
-    }
-
     conteudo.innerHTML = `
       ${header}
       <section class="card card-pergunta">
-        ${corpo}
+        ${htmlPergunta(q)}
         <div id="feedback-quiz"></div>
       </section>
     `;
-
-    if (['multipla_escolha', 'predicao', 'calculo_guiado'].includes(q.tipo)) {
-      const alts = document.getElementById('alt-container');
-      q.alternativas.forEach((txt, i) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'alternativa';
-        const letra = LETRAS[i].toUpperCase();
-        b.innerHTML = `<strong>${letra})</strong> ${esc(txt)}`;
-        b.addEventListener('click', () => responderQuiz('mc', i));
-        alts.appendChild(b);
-      });
-    } else if (q.tipo === 'verdadeiro_falso') {
-      const alts = document.getElementById('alt-container');
-      [['Verdadeiro', true], ['Falso', false]].forEach(([txt, val]) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'alternativa';
-        b.textContent = txt;
-        b.addEventListener('click', () => responderQuiz('vf', val));
-        alts.appendChild(b);
-      });
-    } else if (q.tipo === 'associacao') {
-      document.getElementById('btn-responder-assoc').addEventListener('click', () => {
-        const selects = document.querySelectorAll('#assoc-container select');
-        const resposta = Array.from(selects).map(s => s.value === '' ? -1 : parseInt(s.value, 10));
-        if (resposta.some(v => v < 0)) { avisar('Selecione uma opção para cada item.', 'erro'); return; }
-        responderQuiz('assoc', resposta);
-      });
-    } else if (q.tipo === 'ordenacao') {
-      document.getElementById('btn-responder-ord').addEventListener('click', () => {
-        const selects = document.querySelectorAll('#ord-container select');
-        const ordem = Array.from(selects).map(s => parseInt(s.value, 10) - 1);
-        if (new Set(ordem).size !== ordem.length) { avisar('Cada item precisa de uma posição diferente.', 'erro'); return; }
-        responderQuiz('ord', ordem);
-      });
-    }
-  }
-
-  function verificarResposta(q, tipo, resposta) {
-    if (tipo === 'mc') return resposta === q.correta;
-    if (tipo === 'vf') return resposta === q.correta;
-    if (tipo === 'assoc') {
-      if (!Array.isArray(resposta) || resposta.length !== q.correta.length) return false;
-      return resposta.every((v, i) => v === q.correta[i]);
-    }
-    if (tipo === 'ord') {
-      if (!Array.isArray(resposta) || resposta.length !== q.itens.length) return false;
-      return resposta.every((pos, i) => pos === q.correta[i]);
-    }
-    return false;
+    ligarResposta(conteudo, q, responderQuiz);
   }
 
   function responderQuiz(tipo, resposta) {
@@ -512,7 +355,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     const acertou = verificarResposta(q, tipo, resposta);
     const tempoMs = Date.now() - estado.inicioQuestaoMs;
     estado.respostasQuiz.push({ id: q.id, acertou, tempoMs, tipo });
-    registrarRespostaQuestao(dados, q, id, acertou);
+    const caderno = registrarResposta(dados, q, id, acertou);
 
     if (tempoMs < 4000) {
       dados.flags = dados.flags || [];
@@ -520,31 +363,14 @@ export async function renderTrilha(id, dados, salvarDados) {
       salvarDados();
     }
 
-    document.querySelectorAll('.alternativa').forEach(b => b.disabled = true);
-    document.querySelectorAll('#assoc-container select, #ord-container select').forEach(s => s.disabled = true);
-    const btnR = document.getElementById('btn-responder-assoc') || document.getElementById('btn-responder-ord');
-    if (btnR) btnR.disabled = true;
-
-    if (tipo === 'mc') {
-      document.querySelectorAll('#alt-container .alternativa').forEach((b, i) => {
-        if (i === q.correta) b.classList.add('correta');
-        else if (i === resposta) b.classList.add('incorreta');
-      });
-    } else if (tipo === 'vf') {
-      const corretaIdx = q.correta ? 0 : 1;
-      const escolhaIdx = resposta ? 0 : 1;
-      document.querySelectorAll('#alt-container .alternativa').forEach((b, i) => {
-        if (i === corretaIdx) b.classList.add('correta');
-        else if (i === escolhaIdx) b.classList.add('incorreta');
-      });
-    }
+    marcarResposta(conteudo, q, tipo, resposta);
 
     if (acertou) fx.acerto(); else fx.erro();
     const primeiraTentativa = estado.tentativasQuiz === 1;
     const profMode = estaEmModoProfessor();
     const mostrarExplicacao = !primeiraTentativa || profMode || acertou;
     const explicacao = mostrarExplicacao
-      ? `<p style="margin-top:6px">${esc(q.explicacao || '')}</p>`
+      ? `<p style="margin-top:6px">${formatarTexto(q.explicacao || '')}</p>`
       : `<p style="margin-top:6px;color:var(--texto-fraco)">Conceito a revisar: <strong>${esc(nomeSubtema(q.subtema))}</strong>. A explicação completa aparece no final do quiz.</p>`;
 
     const feedback = document.getElementById('feedback-quiz');
@@ -552,6 +378,8 @@ export async function renderTrilha(id, dados, salvarDados) {
       <div class="feedback ${acertou ? 'ok' : 'erro'}">
         <strong>${acertou ? '✓ Correto!' : '✗ Não foi essa.'}</strong>
         ${explicacao}
+        ${caderno === 'entrou' ? '<p class="feedback-caderno">📒 Guardada no seu caderno de erros para treinar depois.</p>' : ''}
+        ${caderno === 'saiu' ? '<p class="feedback-caderno">🎉 Saiu do caderno de erros: 2 acertos seguidos!</p>' : ''}
       </div>
       <div class="btn-grupo">
         <button class="btn" id="btn-proxima-q">${estado.indiceQuestao + 1 < estado.questoesQuiz.length ? 'Próxima' : 'Ver resultado'}</button>
@@ -623,6 +451,7 @@ export async function renderTrilha(id, dados, salvarDados) {
       ? `<div class="resultado-xp">+${xpDelta} XP</div>`
       : `<div class="resultado-xp sem-ganho">0 XP nesta tentativa<br><small>Você já tinha ${xpAnterior} XP nesta trilha</small></div>`;
 
+    const erradas = estado.questoesQuiz.filter((_, i) => !estado.respostasQuiz[i].acertou);
     const revisaoHtml = estado.questoesQuiz.map((q, i) => {
       const r = estado.respostasQuiz[i];
       return `
@@ -631,8 +460,8 @@ export async function renderTrilha(id, dados, salvarDados) {
             <span>${r.acertou ? '✓' : '✗'} Questão ${i + 1} · ${esc(nomeSubtema(q.subtema))}</span>
             <span>${formatarDuracao(r.tempoMs)}</span>
           </div>
-          <p style="font-size:0.95rem">${esc(q.enunciado)}</p>
-          <p style="margin-top:8px;font-size:0.95rem;color:var(--texto-fraco)"><strong>Explicação:</strong> ${esc(q.explicacao || '')}</p>
+          <p style="font-size:0.95rem">${formatarTexto(q.enunciado)}</p>
+          <p style="margin-top:8px;font-size:0.95rem;color:var(--texto-fraco)"><strong>Explicação:</strong> ${formatarTexto(q.explicacao || '')}</p>
         </div>`;
     }).join('');
 
@@ -645,6 +474,7 @@ export async function renderTrilha(id, dados, salvarDados) {
         ${xpHtml}
         <div class="btn-grupo" style="justify-content:center;margin-top:var(--esp-3)">
           <a href="#trilhas" class="btn">Voltar às trilhas</a>
+          ${erradas.length ? `<button class="btn btn-secundario" id="btn-rever-erros">🔎 Rever só as ${erradas.length} que errei</button>` : ''}
           <button class="btn btn-secundario" id="btn-refazer">Refazer o quiz</button>
           <button class="btn btn-secundario" id="btn-reler-texto">Reler o texto</button>
         </div>
@@ -661,6 +491,12 @@ export async function renderTrilha(id, dados, salvarDados) {
       window.scrollTo(0, 0);
       estado.tentativasQuiz++;
       iniciarQuiz();
+    });
+    document.getElementById('btn-rever-erros')?.addEventListener('click', () => {
+      window.scrollTo(0, 0);
+      iniciarSessao(conteudo, dados, salvarDados, erradas.map(q => ({ ...q, trilha: id })), {
+        titulo: 'Revendo os erros', modo: 'revisao', aoTerminar: () => renderTrilha(id, dados, salvarDados)
+      });
     });
     document.getElementById('btn-reler-texto').addEventListener('click', () => {
       window.scrollTo(0, 0);

@@ -1,0 +1,1506 @@
+{
+  "schemaVersion": 1,
+  "origem": "Plataforma de Física (perguntas-onda.js), do mesmo autor. Usadas no Treino; não entram nos quizzes das trilhas.",
+  "questoes": [
+    {
+      "id": "x-o001",
+      "trilha": "1",
+      "subtema": "classificacao-geral",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Como é classificada a onda sonora que se propaga no ar?",
+      "explicacao": "O som precisa de um meio material (é mecânico). No ar, as partículas vibram na mesma direção em que a onda avança (é longitudinal).",
+      "dica": "Pense no que vibra e em que direção.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Mecânica e longitudinal.",
+        "Mecânica e transversal.",
+        "Eletromagnética e longitudinal.",
+        "Eletromagnética e transversal."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Ondas transversais têm vibração perpendicular à propagação, o que não ocorre com o som no ar.",
+        "2": "O som não é eletromagnético: precisa de meio material.",
+        "3": "O som não é eletromagnético nem transversal no ar."
+      }
+    },
+    {
+      "id": "x-o002",
+      "trilha": "1",
+      "subtema": "classificacao-geral",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "O som pode se propagar no vácuo, como a luz do Sol.",
+      "explicacao": "Falso. O som é uma onda mecânica e precisa de um meio material. A luz é eletromagnética e se propaga no vácuo.",
+      "dica": "Compare ondas mecânicas e eletromagnéticas.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "O som precisa de um meio (sólido, líquido ou gás). No vácuo não há partículas para transmitir a vibração."
+      }
+    },
+    {
+      "id": "x-o003",
+      "trilha": "1",
+      "subtema": "classificacao-geral",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "A luz de uma explosão no espaço chegaria até nós, mas o seu estrondo não. Por quê?",
+      "explicacao": "O som é uma onda mecânica: não existe no vácuo. A luz é uma onda eletromagnética e não depende de meio.",
+      "dica": "Pense no que cada onda precisa para se propagar.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "A luz é onda eletromagnética e se propaga no vácuo, enquanto o som é onda mecânica e precisa de meio material.",
+        "O som é muito mais lento e se perde no caminho.",
+        "A luz é longitudinal e o som é transversal.",
+        "No espaço há ar, mas ele é rarefeito demais para a luz."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A velocidade menor não impede o som de chegar. O que impede é a falta de meio.",
+        "2": "O som no ar é longitudinal, e a luz é transversal.",
+        "3": "O espaço entre os astros é praticamente vácuo."
+      }
+    },
+    {
+      "id": "x-o004",
+      "trilha": "1",
+      "subtema": "comprimento-onda",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Em uma onda sonora no ar, a distância entre duas compressões consecutivas é:",
+      "explicacao": "Em uma onda longitudinal, o comprimento de onda é a distância entre duas compressões (ou duas rarefações) consecutivas.",
+      "dica": "Pense na distância que se repete na onda.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "O comprimento de onda.",
+        "O período da onda.",
+        "A amplitude da onda.",
+        "A frequência da onda."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "O período é um intervalo de tempo, não uma distância.",
+        "2": "A amplitude mede a intensidade da vibração.",
+        "3": "A frequência mede quantas vezes a onda se repete por segundo."
+      }
+    },
+    {
+      "id": "x-o005",
+      "trilha": "2",
+      "subtema": "equacao-fundamental",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Uma onda sonora tem frequência de 680 Hz e comprimento de onda de 0,5 m. Qual é a velocidade de propagação dessa onda?",
+      "explicacao": "v = λ · f = 0,5 · 680 = 340 m/s.",
+      "dica": "Use a equação fundamental das ondas.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "340 m/s",
+        "1360 m/s",
+        "170 m/s",
+        "680,5 m/s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Dividiu a frequência pelo comprimento de onda.",
+        "2": "Dividiu o produto por 2.",
+        "3": "Somou λ e f em vez de multiplicar."
+      }
+    },
+    {
+      "id": "x-o006",
+      "trilha": "2",
+      "subtema": "periodo",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Uma fonte sonora vibra 250 vezes por segundo (250 Hz). Qual é o período dessa vibração?",
+      "explicacao": "T = 1 / f = 1 / 250 = 4,0 × 10⁻³ s.",
+      "dica": "O período é o inverso da frequência.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "4,0 × 10⁻³ s",
+        "250 s",
+        "0,25 s",
+        "25 s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Confundiu período com frequência.",
+        "2": "Errou a potência de dez ao inverter.",
+        "3": "Dividiu por 10 em vez de inverter."
+      }
+    },
+    {
+      "id": "x-o007",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Em qual dos meios abaixo o som se propaga com maior velocidade?",
+      "explicacao": "Em geral, v(sólidos) > v(líquidos) > v(gases). No aço o som chega a cerca de 5 900 m/s; na água, a 1 500 m/s; no ar, a 340 m/s. No vácuo não há propagação.",
+      "dica": "Compare sólido, líquido e gás.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Aço.",
+        "Água.",
+        "Ar.",
+        "Vácuo."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A água é mais rápida que o ar, mas mais lenta que o aço.",
+        "2": "O ar é o mais lento dos três meios materiais.",
+        "3": "No vácuo o som não se propaga."
+      }
+    },
+    {
+      "id": "x-o008",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um som passa do ar para a água. Qual grandeza da onda sonora se mantém?",
+      "explicacao": "A frequência é determinada pela fonte e não muda ao mudar de meio. Como v = λ·f, a velocidade aumenta na água e o comprimento de onda aumenta junto.",
+      "dica": "Quem fixa a frequência: a fonte ou o meio?",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "A frequência.",
+        "A velocidade.",
+        "O comprimento de onda.",
+        "A velocidade e o comprimento de onda."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A velocidade do som é maior na água do que no ar.",
+        "2": "O comprimento de onda cresce, pois v cresce com f fixa.",
+        "3": "Nenhuma das duas se mantém: só a frequência permanece."
+      }
+    },
+    {
+      "id": "x-o009",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Com o aumento da temperatura do ar, a velocidade do som nele:",
+      "explicacao": "No ar, o som se propaga mais rápido quando a temperatura sobe: cerca de 331 m/s a 0 °C e 340 m/s em torno de 15 °C, valor adotado nas questões.",
+      "dica": "Pense nas partículas mais agitadas.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Aumenta.",
+        "Diminui.",
+        "Não muda.",
+        "Fica nula."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "É o contrário: o ar mais quente transmite a vibração mais depressa.",
+        "2": "Há variação, de cerca de 0,6 m/s a cada grau Celsius.",
+        "3": "A velocidade nunca se anula no ar."
+      }
+    },
+    {
+      "id": "x-o010",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "O som viaja bem mais rápido no aço do que no ar. Qual é a explicação correta?",
+      "explicacao": "O que aumenta a velocidade do som é a rigidez do meio (pouca compressibilidade). Para rigidez semelhante, uma densidade maior deixa o som mais lento. O aço vence pela rigidez.",
+      "dica": "Pense em rigidez, não só em densidade.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "O aço é muito mais rígido, ou seja, bem menos compressível que o ar.",
+        "O aço é mais denso, e a densidade maior sempre aumenta a velocidade do som.",
+        "O som tem frequência maior dentro do aço.",
+        "O aço não tem partículas que atrapalhem a vibração."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A densidade maior, sozinha, tende a reduzir a velocidade do som. Armadilha comum.",
+        "2": "A frequência é da fonte e não muda ao entrar no aço.",
+        "3": "O aço tem partículas, e é por elas que a vibração se transmite."
+      }
+    },
+    {
+      "id": "x-o011",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Um raio cai a 1700 m de uma pessoa. Considerando a luz instantânea e o som a 340 m/s no ar, quanto tempo depois do clarão ela ouve o trovão?",
+      "explicacao": "t = d / v = 1700 / 340 = 5,0 s.",
+      "dica": "Use v = d / t e isole o tempo.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "5,0 s",
+        "0,2 s",
+        "50 s",
+        "5,8 × 10⁵ s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Inverteu a divisão (v / d).",
+        "2": "Errou a potência de dez no resultado.",
+        "3": "Multiplicou a distância pela velocidade."
+      }
+    },
+    {
+      "id": "x-o012",
+      "trilha": "3",
+      "subtema": "velocidade",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um mergulhador emite um som de 500 Hz na água, onde o som viaja a 1500 m/s. Qual é o comprimento de onda desse som na água?",
+      "explicacao": "λ = v / f = 1500 / 500 = 3,0 m.",
+      "dica": "Isole λ em v = λ·f.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "3,0 m",
+        "7,5 × 10⁵ m",
+        "0,33 m",
+        "1000 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Multiplicou v por f em vez de dividir.",
+        "2": "Inverteu a divisão (f / v).",
+        "3": "Subtraiu f de v."
+      }
+    },
+    {
+      "id": "x-o013",
+      "trilha": "4",
+      "subtema": "intensidade",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Um pai diz ao filho: “Abaixe o som, está muito alto!”. Em Física, qual qualidade do som deve ser reduzida para atender o pedido?",
+      "explicacao": "O pai quer um som menos forte, ou seja, de menor intensidade (menor amplitude). Em Física, “alto” significa agudo, ligado à frequência.",
+      "dica": "Em Física, “alto” e “forte” são coisas diferentes.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "A intensidade (sonoridade).",
+        "A altura.",
+        "O timbre.",
+        "A velocidade de propagação."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Altura é a frequência: grave ou agudo. Abaixar a altura deixaria o som mais grave, não mais fraco.",
+        "2": "O timbre é a “cor” do som e não define se ele é forte.",
+        "3": "A velocidade depende do meio, não do volume."
+      }
+    },
+    {
+      "id": "x-o014",
+      "trilha": "4",
+      "subtema": "timbre",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Uma flauta e um piano tocam a mesma nota musical, com a mesma intensidade. Que qualidade do som permite distinguir os dois instrumentos?",
+      "explicacao": "As duas fontes têm a mesma frequência (mesma altura) e a mesma intensidade. O que as distingue é o timbre, determinado pela forma da onda, isto é, pelos harmônicos que acompanham a nota.",
+      "dica": "Se altura e intensidade são iguais, o que sobra?",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "O timbre.",
+        "A altura.",
+        "A intensidade.",
+        "A velocidade de propagação."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A altura é a mesma, pois é a mesma nota.",
+        "2": "A intensidade foi dada como igual.",
+        "3": "A velocidade no ar é a mesma para os dois sons."
+      }
+    },
+    {
+      "id": "x-o015",
+      "trilha": "4",
+      "subtema": "altura",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Em geral, a voz de uma mulher é mais aguda que a de um homem. Isso significa que, em média, ela tem:",
+      "explicacao": "Som agudo é som de frequência mais alta. A altura do som depende da frequência.",
+      "dica": "Agudo e grave se relacionam com a frequência.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Frequência maior.",
+        "Frequência menor.",
+        "Intensidade menor.",
+        "Velocidade de propagação maior."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Frequência menor corresponde ao som grave.",
+        "2": "Intensidade é outra qualidade, ligada à amplitude.",
+        "3": "Todos os sons têm a mesma velocidade no ar."
+      }
+    },
+    {
+      "id": "x-o016",
+      "trilha": "4",
+      "subtema": "qualidades",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Dois sons com a mesma altura têm sempre a mesma intensidade.",
+      "explicacao": "Falso. A altura depende da frequência e a intensidade depende da amplitude. Podemos tocar a mesma nota (mesma frequência) mais forte ou mais fraco.",
+      "dica": "Altura e intensidade dependem de grandezas diferentes.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "Uma mesma nota pode ser tocada com amplitudes diferentes, resultando em intensidades diferentes."
+      }
+    },
+    {
+      "id": "x-o017",
+      "trilha": "4",
+      "subtema": "qualidades",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um som agudo se propaga mais rápido no ar do que um som grave.",
+      "explicacao": "Falso. No mesmo meio e à mesma temperatura, todos os sons têm a mesma velocidade. O que varia com a altura é a frequência (e o comprimento de onda).",
+      "dica": "A velocidade depende do meio, não da frequência.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "A velocidade do som no ar não depende da frequência."
+      }
+    },
+    {
+      "id": "x-o018",
+      "trilha": "4",
+      "subtema": "intensidade",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Ao dobrar a amplitude de uma onda sonora, mantendo a frequência, o som fica:",
+      "explicacao": "A amplitude está ligada à intensidade (energia transportada). Como a frequência não mudou, a altura é a mesma.",
+      "dica": "A amplitude se relaciona com qual qualidade?",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Mais intenso, com a mesma altura.",
+        "Mais agudo, com a mesma intensidade.",
+        "Mais grave, com a mesma intensidade.",
+        "Com outro timbre e a mesma intensidade."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A altura depende da frequência, que se manteve.",
+        "2": "Um som mais grave exigiria frequência menor.",
+        "3": "O timbre depende da forma da onda."
+      }
+    },
+    {
+      "id": "x-o019",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "A intensidade de um som é multiplicada por 100. Em quantos decibéis aumenta o nível sonoro?",
+      "explicacao": "O nível sonoro é logarítmico: β = 10·log(I / I₀). Multiplicar a intensidade por 10 soma 10 dB. Multiplicar por 100 (dois fatores de 10) soma 20 dB.",
+      "dica": "Cada fator 10 na intensidade soma 10 dB.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "20 dB",
+        "100 dB",
+        "2 dB",
+        "10 dB"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Confundiu o fator da intensidade com o aumento em dB.",
+        "2": "O aumento é de 10 dB por fator 10; aqui há dois fatores 10.",
+        "3": "Isso corresponde a multiplicar a intensidade por 10 apenas."
+      }
+    },
+    {
+      "id": "x-o020",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Duas fontes iguais, cada uma produzindo 70 dB, tocando juntas, produzem 140 dB.",
+      "explicacao": "Falso. A intensidade soma, mas o nível sonoro é logarítmico. O dobro da intensidade acrescenta cerca de 3 dB: o resultado é 73 dB.",
+      "dica": "Decibel não se soma como número comum.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "Dobrar a intensidade soma cerca de 3 dB. Duas fontes de 70 dB dão aproximadamente 73 dB."
+      }
+    },
+    {
+      "id": "x-o021",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "A intensidade sonora de uma fonte pontual, em um local aberto, é medida a certa distância. Se essa distância for dobrada, a intensidade será:",
+      "explicacao": "Para fonte pontual, I = P / (4πr²). Com r dobrado, r² fica 4 vezes maior e a intensidade fica 4 vezes menor.",
+      "dica": "A intensidade varia com o quadrado da distância.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Dividida por 4.",
+        "Dividida por 2.",
+        "Igual à anterior.",
+        "Multiplicada por 2."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Isso valeria se a intensidade fosse inversamente proporcional a r, e não a r².",
+        "2": "A distância maior reduz a intensidade.",
+        "3": "A intensidade só aumentaria se a fonte se aproximasse."
+      }
+    },
+    {
+      "id": "x-o022",
+      "trilha": "6",
+      "subtema": "saude",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Segundo normas de saúde ocupacional, a exposição prolongada a níveis sonoros acima de cerca de 85 dB pode causar perda auditiva. Isso mostra que:",
+      "explicacao": "O decibel mede o nível de intensidade, e a exposição prolongada a níveis altos danifica as células auditivas. A faixa audível é de 20 Hz a 20 kHz.",
+      "dica": "O decibel está ligado à intensidade.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Sons de intensidade elevada por muito tempo podem danificar o ouvido.",
+        "Só sons de frequência muito baixa fazem mal ao ouvido.",
+        "O nível em dB mede a altura do som.",
+        "O ouvido humano ouve qualquer frequência."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "O dano depende principalmente do nível de intensidade.",
+        "2": "O decibel mede nível de intensidade, não altura.",
+        "3": "A audição humana vai de 20 Hz a 20 kHz."
+      }
+    },
+    {
+      "id": "x-o023",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Um som tem intensidade de 10⁻⁵ W/m². Qual é o seu nível sonoro? (I₀ = 10⁻¹² W/m²)",
+      "explicacao": "β = 10·log(I / I₀) = 10·log(10⁻⁵ / 10⁻¹²) = 10·log(10⁷) = 70 dB.",
+      "dica": "Use β = 10·log(I / I₀).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "70 dB",
+        "7 dB",
+        "−50 dB",
+        "120 dB"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esqueceu o fator 10 na frente do logaritmo.",
+        "2": "Não dividiu por I₀ (usou só o expoente de I).",
+        "3": "Somou os expoentes em vez de subtrair."
+      }
+    },
+    {
+      "id": "x-o024",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Um som tem nível sonoro de 60 dB. Qual é a sua intensidade? (I₀ = 10⁻¹² W/m²)",
+      "explicacao": "60 = 10·log(I / 10⁻¹²), logo I / 10⁻¹² = 10⁶ e I = 1,0 × 10⁻⁶ W/m².",
+      "dica": "Desfaça o logaritmo: I = I₀ · 10^(β/10).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "1,0 × 10⁻⁶ W/m²",
+        "1,0 × 10⁻⁵ W/m²",
+        "6,0 × 10⁻¹¹ W/m²",
+        "1,0 × 10⁻⁷ W/m²"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Errou o expoente ao desfazer o logaritmo.",
+        "2": "Multiplicou β por I₀ em vez de usar a potência de 10.",
+        "3": "Usou 10^(β/10) com um expoente a menos."
+      }
+    },
+    {
+      "id": "x-o025",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma fonte sonora pontual emite uma potência de 10 W. Qual é a intensidade a 2 m dela, sem reflexões? (use π ≈ 3)",
+      "explicacao": "I = P / (4πr²) = 10 / (4 · 3 · 4) = 0,208 W/m².",
+      "dica": "A área da esfera é 4πr².",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "0,208 W/m²",
+        "0,417 W/m²",
+        "0,625 W/m²",
+        "2,5 W/m²"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esqueceu de elevar r ao quadrado.",
+        "2": "Esqueceu o fator π.",
+        "3": "Dividiu a potência só por r²."
+      }
+    },
+    {
+      "id": "x-o026",
+      "trilha": "5",
+      "subtema": "eco",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "O som refletido em um obstáculo chega ao ouvinte pelo menos 0,1 s depois do som direto. Esse fenômeno é chamado de:",
+      "explicacao": "O ouvido humano separa dois sons que chegam com intervalo de pelo menos 0,1 s. Nesse caso, ouve-se o som refletido separadamente do direto: é o eco.",
+      "dica": "Pense em separar o som refletido do direto.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Eco.",
+        "Reverberação.",
+        "Reforço.",
+        "Refração."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Na reverberação o intervalo é menor que 0,1 s e o som parece prolongado.",
+        "2": "No reforço o intervalo é quase nulo e só aumenta a intensidade.",
+        "3": "Refração é mudança de meio, não reflexão."
+      }
+    },
+    {
+      "id": "x-o027",
+      "trilha": "5",
+      "subtema": "reverberacao",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Em um auditório, o som refletido chega ao ouvinte quase imediatamente depois do som direto (menos de 0,1 s), e ele tem a impressão de que o som se prolonga. Esse fenômeno é a:",
+      "explicacao": "Quando a reflexão chega com intervalo menor que 0,1 s, os dois sons se fundem e o som parece prolongado: é a reverberação.",
+      "dica": "O intervalo é menor que o necessário para o eco.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Reverberação.",
+        "Interferência destrutiva.",
+        "Difração.",
+        "Ressonância."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Na interferência destrutiva as ondas se cancelam.",
+        "2": "Difração é o contorno de obstáculos.",
+        "3": "Ressonância ocorre quando a frequência externa é igual à natural."
+      }
+    },
+    {
+      "id": "x-o028",
+      "trilha": "5",
+      "subtema": "eco",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Para ouvir um eco, o obstáculo precisa estar a pelo menos 17 m porque o som deve percorrer 17 m no total.",
+      "explicacao": "Falso. O som vai até o obstáculo e volta: o percurso total é de 34 m (340 m/s · 0,1 s). Por isso o obstáculo deve estar a pelo menos 17 m.",
+      "dica": "Lembre da ida e da volta.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "Os 17 m são só a distância até o obstáculo. O som percorre 34 m, ida e volta, em 0,1 s."
+      }
+    },
+    {
+      "id": "x-o029",
+      "trilha": "5",
+      "subtema": "eco",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Considere a velocidade do som no ar igual a 340 m/s. Qual é a menor distância entre uma pessoa e um obstáculo refletor para que ela ouça o eco de sua voz? (intervalo mínimo de 0,1 s)",
+      "explicacao": "O som vai e volta: 2d = v·Δt = 340 · 0,1 = 34 m. Então d = 17 m.",
+      "dica": "Lembre que o percurso é de ida e volta.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "17 m",
+        "34 m",
+        "3,4 m",
+        "68 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esqueceu de dividir por 2 (ida e volta).",
+        "2": "Errou a potência de dez ao multiplicar.",
+        "3": "Multiplicou por 2 em vez de dividir."
+      }
+    },
+    {
+      "id": "x-o030",
+      "trilha": "5",
+      "subtema": "eco",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um sonar emite um pulso de ultrassom e recebe o eco 0,8 s depois. Considerando a velocidade do som na água igual a 1500 m/s, qual é a profundidade do fundo?",
+      "explicacao": "O pulso vai e volta: 2d = v·Δt = 1500 · 0,8 = 1200 m. Então d = 600 m.",
+      "dica": "Divida o percurso por 2.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "600 m",
+        "1200 m",
+        "300 m",
+        "1875 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Usou o percurso de ida e volta como profundidade.",
+        "2": "Dividiu por 4 em vez de por 2.",
+        "3": "Dividiu a velocidade pelo tempo."
+      }
+    },
+    {
+      "id": "x-o031",
+      "trilha": "5",
+      "subtema": "eco",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um garoto grita diante de uma montanha e ouve o eco 4 s depois. Com o som a 340 m/s, a que distância está a montanha?",
+      "explicacao": "2d = v·Δt = 340 · 4 = 1360 m. Então d = 680 m.",
+      "dica": "Metade do percurso total de ida e volta.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "680 m",
+        "1360 m",
+        "85 m",
+        "340 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Usou o percurso total, sem dividir por 2.",
+        "2": "Dividiu o percurso por 16 e não por 2.",
+        "3": "Usou só a velocidade do som."
+      }
+    },
+    {
+      "id": "x-o032",
+      "trilha": "4",
+      "subtema": "infrassom-ultrassom",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Morcegos e golfinhos se orientam emitindo sons de frequência acima de 20 kHz e analisando os ecos. Esses sons são chamados de:",
+      "explicacao": "Frequências acima de 20 kHz estão acima do limite da audição humana: são ultrassons. Eles refletem nos obstáculos e voltam como eco, o que permite localizar presas e objetos.",
+      "dica": "Acima ou abaixo da faixa audível?",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Ultrassons.",
+        "Infrassons.",
+        "Sons graves audíveis.",
+        "Ondas eletromagnéticas."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Infrassons têm frequência abaixo de 20 Hz.",
+        "2": "Sons acima de 20 kHz não são audíveis pelos humanos.",
+        "3": "São ondas mecânicas, e não eletromagnéticas."
+      }
+    },
+    {
+      "id": "x-o033",
+      "trilha": "5",
+      "subtema": "difracao",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Uma pessoa ouve a conversa de colegas que estão do outro lado de um muro, mas não consegue vê-los. Qual fenômeno explica por que o som chega até ela?",
+      "explicacao": "O comprimento de onda do som vai de centímetros a vários metros, comparável ao tamanho de obstáculos comuns. Por isso ele contorna (difrata) o muro. A luz tem comprimento de onda minúsculo e quase não contorna.",
+      "dica": "Compare o comprimento de onda do som com o do muro.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Difração: o som contorna o obstáculo, pois seu comprimento de onda é comparável às dimensões do muro.",
+        "Refração: o som atravessa o muro sem mudar de direção.",
+        "Polarização: o muro filtra a vibração.",
+        "Efeito Doppler: a pessoa se aproxima da fonte."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Refração é mudança de velocidade ao trocar de meio.",
+        "2": "Polarização só ocorre em ondas transversais, e o som no ar é longitudinal.",
+        "3": "O efeito Doppler envolve movimento relativo, que aqui não existe."
+      }
+    },
+    {
+      "id": "x-o034",
+      "trilha": "5",
+      "subtema": "interferencia",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Fones de ouvido com cancelamento de ruído captam o som do ambiente e emitem uma onda com a mesma frequência e amplitude, mas em oposição de fase. Qual fenômeno reduz o ruído?",
+      "explicacao": "Duas ondas iguais em oposição de fase se anulam ao se superpor. É a interferência destrutiva.",
+      "dica": "Ondas em oposição de fase se somam ou se anulam?",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Interferência destrutiva.",
+        "Interferência construtiva.",
+        "Reverberação.",
+        "Difração."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Na construtiva as ondas estão em fase e o som aumenta.",
+        "2": "Reverberação é prolongamento do som por reflexões.",
+        "3": "Difração é o contorno de obstáculos."
+      }
+    },
+    {
+      "id": "x-o035",
+      "trilha": "5",
+      "subtema": "ressonancia",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Um cantor consegue quebrar uma taça de cristal ao emitir uma nota. Qual fenômeno explica o fato?",
+      "explicacao": "Quando a frequência do som é igual a uma frequência natural da taça, ela absorve energia a cada ciclo e vibra com amplitude crescente, até quebrar. É a ressonância.",
+      "dica": "Pense na frequência natural de vibração.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Ressonância: a frequência do som é igual à frequência natural de vibração da taça.",
+        "Eco: o som volta da parede e bate na taça.",
+        "Efeito Doppler: o cantor se move em relação à taça.",
+        "Batimento: dois sons diferentes se somam."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "O eco é uma reflexão percebida depois de 0,1 s.",
+        "2": "Doppler exige movimento relativo entre fonte e receptor.",
+        "3": "Batimento ocorre com duas frequências próximas."
+      }
+    },
+    {
+      "id": "x-o036",
+      "trilha": "5",
+      "subtema": "interferencia",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Dois alto-falantes idênticos emitem o mesmo tom, e as ondas chegam em fase a um ponto. O que se percebe nesse ponto?",
+      "explicacao": "Ondas em fase se somam: a amplitude resultante é maior e o som é mais intenso (interferência construtiva). A frequência não muda.",
+      "dica": "Em fase significa que as vibrações se reforçam.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Um som mais intenso, por interferência construtiva.",
+        "Silêncio, por interferência destrutiva.",
+        "Um som mais agudo.",
+        "Um som mais lento."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "O silêncio ocorreria com ondas em oposição de fase.",
+        "2": "A frequência continua a mesma, logo a altura não muda.",
+        "3": "A velocidade do som no ar não depende da interferência."
+      }
+    },
+    {
+      "id": "x-o037",
+      "trilha": "5",
+      "subtema": "interferencia",
+      "nivel": "basico",
+      "dificuldade": "medio",
+      "enunciado": "Dois diapasões, de 440 Hz e 444 Hz, soam ao mesmo tempo. Quantos batimentos por segundo se percebem?",
+      "explicacao": "A frequência de batimento é a diferença entre as frequências: f = 444 − 440 = 4 Hz.",
+      "dica": "A frequência de batimento é a diferença.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "4 Hz",
+        "884 Hz",
+        "442 Hz",
+        "0,25 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Somou as frequências.",
+        "2": "442 Hz é a média, a frequência percebida do som.",
+        "3": "Usou o inverso da diferença."
+      }
+    },
+    {
+      "id": "x-o038",
+      "trilha": "5",
+      "subtema": "interferencia",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Dois sons de 512 Hz e 516 Hz são produzidos juntos. Qual é a frequência do som resultante que o ouvinte percebe, entre os batimentos?",
+      "explicacao": "O som percebido tem frequência média: f = (512 + 516) / 2 = 514 Hz. Os batimentos têm 4 Hz.",
+      "dica": "A frequência percebida é a média das duas.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "514 Hz",
+        "4 Hz",
+        "1028 Hz",
+        "2 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "4 Hz é a frequência dos batimentos, e não a do som.",
+        "2": "Somou as duas frequências.",
+        "3": "Dividiu a diferença por 2."
+      }
+    },
+    {
+      "id": "x-o039",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "facil",
+      "enunciado": "Uma ambulância com a sirene ligada se aproxima de um pedestre parado. Ele percebe o som da sirene:",
+      "explicacao": "Na aproximação, as frentes de onda chegam mais próximas umas das outras. A frequência percebida aumenta e o som parece mais agudo (efeito Doppler).",
+      "dica": "Pense nas frentes de onda mais juntas.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Mais agudo, pois a frequência percebida é maior que a emitida.",
+        "Mais grave, pois a frequência percebida é menor que a emitida.",
+        "Mais forte, mas com a mesma frequência.",
+        "Com a mesma frequência e a mesma altura."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "O som mais grave ocorre no afastamento.",
+        "2": "A intensidade pode mudar, mas o efeito Doppler altera a frequência percebida.",
+        "3": "A frequência percebida muda, mesmo que a emitida seja constante."
+      }
+    },
+    {
+      "id": "x-o040",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "A ambulância passa pelo pedestre e começa a se afastar. O que acontece com a frequência emitida pela sirene e com a percebida pelo pedestre?",
+      "explicacao": "A sirene continua emitindo a mesma frequência. No afastamento, as frentes de onda chegam mais espaçadas, e a frequência percebida diminui (som mais grave).",
+      "dica": "A fonte não muda; o que muda é o que chega ao ouvido.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "A emitida não muda, e a percebida fica menor.",
+        "A emitida fica menor, e a percebida também.",
+        "A emitida não muda, e a percebida fica maior.",
+        "As duas ficam iguais à frequência do pedestre."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A fonte emite sempre a mesma frequência.",
+        "2": "No afastamento a frequência percebida diminui.",
+        "3": "O pedestre não tem frequência própria."
+      }
+    },
+    {
+      "id": "x-o041",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "No efeito Doppler, o movimento da fonte altera a velocidade com que o som se propaga no ar.",
+      "explicacao": "Falso. A velocidade do som no ar depende do meio (e da temperatura), não do movimento da fonte. O que muda é o comprimento de onda à frente e atrás da fonte, e a frequência percebida.",
+      "dica": "A velocidade depende do meio.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "A velocidade do som é determinada pelo meio. O movimento da fonte muda λ e a frequência percebida."
+      }
+    },
+    {
+      "id": "x-o042",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "O radar usado para medir a velocidade de veículos em rodovias e o ultrassom Doppler, usado para medir o fluxo de sangue, se baseiam em qual fenômeno?",
+      "explicacao": "Ao refletir em um corpo em movimento, a onda volta com a frequência alterada. A diferença entre a frequência emitida e a recebida permite calcular a velocidade (efeito Doppler).",
+      "dica": "Pense em onda refletida por algo em movimento.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Efeito Doppler: a frequência da onda refletida em um corpo em movimento é diferente da emitida.",
+        "Ressonância: o corpo vibra na frequência natural.",
+        "Difração: a onda contorna o veículo.",
+        "Reverberação: o som se prolonga."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Ressonância ocorre quando a frequência externa coincide com a natural.",
+        "2": "Difração é contorno de obstáculos.",
+        "3": "Reverberação é prolongamento do som em um ambiente."
+      }
+    },
+    {
+      "id": "x-o043",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma ambulância, com sirene de 800 Hz, se aproxima a 30 m/s de um observador parado. A velocidade do som no ar é 340 m/s. Qual é a frequência percebida pelo observador?",
+      "explicacao": "f' = f · v / (v − vF) = 800 · 340 / (340 − 30) = 877 Hz (aproximadamente).",
+      "dica": "Na aproximação, o denominador é v − vF.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "877 Hz",
+        "735 Hz",
+        "871 Hz",
+        "800 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esse é o valor para a ambulância se afastando.",
+        "2": "Trocou o sinal e usou v + vF no numerador.",
+        "3": "800 Hz seria a frequência emitida, sem efeito Doppler."
+      }
+    },
+    {
+      "id": "x-o044",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "A mesma ambulância (sirene de 800 Hz), agora se afastando a 30 m/s de um observador parado, com o som a 340 m/s. Qual é a frequência percebida?",
+      "explicacao": "No afastamento, f' = f · v / (v + vF) = 800 · 340 / (340 + 30) = 735 Hz (aproximadamente).",
+      "dica": "No afastamento, o denominador é v + vF.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "735 Hz",
+        "877 Hz",
+        "700 Hz",
+        "800 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esse é o valor para a ambulância se aproximando.",
+        "2": "Subtraiu 100 Hz sem usar a fórmula.",
+        "3": "800 Hz seria a frequência emitida."
+      }
+    },
+    {
+      "id": "x-o045",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Um avião voa a 680 m/s em uma região onde a velocidade do som é de 340 m/s. Qual é o número de Mach do avião?",
+      "explicacao": "M = vavião / vsom = 680 / 340 = 2. O avião é supersônico.",
+      "dica": "O número de Mach é uma razão entre velocidades.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "2",
+        "0,5",
+        "1",
+        "3"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Inverteu a razão (340 / 680).",
+        "2": "Mach 1 seria 340 m/s.",
+        "3": "Somou as velocidades e dividiu por 340."
+      }
+    },
+    {
+      "id": "x-o046",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Um avião supersônico passa sobre uma cidade, e as pessoas ouvem um estrondo. Qual alternativa descreve corretamente esse fenômeno?",
+      "explicacao": "Em voo supersônico, as frentes de onda se acumulam em um cone. A onda de choque é contínua e vai varrendo o solo ao longo da trajetória. Cada observador ouve o estrondo quando o cone passa por ele.",
+      "dica": "Pense em um cone que acompanha o avião.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "O estrondo acompanha todo o voo supersônico, pois a onda de choque em forma de cone vai varrendo o solo.",
+        "O estrondo ocorre uma única vez, no instante em que o avião atinge a velocidade do som.",
+        "O estrondo é causado pelo motor do avião, e não pela velocidade.",
+        "O estrondo só existe quando o avião está parado."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Não é um evento único: a onda de choque é contínua enquanto o voo for supersônico.",
+        "2": "O estrondo é efeito da velocidade, não do ruído do motor.",
+        "3": "Parado, o avião não gera onda de choque."
+      }
+    },
+    {
+      "id": "x-o047",
+      "trilha": "5",
+      "subtema": "ondas-estacionarias",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Como se forma uma onda estacionária em uma corda presa nas duas extremidades?",
+      "explicacao": "Quando a onda incidente se reflete na ponta e se superpõe à onda que chega, com mesma frequência e amplitude, e sentidos opostos, surge um padrão de nós e ventres fixos: a onda estacionária.",
+      "dica": "Pense em onda incidente e onda refletida.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Pela superposição de duas ondas iguais que se propagam em sentidos opostos, como a incidente e a refletida.",
+        "Pela superposição de duas ondas de frequências muito diferentes no mesmo sentido.",
+        "Pela passagem de um único pulso, sem reflexão.",
+        "Pela absorção da onda nas extremidades."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Ondas de frequências muito diferentes geram batimentos ou ondas complexas, não o padrão estacionário simples.",
+        "2": "Sem reflexão não há onda contrária para formar o padrão.",
+        "3": "Se a onda fosse absorvida, não haveria reflexão."
+      }
+    },
+    {
+      "id": "x-o048",
+      "trilha": "5",
+      "subtema": "ondas-estacionarias",
+      "nivel": "aprofundamento",
+      "dificuldade": "facil",
+      "enunciado": "Em uma onda estacionária, o que são nós e ventres?",
+      "explicacao": "Nos nós, as ondas se anulam o tempo todo (amplitude zero). Nos ventres, elas se reforçam e a amplitude é máxima (o dobro da amplitude de cada onda).",
+      "dica": "Nó lembra “parado”.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Nós são pontos de amplitude nula, e ventres, pontos de amplitude máxima.",
+        "Nós são pontos de amplitude máxima, e ventres, pontos de amplitude nula.",
+        "Nós são as extremidades livres, e ventres, as fixas.",
+        "Nós e ventres são pontos que se deslocam com a velocidade da onda."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "É o contrário: o nó não vibra.",
+        "2": "Extremidades fixas são nós; livres são ventres.",
+        "3": "Os nós e os ventres ficam em posições fixas."
+      }
+    },
+    {
+      "id": "x-o049",
+      "trilha": "5",
+      "subtema": "ondas-estacionarias",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Em uma onda estacionária ideal, há transporte de energia ao longo da corda.",
+      "explicacao": "Falso. A onda estacionária não transporta energia de um ponto a outro: a energia fica oscilando entre as formas cinética e potencial entre os nós.",
+      "dica": "Pense em nós parados.",
+      "tipo": "verdadeiro_falso",
+      "correta": false,
+      "feedbackErro": {
+        "true": "A energia não flui ao longo da corda, pois as duas ondas componentes transportam energia em sentidos opostos e se compensam."
+      }
+    },
+    {
+      "id": "x-o050",
+      "trilha": "5",
+      "subtema": "ondas-estacionarias",
+      "nivel": "aprofundamento",
+      "dificuldade": "facil",
+      "enunciado": "Em uma corda com onda estacionária, a distância entre dois nós consecutivos é de 15 cm. Qual é o comprimento de onda?",
+      "explicacao": "Entre dois nós consecutivos há meio comprimento de onda: λ/2 = 0,15 m. Logo λ = 0,30 m.",
+      "dica": "Entre dois nós consecutivos há λ/2.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "0,30 m",
+        "0,15 m",
+        "0,075 m",
+        "0,60 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Tomou a distância entre nós como λ inteiro.",
+        "2": "Dividiu a distância por 2 em vez de multiplicar.",
+        "3": "Multiplicou por 4."
+      }
+    },
+    {
+      "id": "x-o051",
+      "trilha": "5",
+      "subtema": "ondas-estacionarias",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma corda de 1,2 m, presa nas duas pontas, vibra com 3 fusos (3 ventres). Qual é o comprimento de onda?",
+      "explicacao": "Cada fuso vale λ/2. Com 3 fusos: L = 3 · λ/2, logo λ = 2 · 1,2 / 3 = 0,8 m.",
+      "dica": "Cada fuso é meio comprimento de onda.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "0,8 m",
+        "1,2 m",
+        "2,4 m",
+        "0,4 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Tomou L como o comprimento de onda.",
+        "2": "Usou 2L sem dividir pelo número de fusos.",
+        "3": "Dividiu L por 3."
+      }
+    },
+    {
+      "id": "x-o052",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "facil",
+      "enunciado": "Um violonista pressiona uma corda em um traste, encurtando a parte que vibra. O que ocorre com o som emitido?",
+      "explicacao": "Na corda presa nas pontas, f₁ = v / (2L). Com L menor e v igual, f₁ aumenta: o som fica mais agudo.",
+      "dica": "f₁ é inversamente proporcional a L.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Fica mais agudo, pois a frequência aumenta.",
+        "Fica mais grave, pois a frequência diminui.",
+        "Fica mais forte, mas com a mesma altura.",
+        "Muda de timbre, mas não de altura."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Frequência menor daria um som mais grave.",
+        "2": "A intensidade depende da amplitude.",
+        "3": "A altura muda porque a frequência mudou."
+      }
+    },
+    {
+      "id": "x-o053",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Em um violão, as cordas mais grossas produzem sons mais graves que as finas. Isso ocorre porque, ao serem mais grossas (maior massa por unidade de comprimento), elas têm:",
+      "explicacao": "Na corda, v = √(T / μ). Com μ maior, v diminui, e f₁ = v / (2L) também diminui: som mais grave.",
+      "dica": "Pense em v = √(T / μ).",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Velocidade de propagação menor e, portanto, frequência menor.",
+        "Velocidade de propagação maior e, portanto, frequência maior.",
+        "Tensão sempre maior e mesma frequência.",
+        "Comprimento maior, embora todas tenham o mesmo comprimento."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Com μ maior, v diminui.",
+        "2": "A tensão pode até ser igual, mas μ maior reduz v.",
+        "3": "Todas as cordas de um violão têm o mesmo comprimento vibrante."
+      }
+    },
+    {
+      "id": "x-o054",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Ao aumentar a tensão de uma corda (afinar o instrumento), mantendo o comprimento e a massa por unidade de comprimento, o que ocorre com o som?",
+      "explicacao": "Com T maior, v = √(T / μ) cresce e f₁ = v / (2L) cresce. Se a tensão quadruplicar, a frequência dobra.",
+      "dica": "A velocidade na corda aumenta com T.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "A frequência aumenta, pois v = √(T / μ) cresce.",
+        "A frequência diminui, pois a corda fica mais esticada.",
+        "A frequência não muda.",
+        "O timbre desaparece."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "É o contrário: mais tensão, som mais agudo.",
+        "2": "Mudar T muda v e a frequência.",
+        "3": "O timbre não desaparece: muda a altura."
+      }
+    },
+    {
+      "id": "x-o055",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Uma corda de violão de 0,5 m, presa nas duas pontas, emite como fundamental uma nota de 500 Hz. Qual é a velocidade das ondas na corda?",
+      "explicacao": "Para a fundamental, f₁ = v / (2L). Logo v = 2 · L · f₁ = 2 · 0,5 · 500 = 500 m/s.",
+      "dica": "Isole v em f₁ = v / (2L).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "500 m/s",
+        "250 m/s",
+        "1000 m/s",
+        "2000 m/s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Usou L · f sem o fator 2.",
+        "2": "Dividiu f por L.",
+        "3": "Multiplicou por 4."
+      }
+    },
+    {
+      "id": "x-o056",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma corda tem massa por unidade de comprimento de 0,01 kg/m e é tracionada com 100 N. Qual é a velocidade das ondas na corda?",
+      "explicacao": "v = √(T / μ) = √(100 / 0,01) = √10000 = 100 m/s.",
+      "dica": "Use a equação de Taylor: v = √(T / μ).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "100 m/s",
+        "10000 m/s",
+        "10 m/s",
+        "1 m/s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Esqueceu a raiz quadrada.",
+        "2": "Usou a raiz de T e esqueceu μ.",
+        "3": "Multiplicou T por μ e tirou a raiz."
+      }
+    },
+    {
+      "id": "x-o057",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma corda de 2 m, presa nas duas pontas, vibra com dois harmônicos consecutivos de frequências 100 Hz e 125 Hz. Qual é a velocidade das ondas na corda?",
+      "explicacao": "Harmônicos consecutivos diferem de f₁: f₁ = 125 − 100 = 25 Hz. Então v = 2 · L · f₁ = 2 · 2 · 25 = 100 m/s.",
+      "dica": "A diferença entre harmônicos consecutivos é a fundamental.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "100 m/s",
+        "200 m/s",
+        "50 m/s",
+        "450 m/s"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Usou 4L · f₁ sem o fator correto.",
+        "2": "Dividiu o resultado por 2.",
+        "3": "Usou a média das frequências no lugar de f₁."
+      }
+    },
+    {
+      "id": "x-o058",
+      "trilha": "4",
+      "subtema": "cordas-vibrantes",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Uma corda de 0,6 m, presa nas duas pontas, é percorrida por ondas de velocidade 360 m/s. Qual é a frequência do segundo harmônico?",
+      "explicacao": "f₂ = 2 · v / (2L) = v / L = 360 / 0,6 = 600 Hz.",
+      "dica": "No segundo harmônico, n = 2.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "600 Hz",
+        "300 Hz",
+        "1200 Hz",
+        "180 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "300 Hz é a fundamental.",
+        "2": "Usou n = 4.",
+        "3": "Dividiu a velocidade por 2."
+      }
+    },
+    {
+      "id": "x-o059",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Um tubo sonoro fechado em uma das extremidades emite somente harmônicos de ordem ímpar.",
+      "explicacao": "Verdadeiro. No tubo fechado há nó na ponta fechada e ventre na aberta. Só cabem frequências f = n·v / (4L) com n ímpar (1, 3, 5…).",
+      "dica": "Pense em nó na ponta fechada e ventre na aberta.",
+      "tipo": "verdadeiro_falso",
+      "correta": true,
+      "feedbackErro": {
+        "false": "No tubo fechado só existem os harmônicos de ordem ímpar: 1º, 3º, 5º… Não existe o 2º harmônico."
+      }
+    },
+    {
+      "id": "x-o060",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Dois tubos sonoros têm o mesmo comprimento: um é aberto nas duas pontas e o outro é fechado em uma delas. Comparando as frequências fundamentais, o tubo fechado emite:",
+      "explicacao": "Aberto: f₁ = v / (2L). Fechado: f₁ = v / (4L), que é metade. Ou seja, uma oitava abaixo.",
+      "dica": "Compare v / (2L) e v / (4L).",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Uma frequência igual à metade da do tubo aberto.",
+        "Uma frequência igual ao dobro da do tubo aberto.",
+        "A mesma frequência do tubo aberto.",
+        "Uma frequência quatro vezes menor."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Dobro seria o contrário.",
+        "2": "As fórmulas têm denominadores diferentes.",
+        "3": "A razão entre os dois é 2, e não 4."
+      }
+    },
+    {
+      "id": "x-o061",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Uma flauta afinada em uma sala fria é usada em um palco quente e passa a soar mais aguda. A explicação é:",
+      "explicacao": "A frequência de ressonância do tubo é proporcional à velocidade do som no ar do tubo. Com o ar quente, v aumenta e a frequência também.",
+      "dica": "Lembre como a temperatura afeta v.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Com o ar mais quente, a velocidade do som aumenta; como f = v / (2L) e L não muda, a frequência aumenta.",
+        "Com o ar mais quente, o tubo se contrai muito e a frequência cai.",
+        "A temperatura muda a frequência da fonte, mas não a velocidade.",
+        "O ar quente é menos denso e por isso o som fica mais lento."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "A dilatação do tubo é desprezível frente à variação de v.",
+        "2": "A velocidade, e não a fonte, muda com a temperatura.",
+        "3": "No ar quente o som é mais rápido, não mais lento."
+      }
+    },
+    {
+      "id": "x-o062",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Um tubo aberto nas duas extremidades tem 0,85 m. Com a velocidade do som igual a 340 m/s, qual é a frequência fundamental?",
+      "explicacao": "No tubo aberto, f₁ = v / (2L) = 340 / (2 · 0,85) = 200 Hz.",
+      "dica": "No tubo aberto, f₁ = v / (2L).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "200 Hz",
+        "400 Hz",
+        "100 Hz",
+        "289 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "400 Hz usa L em vez de 2L.",
+        "2": "100 Hz é a fundamental do tubo fechado.",
+        "3": "Multiplicou v por L."
+      }
+    },
+    {
+      "id": "x-o063",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Um tubo fechado em uma extremidade tem 0,85 m. Com a velocidade do som igual a 340 m/s, qual é a frequência fundamental?",
+      "explicacao": "No tubo fechado, f₁ = v / (4L) = 340 / (4 · 0,85) = 100 Hz.",
+      "dica": "No tubo fechado, f₁ = v / (4L).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "100 Hz",
+        "200 Hz",
+        "50 Hz",
+        "400 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "200 Hz é a do tubo aberto.",
+        "2": "Dividiu por 8L.",
+        "3": "Usou v / L."
+      }
+    },
+    {
+      "id": "x-o064",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "desafio",
+      "enunciado": "Um tubo fechado em uma extremidade tem 0,5 m e a velocidade do som é 340 m/s. Qual é a frequência do terceiro harmônico (n = 3)?",
+      "explicacao": "f₃ = 3 · v / (4L) = 3 · 340 / (4 · 0,5) = 510 Hz.",
+      "dica": "No tubo fechado, fₙ = n · v / (4L), com n ímpar.",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "510 Hz",
+        "340 Hz",
+        "1020 Hz",
+        "170 Hz"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "340 Hz seria n = 2, que não existe no tubo fechado.",
+        "2": "Usou 2L no denominador.",
+        "3": "170 Hz é a fundamental."
+      }
+    },
+    {
+      "id": "x-o065",
+      "trilha": "5",
+      "subtema": "tubos-sonoros",
+      "nivel": "aprofundamento",
+      "dificuldade": "medio",
+      "enunciado": "Que comprimento deve ter um tubo aberto nas duas extremidades para que sua frequência fundamental seja 340 Hz? (velocidade do som: 340 m/s)",
+      "explicacao": "f₁ = v / (2L). Logo L = v / (2 f₁) = 340 / (2 · 340) = 0,5 m.",
+      "dica": "Isole L em f₁ = v / (2L).",
+      "tipo": "calculo_guiado",
+      "alternativas": [
+        "0,5 m",
+        "1,0 m",
+        "0,25 m",
+        "2,0 m"
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Usou L = v / f₁, sem o fator 2.",
+        "2": "Dividiu por 4 em vez de 2.",
+        "3": "Multiplicou por 2 em vez de dividir."
+      }
+    },
+    {
+      "id": "x-o066",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "Quem propôs, em 1842, que a frequência de uma onda percebida por um observador depende do movimento relativo entre a fonte e o observador?",
+      "explicacao": "O físico austríaco Christian Doppler propôs a ideia em 1842. O efeito leva seu nome.",
+      "dica": "Lembre do nome do efeito.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Christian Doppler.",
+        "Ernst Mach.",
+        "Alexander Graham Bell.",
+        "Hermann von Helmholtz."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Mach estudou ondas de choque e velocidades supersônicas.",
+        "2": "Bell é lembrado pelo telefone e pela unidade que dá nome ao decibel.",
+        "3": "Helmholtz estudou o timbre e a percepção do som."
+      }
+    },
+    {
+      "id": "x-o067",
+      "trilha": "5",
+      "subtema": "doppler",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "O número que compara a velocidade de um objeto com a do som no meio leva o nome de qual cientista?",
+      "explicacao": "O número de Mach, M = v_objeto / v_som, homenageia o físico austríaco Ernst Mach, que estudou projéteis supersônicos e ondas de choque.",
+      "dica": "Lembre de “Mach 2”.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Ernst Mach.",
+        "Christian Doppler.",
+        "Marin Mersenne.",
+        "Alexander Graham Bell."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Doppler está ligado à variação de frequência percebida.",
+        "2": "Mersenne estudou as cordas vibrantes.",
+        "3": "Bell está ligado ao telefone e ao bel."
+      }
+    },
+    {
+      "id": "x-o068",
+      "trilha": "6",
+      "subtema": "decibel",
+      "nivel": "basico",
+      "dificuldade": "facil",
+      "enunciado": "O decibel (dB) é um submúltiplo do bel, unidade que homenageia qual personagem?",
+      "explicacao": "O bel foi nomeado em homenagem a Alexander Graham Bell, pioneiro das comunicações. O decibel vale um décimo do bel.",
+      "dica": "O nome da unidade lembra o inventor ligado ao telefone.",
+      "tipo": "multipla_escolha",
+      "alternativas": [
+        "Alexander Graham Bell.",
+        "Isaac Newton.",
+        "Christian Doppler.",
+        "Ernst Mach."
+      ],
+      "correta": 0,
+      "feedbackErro": {
+        "1": "Newton dá nome à unidade de força.",
+        "2": "Doppler dá nome ao efeito da frequência percebida.",
+        "3": "Mach dá nome ao número de velocidade relativa ao som."
+      }
+    }
+  ]
+}
