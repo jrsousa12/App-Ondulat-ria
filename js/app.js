@@ -6,6 +6,8 @@ import { renderPraticar as renderPraticarModule, cleanupPraticar } from './prati
 import { exportarParaProfessor, chaveConfigurada, fingerprintChave } from './relatorio.js';
 import { estaEmModoProfessor, ativarModoProfessor, desativarModoProfessor } from './modo-professor.js';
 import { verificarNovosBadges, mostrarToastBadges, listarTodosBadges } from './badges.js';
+import { renderDesempenho } from './desempenho.js';
+import { instalarGuardaSaida } from './sair.js';
 
 const $ = sel => document.querySelector(sel);
 
@@ -62,7 +64,8 @@ const TITULOS_ROTA = {
   'trilhas': 'Trilhas',
   'praticar': 'Praticar',
   'lab': 'Laboratório',
-  'perfil': 'Perfil'
+  'perfil': 'Perfil',
+  'desempenho': 'Meu desempenho'
 };
 
 function setTitulo(rota) {
@@ -233,6 +236,7 @@ const ICONES = {
   praticar: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="M7 19h14V9"/></svg>',
   lab: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 18.5A1.6 1.6 0 0 0 5.9 21h12.2a1.6 1.6 0 0 0 1.4-2.5L14 9V3"/><path d="M7.5 15h9"/></svg>',
   perfil: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+  desempenho: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
   trilhas: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h6a3 3 0 0 0 0-6h-2a3 3 0 0 1 0-6h6"/></svg>',
   seta: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   cadeado: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
@@ -350,11 +354,13 @@ function renderInicio() {
       ${anel}
     </section>
 
-    <ul class="home-stats" aria-label="Resumo">
-      <li><strong>${xp}</strong><span>XP total</span></li>
-      <li><strong>${badges.length}<small>/${totalBadges}</small></strong><span>Conquistas</span></li>
-      <li><strong>${flash}</strong><span>Flashcards</span></li>
-    </ul>
+    <a href="#desempenho" class="home-stats-link" aria-label="Ver meu desempenho completo">
+      <ul class="home-stats">
+        <li><strong>${xp}</strong><span>XP total</span></li>
+        <li><strong>${badges.length}<small>/${totalBadges}</small></strong><span>Conquistas</span></li>
+        <li><strong>${flash}</strong><span>Flashcards</span></li>
+      </ul>
+    </a>
 
     ${continuar}
 
@@ -371,7 +377,7 @@ function renderInicio() {
       <div class="home-atalhos">
         <a href="#praticar" class="home-atalho atalho-praticar">${ICONES.praticar}<strong>Praticar</strong><span>Flashcards e exercícios</span></a>
         <a href="#lab" class="home-atalho atalho-lab">${ICONES.lab}<strong>Laboratório</strong><span>Simule e ouça ondas</span></a>
-        <a href="#trilhas" class="home-atalho atalho-trilhas">${ICONES.trilhas}<strong>Trilhas</strong><span>${concluidas} de ${TRILHAS.length} concluídas</span></a>
+        <a href="#desempenho" class="home-atalho atalho-trilhas">${ICONES.desempenho}<strong>Desempenho</strong><span>Notas, evolução e conceitos</span></a>
         <a href="#perfil" class="home-atalho atalho-perfil">${ICONES.perfil}<strong>Perfil</strong><span>Conquistas e backup</span></a>
       </div>
     </section>
@@ -444,6 +450,8 @@ function renderPerfil() {
       <p><strong>Flashcards:</strong> ${totalFlash} · <strong>Diário:</strong> ${totalDiario} · <strong>Atividades abertas:</strong> ${totalAbertas}</p>
       ${totalFlags > 0 ? `<p style="color:var(--texto-fraco);font-size:0.9rem"><em>${totalFlags} registro(s) interno(s).</em></p>` : ''}
     </section>
+
+    <a href="#desempenho" class="home-atalho atalho-trilhas perfil-desempenho">${ICONES.desempenho}<strong>Meu desempenho</strong><span>Aproveitamento, evolução nos quizzes e conceitos para revisar</span></a>
 
     <section class="card">
       <h3>Minhas conquistas</h3>
@@ -576,11 +584,12 @@ function navegar(rota) {
   const fn = rotasBase[base] || renderInicio;
   $('#conteudo').innerHTML = '';
   if (base === 'lab') renderLabModule(dados, salvarDados);
+  else if (base === 'desempenho') renderDesempenho(dados, TRILHAS, { totalBadges: listarTodosBadges().length });
   else if (base === 'praticar') renderPraticarModule(dados, salvarDados);
   else fn();
 
   document.querySelectorAll('.nav-item').forEach(el => {
-    el.classList.toggle('ativo', el.dataset.rota === (base || 'inicio'));
+    el.classList.toggle('ativo', el.dataset.rota === (base === 'desempenho' ? 'perfil' : (base || 'inicio')));
   });
   setTitulo(base || 'inicio');
   atualizarXP();
@@ -588,6 +597,7 @@ function navegar(rota) {
   if (main) main.focus();
 }
 
+instalarGuardaSaida();
 window.addEventListener('hashchange', () => navegar(location.hash.slice(1) || 'inicio'));
 navegar(location.hash.slice(1) || 'inicio');
 atualizarXP();

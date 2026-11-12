@@ -114,6 +114,25 @@ function embaralharQuestao(q) {
   return q;
 }
 
+const HISTORICO_MAX = 200;
+
+/** Estatística por questão: tentativas, acertos, último resultado e data. Alimenta a página de desempenho. */
+function registrarRespostaQuestao(dados, q, trilha, acertou) {
+  if (!dados.questoes || typeof dados.questoes !== 'object') dados.questoes = {};
+  const e = dados.questoes[q.id] || { trilha, subtema: q.subtema || '', tentativas: 0, acertos: 0 };
+  e.tentativas++;
+  if (acertou) e.acertos++;
+  e.ultimoAcerto = acertou;
+  e.em = new Date().toISOString();
+  dados.questoes[q.id] = e;
+}
+
+function registrarTentativaQuiz(dados, { trilha, acertos, total, tentativa }) {
+  if (!Array.isArray(dados.historico)) dados.historico = [];
+  dados.historico.push({ trilha, acertos, total, tentativa, em: new Date().toISOString() });
+  if (dados.historico.length > HISTORICO_MAX) dados.historico.splice(0, dados.historico.length - HISTORICO_MAX);
+}
+
 export async function renderTrilha(id, dados, salvarDados) {
   cleanupTrilha();
   const myToken = trilhaToken;
@@ -500,6 +519,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     const acertou = verificarResposta(q, tipo, resposta);
     const tempoMs = Date.now() - estado.inicioQuestaoMs;
     estado.respostasQuiz.push({ id: q.id, acertou, tempoMs, tipo });
+    registrarRespostaQuestao(dados, q, id, acertou);
 
     if (tempoMs < 4000) {
       dados.flags = dados.flags || [];
@@ -592,6 +612,7 @@ export async function renderTrilha(id, dados, salvarDados) {
     }
 
     dados.xp = (dados.xp || 0) + xpDelta;
+    registrarTentativaQuiz(dados, { trilha: id, acertos, total, tentativa: estado.tentativasQuiz });
     salvarDados();
 
     const emoji = passou ? '🎉' : (t.concluida ? '💪' : '💡');

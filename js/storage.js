@@ -37,7 +37,9 @@ function estadoInicial() {
     flags: [],
     labPrefs: {},
     diario: [],
-    atividadesAbertas: {}
+    atividadesAbertas: {},
+    questoes: {},
+    historico: []
   };
 }
 
@@ -113,6 +115,15 @@ export const storage = {
     }
     if (!pacote.dados.atividadesAbertas || typeof pacote.dados.atividadesAbertas !== 'object') {
       pacote.dados.atividadesAbertas = {};
+      precisaSalvar = true;
+    }
+
+    if (!pacote.dados.questoes || typeof pacote.dados.questoes !== 'object') {
+      pacote.dados.questoes = {};
+      precisaSalvar = true;
+    }
+    if (!Array.isArray(pacote.dados.historico)) {
+      pacote.dados.historico = [];
       precisaSalvar = true;
     }
 
