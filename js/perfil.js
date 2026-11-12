@@ -1,6 +1,6 @@
 /* Tela Perfil: dados do aluno, preferências, conquistas, envio ao professor e backup. */
 import { esc } from './utils.js';
-import { storage } from './storage.js';
+import { storage, perfis } from './storage.js';
 import { AVATARES, TRILHAS } from './conteudo.js';
 import { listarTodosBadges } from './badges.js';
 import { exportarParaProfessor, chaveConfigurada, fingerprintChave } from './relatorio.js';
@@ -88,6 +88,21 @@ export function renderPerfil(ctx) {
       </section>
 
       <section class="card">
+        <h3>Alunos neste aparelho</h3>
+        <p class="perfil-dica">Útil em celular ou computador compartilhado: cada aluno tem seu próprio progresso.</p>
+        <ul class="alunos-lista">
+          ${perfis.listar().map(p => `
+            <li class="${p.id === perfis.atual() ? 'atual' : ''}">
+              <span class="aluno-avatar" aria-hidden="true">${esc(p.avatar || '🙂')}</span>
+              <span class="aluno-nome">${esc(p.nome || 'Aluno sem nome')}${p.id === perfis.atual() ? ' <small>(você)</small>' : ''}</span>
+              ${p.id === perfis.atual() ? '' : `<button class="btn btn-secundario btn-pequeno" data-trocar="${esc(p.id)}">Entrar</button>
+                <button class="btn-icone" data-remover="${esc(p.id)}" aria-label="Remover ${esc(p.nome || 'aluno')} deste aparelho">✕</button>`}
+            </li>`).join('')}
+        </ul>
+        <div class="btn-grupo"><button class="btn btn-secundario" id="btn-novo-aluno">＋ Novo aluno</button></div>
+      </section>
+
+      <section class="card">
         <h3>Enviar para o professor</h3>
         <p>Gera um arquivo cifrado que <strong>só o professor consegue abrir</strong>. Envie pelo canal combinado.</p>
         ${temChave
@@ -144,6 +159,18 @@ export function renderPerfil(ctx) {
     area.innerHTML = htmlAplicativo();
     ligarAplicativo();
   });
+
+  /* Alunos deste aparelho */
+  document.querySelectorAll('[data-trocar]').forEach(b => b.addEventListener('click', () => ctx.trocarPerfil(b.dataset.trocar)));
+  $('#btn-novo-aluno').addEventListener('click', async () => {
+    const ok = await confirmar({ titulo: 'Cadastrar um novo aluno?', texto: 'Seu progresso continua guardado. Para voltar, entre em Perfil > Alunos neste aparelho.', ok: 'Novo aluno' });
+    if (ok) ctx.trocarPerfil('novo');
+  });
+  document.querySelectorAll('[data-remover]').forEach(b => b.addEventListener('click', async () => {
+    const nome = perfis.listar().find(p => p.id === b.dataset.remover)?.nome || 'este aluno';
+    const ok = await confirmar({ titulo: `Remover ${nome} deste aparelho?`, texto: 'Todo o progresso desse aluno será apagado deste aparelho. Não dá para desfazer.', ok: 'Remover', perigo: true });
+    if (ok && perfis.remover(b.dataset.remover)) { avisar('Aluno removido.', 'ok'); renderPerfil(ctx); }
+  }));
 
   /* Envio ao professor */
   const fp = $('#fp-chave');

@@ -3,11 +3,13 @@ import { esc } from './utils.js';
 import { AVATARES } from './conteudo.js';
 import { avisar } from './dialogos.js';
 import { ICONES } from './ui.js';
+import { perfis } from './storage.js';
 
 export function renderOnboarding(ctx) {
   const conteudo = document.querySelector('#conteudo');
   const rascunho = { primeiroNome: '', ultimoNome: '', turma: '', avatar: AVATARES[0] };
   let passo = 0;
+  const outros = perfis.listar().filter(p => p.id !== perfis.atual() && p.nome);
 
   function pontos() {
     return `<ol class="onb-pontos" aria-label="Passo ${passo + 1} de 3">${[0, 1, 2].map(i => `<li class="${i <= passo ? 'ativo' : ''}"></li>`).join('')}</ol>`;
@@ -28,8 +30,22 @@ export function renderOnboarding(ctx) {
             <li>${ICONES.desempenho}<span><strong>XP, níveis e conquistas</strong> a cada passo</span></li>
           </ul>
           <button class="btn btn-grande" id="onb-avancar">Vamos começar</button>
+          ${outros.length ? `
+            <div class="onb-outros">
+              <p>Já tem cadastro neste aparelho?</p>
+              <ul class="alunos-lista">${outros.map(p => `
+                <li><span class="aluno-avatar" aria-hidden="true">${esc(p.avatar || '🙂')}</span><span class="aluno-nome">${esc(p.nome)}</span>
+                <button class="btn btn-secundario btn-pequeno" data-trocar="${esc(p.id)}">Sou eu</button></li>`).join('')}
+              </ul>
+            </div>` : ''}
         </section>`;
       document.getElementById('onb-avancar').addEventListener('click', () => { passo = 1; render(); });
+      conteudo.querySelectorAll('[data-trocar]').forEach(b => b.addEventListener('click', () => {
+        // Descarta o perfil vazio que estava sendo criado e entra no escolhido.
+        const vazio = perfis.atual();
+        ctx.trocarPerfil(b.dataset.trocar);
+        perfis.remover(vazio);
+      }));
       return;
     }
 

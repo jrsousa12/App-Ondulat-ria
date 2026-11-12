@@ -1,5 +1,5 @@
 /* Ponto de entrada: carrega os dados, controla a navegação entre telas e o modo professor. */
-import { storage, consumirErroQuota } from './storage.js';
+import { storage, consumirErroQuota, perfis } from './storage.js';
 import { esc, hojeLocal } from './utils.js';
 import { renderTrilha, cleanupTrilha } from './trilhas.js';
 import { renderLab, cleanupLab } from './lab.js';
@@ -86,7 +86,18 @@ const ctx = {
     if (location.hash.slice(1) === rota) navegar(rota);
     else location.hash = rota;
   },
-  substituirDados: novo => { dados = novo; corrompido = null; atualizarXP(); atualizarMarcadores(); }
+  substituirDados: novo => { dados = novo; corrompido = null; atualizarXP(); atualizarMarcadores(); },
+  /** Troca para outro aluno deste aparelho (ou cria um novo) e volta à tela inicial. */
+  trocarPerfil: id => {
+    if (id === 'novo') perfis.criar();
+    else if (!perfis.trocar(id)) return;
+    dados = storage.carregar();
+    corrompido = storage.lerCorrompido();
+    if (!dados && !corrompido) dados = storage.inicializar();
+    atualizarXP();
+    atualizarMarcadores();
+    ctx.navegar('inicio');
+  }
 };
 
 const TITULOS_ROTA = {
@@ -214,7 +225,7 @@ function navegar(rota) {
     setTitulo('recuperacao');
     return;
   }
-  if (!dados.aluno.primeiroNome) {
+  if (!dados?.aluno?.primeiroNome) {
     renderOnboarding(ctx);
     marcarMenu(null);
     setTitulo('inicio');

@@ -3,9 +3,67 @@ import { IDS_TRILHAS, AVATARES } from './conteudo.js';
 import { listarTodosBadges } from './badges.js';
 
 const SCHEMA_VERSION = 1;
-const STORAGE_KEY = 'ondulatoria_dados_v1';
-const FLAG_KEY = 'ondulatoria_flag_integridade';
-const CORROMPIDO_KEY = 'ondulatoria_dados_corrompido';
+/* ============ Vários alunos no mesmo aparelho ============
+   O primeiro aluno ('p1') usa as chaves originais (compatível com versões antigas);
+   os outros usam as mesmas chaves com o sufixo "__<id>". */
+const PERFIS_KEY = 'ondulatoria_perfis';
+const PERFIL_PADRAO = 'p1';
+
+function lerPerfis() {
+  try {
+    const p = JSON.parse(localStorage.getItem(PERFIS_KEY) || 'null');
+    if (p && Array.isArray(p.lista) && p.lista.length && p.lista.some(x => x.id === p.atual)) return p;
+  } catch (_) {}
+  return { atual: PERFIL_PADRAO, lista: [{ id: PERFIL_PADRAO, nome: '', avatar: '' }] };
+}
+function gravarPerfis(p) { try { localStorage.setItem(PERFIS_KEY, JSON.stringify(p)); } catch (_) {} }
+function sufixo(id = lerPerfis().atual) { return id === PERFIL_PADRAO ? '' : `__${id}`; }
+const kDados = id => 'ondulatoria_dados_v1' + sufixo(id);
+const kFlag = id => 'ondulatoria_flag_integridade' + sufixo(id);
+const kCorrompido = id => 'ondulatoria_dados_corrompido' + sufixo(id);
+
+export const perfis = {
+  listar() { return lerPerfis().lista; },
+  atual() { return lerPerfis().atual; },
+  /** Atualiza nome e avatar do aluno atual na lista (chamado ao salvar). */
+  atualizarAtual(aluno) {
+    const p = lerPerfis();
+    const item = p.lista.find(x => x.id === p.atual);
+    const nome = `${aluno.primeiroNome || ''} ${aluno.ultimoNome || ''}`.trim();
+    if (item && (item.nome !== nome || item.avatar !== (aluno.avatar || ''))) {
+      item.nome = nome;
+      item.avatar = aluno.avatar || '';
+      gravarPerfis(p);
+    }
+  },
+  trocar(id) {
+    const p = lerPerfis();
+    if (!p.lista.some(x => x.id === id)) return false;
+    p.atual = id;
+    gravarPerfis(p);
+    return true;
+  },
+  /** Cria um aluno novo (vazio) e passa a usá-lo. */
+  criar() {
+    const p = lerPerfis();
+    let n = p.lista.length + 1;
+    while (p.lista.some(x => x.id === `p${n}`)) n++;
+    const id = `p${n}`;
+    p.lista.push({ id, nome: '', avatar: '' });
+    p.atual = id;
+    gravarPerfis(p);
+    return id;
+  },
+  /** Remove outro aluno deste aparelho (não o atual). */
+  remover(id) {
+    const p = lerPerfis();
+    if (id === p.atual || !p.lista.some(x => x.id === id)) return false;
+    try { [kDados(id), kFlag(id), kCorrompido(id)].forEach(k => localStorage.removeItem(k)); } catch (_) {}
+    p.lista = p.lista.filter(x => x.id !== id);
+    gravarPerfis(p);
+    return true;
+  }
+};
 const TAMANHO_MAX_IMPORTACAO = 2 * 1024 * 1024;
 
 function hashString(s) {
@@ -227,7 +285,7 @@ export const storage = {
   carregar() {
     let raw;
     try {
-      raw = localStorage.getItem(STORAGE_KEY);
+      raw = localStorage.getItem(kDados());
     } catch (e) {
       console.error('[storage] Erro ao acessar localStorage:', e);
       return null;
@@ -240,8 +298,8 @@ export const storage = {
     } catch (e) {
       console.error('[storage] JSON inválido — preservando em backup:', e);
       try {
-        if (!localStorage.getItem(CORROMPIDO_KEY)) {
-          localStorage.setItem(CORROMPIDO_KEY, raw);
+        if (!localStorage.getItem(kCorrompido())) {
+          localStorage.setItem(kCorrompido(), raw);
         }
       } catch (_) {}
       return null;
@@ -250,8 +308,8 @@ export const storage = {
     if (!pacote || typeof pacote !== 'object' || !pacote.dados || typeof pacote.dados !== 'object') {
       console.warn('[storage] Formato inválido — preservando em backup.');
       try {
-        if (!localStorage.getItem(CORROMPIDO_KEY)) {
-          localStorage.setItem(CORROMPIDO_KEY, raw);
+        if (!localStorage.getItem(kCorrompido())) {
+          localStorage.setItem(kCorrompido(), raw);
         }
       } catch (_) {}
       return null;
@@ -269,7 +327,7 @@ export const storage = {
     if (integridadeViolada) {
       console.warn('[storage] Integridade violada — sinalizando.');
       const flag = { quando: hojeISO() };
-      try { localStorage.setItem(FLAG_KEY, JSON.stringify(flag)); } catch (_) {}
+      try { localStorage.setItem(kFlag(), JSON.stringify(flag)); } catch (_) {}
       pacote.dados.flags.push({ tipo: 'edicao_externa', ...flag });
     }
 
@@ -280,7 +338,7 @@ export const storage = {
           integridade: hashString(JSON.stringify(pacote.dados)),
           dados: pacote.dados
         };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(novoPacote));
+        localStorage.setItem(kDados(), JSON.stringify(novoPacote));
       } catch (_) {}
     }
 
@@ -288,11 +346,11 @@ export const storage = {
   },
 
   lerCorrompido() {
-    try { return localStorage.getItem(CORROMPIDO_KEY); } catch (_) { return null; }
+    try { return localStorage.getItem(kCorrompido()); } catch (_) { return null; }
   },
 
   limparCorrompido() {
-    try { localStorage.removeItem(CORROMPIDO_KEY); } catch (_) {}
+    try { localStorage.removeItem(kCorrompido()); } catch (_) {}
   },
 
   salvar(dados) {
@@ -303,7 +361,8 @@ export const storage = {
         integridade: hashString(JSON.stringify(dados)),
         dados
       };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(pacote));
+      localStorage.setItem(kDados(), JSON.stringify(pacote));
+      perfis.atualizarAtual(dados.aluno || {});
       return true;
     } catch (e) {
       console.error('[storage] Erro ao salvar:', e);
@@ -323,7 +382,7 @@ export const storage = {
     const dados = this.carregar();
     if (!dados) return false;
     let flagIntegridade = null;
-    try { flagIntegridade = JSON.parse(localStorage.getItem(FLAG_KEY) || 'null'); } catch (_) {}
+    try { flagIntegridade = JSON.parse(localStorage.getItem(kFlag()) || 'null'); } catch (_) {}
     const pacote = {
       para: 'backup',
       app: 'ondulatoria',
@@ -373,9 +432,9 @@ export const storage = {
 
   apagar() {
     try {
-      localStorage.removeItem(STORAGE_KEY);
-      localStorage.removeItem(FLAG_KEY);
-      localStorage.removeItem(CORROMPIDO_KEY);
+      localStorage.removeItem(kDados());
+      localStorage.removeItem(kFlag());
+      localStorage.removeItem(kCorrompido());
       return true;
     } catch (e) {
       console.error('[storage] Erro ao apagar:', e);

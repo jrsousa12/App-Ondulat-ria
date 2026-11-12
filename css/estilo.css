@@ -975,6 +975,20 @@ a.trilha-card:focus-visible { outline: 2px solid var(--cor-trilha); outline-offs
   .conteudo.entrando > * { animation: none !important; }
 }
 
+.alunos-lista { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.alunos-lista li { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 14px; background: var(--bg); border: 1px solid var(--borda); }
+.alunos-lista li.atual { border-color: var(--ciano); }
+.aluno-avatar { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--bg-elev); font-size: 1.2rem; flex-shrink: 0; }
+.aluno-nome { flex: 1; min-width: 0; font-weight: 700; overflow-wrap: anywhere; }
+.aluno-nome small { color: var(--texto-fraco); font-weight: 500; }
+.btn-icone { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--borda); background: transparent; color: var(--texto-fraco); cursor: pointer; font-size: 0.9rem; }
+.btn-icone:hover { color: var(--erro-texto); border-color: var(--erro); }
+.onb-outros { margin-top: var(--esp-3); padding-top: var(--esp-2); border-top: 1px solid var(--borda); }
+.onb-outros p { color: var(--texto-fraco); font-size: 0.92rem; }
+
+.fen-texto { color: var(--texto-fraco); margin: 12px 0; }
+.fen-grafico { height: 150px; }
+
 /* ============ Telas grandes: menu lateral e duas colunas ============ */
 @media (min-width: 960px) {
   body { padding-bottom: 24px; padding-left: 232px; }

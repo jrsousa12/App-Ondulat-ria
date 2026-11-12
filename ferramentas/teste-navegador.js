@@ -144,6 +144,21 @@ function confere(cond, msg) {
       confere(await responderSessao() === qtdErros, '"Rever só as que errei" traz exatamente as erradas');
     }
 
+    console.log('Vários alunos no mesmo aparelho');
+    const xpAntes = await pagina.evaluate(() => JSON.parse(localStorage.getItem('ondulatoria_dados_v1')).dados.xp);
+    await pagina.evaluate(() => { location.hash = 'perfil'; });
+    await pagina.click('#btn-novo-aluno');
+    await pagina.click('dialog.modal [data-r="1"]');
+    await pagina.waitForSelector('#onb-avancar');
+    confere(await pagina.isVisible('[data-trocar]'), 'cadastro novo oferece "Sou eu" para quem já tem perfil');
+    await pagina.click('[data-trocar]');
+    await pagina.waitForSelector('.home-hero');
+    const depois = await pagina.evaluate(() => ({
+      xp: JSON.parse(localStorage.getItem('ondulatoria_dados_v1')).dados.xp,
+      perfis: JSON.parse(localStorage.getItem('ondulatoria_perfis')).lista.length
+    }));
+    confere(depois.xp === xpAntes && depois.perfis === 1, 'voltou ao aluno original sem perder nada (e o perfil vazio foi descartado)');
+
     console.log('Backup');
     const malicioso = JSON.stringify({ app: 'ondulatoria', para: 'backup', versao: 1, dados: {
       aluno: { primeiroNome: '<img src=x onerror=alert(1)>', ultimoNome: 'X', turma: '1' },
