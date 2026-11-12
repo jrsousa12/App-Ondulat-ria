@@ -18,10 +18,12 @@ import { trilhaLiberada } from './progresso.js';
 import { aplicarPreferenciasSalvas, aplicarTema, temaAtual } from './preferencias.js';
 import { movimentoReduzido } from './fx.js';
 import { cartaoEstudo } from './inicio.js';
+import { iniciarPwa } from './pwa.js';
 
 const $ = sel => document.querySelector(sel);
 
 aplicarPreferenciasSalvas();
+iniciarPwa();
 
 // carregar() primeiro (ele guarda uma cópia se detectar dados corrompidos),
 // depois lerCorrompido() para saber se há uma cópia pendente.

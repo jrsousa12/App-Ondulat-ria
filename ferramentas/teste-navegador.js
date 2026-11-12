@@ -181,6 +181,18 @@ function confere(cond, msg) {
     await pagina.waitForTimeout(200);
     confere(pagina.url().startsWith(base), 'Cancelar mantém no app');
 
+    console.log('Sem internet');
+    await pagina.evaluate(() => navigator.serviceWorker.ready);
+    await pagina.waitForTimeout(1500); // tempo para o service worker guardar os arquivos
+    await pagina.context().setOffline(true);
+    await pagina.reload();
+    await pagina.waitForSelector('.home-hero', { timeout: 5000 });
+    confere(true, 'o app abre sem internet');
+    await pagina.evaluate(() => { location.hash = 'trilha/1'; });
+    await pagina.waitForSelector('#btn-ir-compreensao', { timeout: 5000 });
+    confere(true, 'trilhas carregam sem internet');
+    await pagina.context().setOffline(false);
+
     console.log('Ferramenta do professor');
     await pagina.goto(base + '/professor.html');
     await pagina.waitForTimeout(500);

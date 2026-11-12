@@ -141,6 +141,20 @@ if (flash) {
   });
 }
 
+// O modo sem internet (sw.js) precisa listar todos os arquivos do app.
+try {
+  const RAIZ = path.join(__dirname, '..');
+  const sw = fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8');
+  const necessarios = [
+    'index.html', 'css/estilo.css', 'manifest.webmanifest',
+    ...fs.readdirSync(path.join(RAIZ, 'js')).filter(f => f.endsWith('.js') && !['professor.js', 'file-check.js'].includes(f)).map(f => 'js/' + f),
+    ...fs.readdirSync(DADOS).filter(f => f.endsWith('.json')).map(f => 'dados/' + f)
+  ];
+  for (const f of necessarios) if (!sw.includes(`'./${f}'`)) erros.push(`sw.js: falta "${f}" na lista do modo sem internet`);
+} catch (e) {
+  erros.push('sw.js: não foi possível conferir (' + e.message + ')');
+}
+
 avisos.forEach(a => console.log('aviso: ' + a));
 erros.forEach(e => console.error('ERRO: ' + e));
 console.log(`\n${idsGlobais.size} itens conferidos · ${erros.length} erro(s) · ${avisos.length} aviso(s)`);

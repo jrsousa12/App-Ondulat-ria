@@ -799,6 +799,9 @@ a.trilha-card:focus-visible { outline: 2px solid var(--cor-trilha); outline-offs
 .perfil-id span { font-size: 0.88rem; opacity: 0.85; }
 .perfil-id .home-nivel-barra { margin-top: 6px; }
 .perfil-avatares { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px; padding-top: var(--esp-1); }
+.perfil-ok { color: var(--sucesso-texto); font-weight: 700; }
+.perfil-dica { font-size: 0.9rem; color: var(--texto-fraco); }
+.perfil-instalar { margin: 8px 0; }
 .perfil-cont { font-size: 0.8rem; color: var(--texto-fraco); font-weight: 700; margin-left: 4px; }
 .perfil-fp { color: var(--texto-fraco); font-size: 0.9rem; }
 

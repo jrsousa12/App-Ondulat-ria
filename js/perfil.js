@@ -9,6 +9,21 @@ import { ICONES, cabecalho } from './ui.js';
 import { prefs } from './fx.js';
 import { nivel, totalConcluidas, XP_POR_NIVEL } from './progresso.js';
 import { aplicarTema, temaAtual, aplicarFonte, fonteAtual } from './preferencias.js';
+import { estaInstalado, podeInstalar, instalar, ehIOS, telaCheiaSuportada, alternarTelaCheia, telaCheiaAutomatica, definirTelaCheiaAutomatica, aoMudarInstalacao } from './pwa.js';
+
+function htmlAplicativo() {
+  let instalar;
+  if (estaInstalado()) instalar = '<p class="perfil-ok">✓ O app já está instalado neste aparelho.</p>';
+  else if (podeInstalar()) instalar = '<button class="btn" id="btn-instalar">📲 Instalar na tela inicial</button>';
+  else if (ehIOS()) instalar = '<p class="perfil-dica">No iPhone/iPad: toque em <strong>Compartilhar</strong> e depois em <strong>Adicionar à Tela de Início</strong>.</p>';
+  else instalar = '<p class="perfil-dica">Para instalar, abra o app pelo endereço https no Chrome ou Edge e use <strong>Instalar app</strong> no menu do navegador.</p>';
+  return `
+    <p>Instalado, o app abre em tela própria e funciona <strong>sem internet</strong> depois da primeira visita.</p>
+    <div class="perfil-instalar">${instalar}</div>
+    ${telaCheiaSuportada() && !estaInstalado() ? `
+      <div class="btn-grupo"><button class="btn btn-secundario" id="btn-tela-cheia">⛶ Tela cheia</button></div>
+      <label class="pref-chave"><span><strong>Tela cheia automática</strong><small>Entra em tela cheia no primeiro toque</small></span><input type="checkbox" id="pref-tela-cheia" role="switch" ${telaCheiaAutomatica() ? 'checked' : ''}></label>` : ''}`;
+}
 
 function opcao(nome, valor, atual, rotulo) {
   return `<label class="seg-opcao"><input type="radio" name="${nome}" value="${valor}" ${valor === atual ? 'checked' : ''}><span>${rotulo}</span></label>`;
@@ -62,6 +77,11 @@ export function renderPerfil(ctx) {
       </section>
 
       <section class="card">
+        <h3>Aplicativo</h3>
+        <div id="area-app">${htmlAplicativo()}</div>
+      </section>
+
+      <section class="card">
         <h3>Minhas conquistas <small class="perfil-cont">${ganhos.size}/${todos.length}</small></h3>
         <ul class="badges-grid">${badgesHtml}</ul>
       </section>
@@ -107,6 +127,22 @@ export function renderPerfil(ctx) {
   document.querySelectorAll('input[name="tema"]').forEach(r => r.addEventListener('change', () => aplicarTema(r.value, true)));
   $('#pref-som').addEventListener('change', e => { prefs.som = e.target.checked; });
   $('#pref-vibra').addEventListener('change', e => { prefs.vibracao = e.target.checked; });
+
+  /* Aplicativo */
+  function ligarAplicativo() {
+    $('#btn-instalar')?.addEventListener('click', async () => {
+      if (await instalar()) avisar('App instalado! Procure o ícone na tela inicial.', 'ok');
+    });
+    $('#btn-tela-cheia')?.addEventListener('click', alternarTelaCheia);
+    $('#pref-tela-cheia')?.addEventListener('change', e => definirTelaCheiaAutomatica(e.target.checked));
+  }
+  ligarAplicativo();
+  const pararDeOuvir = aoMudarInstalacao(() => {
+    const area = $('#area-app');
+    if (!area) { pararDeOuvir(); return; }
+    area.innerHTML = htmlAplicativo();
+    ligarAplicativo();
+  });
 
   /* Envio ao professor */
   const fp = $('#fp-chave');
