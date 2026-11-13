@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: 20
       - name: Sintaxe dos arquivos JavaScript
-        run: for f in js/*.js ferramentas/*.js sw.js; do [ -f "$f" ] || continue; node --check "$f" || exit 1; done
+        run: for f in $(find js ferramentas -name '*.js') sw.js; do [ -f "$f" ] || continue; node --check "$f" || exit 1; done
       - name: Conferir dados (trilhas, questões e flashcards)
         run: node ferramentas/validar-dados.js
       - name: Instalar Playwright
