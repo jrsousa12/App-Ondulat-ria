@@ -13,7 +13,7 @@
 Ordem: do menor risco ao maior. Rodar `validar-dados.js` + `teste-navegador.js` após cada passo.
 Todo arquivo novo entra na lista do `sw.js` (subir `CACHE`) e na de `ferramentas/validar-dados.js`.
 
-### Passo 1: `js/storage.js` (443 → ~200)
+### Passo 1: `js/storage.js` (443 → 205) ✅ feito
 - `js/storage/perfis.js`: `lerPerfis`, `gravarPerfis`, `sufixo`, `perfis`.
 - `js/storage/sanitizar.js`: validadores (`obj`, `lista`, `txt`, `num`...) + `sanitizarDados`.
 - `js/storage.js` mantém `storage`, `estadoInicial`, integridade (hash/nonce) e reexporta o resto.
