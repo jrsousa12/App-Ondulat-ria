@@ -25,14 +25,14 @@ Este projeto prioriza a economia de contexto e tokens. Toda interação deve seg
 
 - **Estrutura de Dois Níveis**:
   - **`CLAUDE.md` (Raiz)**: Contém apenas regras globais, comandos de build e convenções de projeto.
-  - **`CLAUDE.md` (Subdiretórios)**: Crie arquivos `CLAUDE.md` em subpastas chave (ex: `src/api/`, `src/db/`) com as convenções específicas daquele domínio. O Claude deve carregar apenas o arquivo da raiz + o do subdiretório em que está trabalhando.
+  - **`CLAUDE.md` (Subdiretórios)**: Crie arquivos `CLAUDE.md` em subpastas chave (ex: `js/`, `css/`, `dados/`) com as convenções específicas daquele domínio. O Claude deve carregar apenas o arquivo da raiz + o do subdiretório em que está trabalhando.
 - **Concisão Máxima**: Mantenha cada arquivo `CLAUDE.md` o mais curto possível. Use bullets e seções com cabeçalhos Markdown. Evite parágrafos longos e prosa desnecessária.
-- **Exceções Locais**: Se um subdiretório tiver arquivos naturalmente maiores (ex: schemas de banco), registre a exceção no `CLAUDE.md` daquele subdiretório, não na raiz.
+- **Exceções Locais**: Se um subdiretório tiver arquivos naturalmente maiores (ex: folhas de estilo grandes), registre a exceção no `CLAUDE.md` daquele subdiretório, não na raiz.
 
 ## 3. Estratégia de Edição e Leitura de Código
 
 - **Prefira Edições Cirúrgicas**: Sempre que possível, edite o arquivo existente usando as ferramentas de edição de linha, em vez de reescrevê-lo por completo. Isso evita a geração de tokens desnecessários.
-- **Leitura Sob Demanda**: Não leia arquivos inteiros de forma indiscriminada. Use `@nome_do_arquivo` para anexar apenas os arquivos diretamente relevantes para a tarefa atual. Evite varrer o projeto em busca de contexto que não será usado.
+- **Leitura Sob Demanda**: Não leia arquivos inteiros de forma indiscriminada. Leia apenas os arquivos e trechos diretamente relevantes (o usuário pode indicá-los com `@nome_do_arquivo`). Evite varrer o projeto em busca de contexto que não será usado.
 - **Plano Antes do Código**: Para tarefas complexas, descreva o plano em passos lógicos (ou um diagrama simples) e valide com o usuário antes de tocar nos arquivos. Isso reduz drasticamente o consumo de tokens em retrabalho.
 
 ## 4. Higiene de Comandos e Saída de Terminal
@@ -42,7 +42,7 @@ Este projeto prioriza a economia de contexto e tokens. Toda interação deve seg
 
 ## 5. Protocolo de Sessão (Lembretes)
 
-- **Troca de Tarefa**: Se o usuário solicitar uma tarefa completamente não relacionada à anterior, lembre-o (ou execute proativamente) o comando `/clear` para zerar o contexto e economizar cota.
+- **Troca de Tarefa**: Se o usuário solicitar uma tarefa completamente não relacionada à anterior, sugira o comando `/clear` para zerar o contexto e economizar cota.
 - **Tarefa Longa (Mesmo Assunto)**: Se a conversa sobre uma mesma tarefa estiver muito longa, sugira o uso de `/compact` com um direcionamento (ex: `/compact mantenha as decisões de arquitetura e os arquivos alterados`).
 
 ## 6. Protocolo de Monitoramento de Contexto (Vigia)
