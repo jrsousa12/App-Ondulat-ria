@@ -24,7 +24,7 @@ Todo arquivo novo entra na lista do `sw.js` (subir `CACHE`) e na de `ferramentas
 - `js/professor/exportar.js`: CSV, `baixarTexto`, limpar.
 - `js/professor.js` fica como entrada: decriptação e ligação dos módulos.
 
-### Passo 3: `js/trilhas.js` (516 → ~120)
+### Passo 3: `js/trilhas.js` (516 → 107) ✅ feito (+ `trilha/resultado.js`; troca de etapa via `ctx.ir`)
 - Etapas recebem um contexto `{ estado, container, registrarCleanup, salvarDados, avancar }`.
 - `js/trilha/leitura.js`: timer de leitura + `renderLeitura`.
 - `js/trilha/compreensao.js`: iniciar/render/responder/finalizar compreensão.
