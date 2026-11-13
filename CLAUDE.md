@@ -4,12 +4,12 @@ Este projeto prioriza a economia de contexto e tokens. Toda interação deve seg
 
 ## 0. Contexto do Projeto
 
-- **Stack**: [preencha: ex. Node.js + TypeScript, Python + FastAPI]
+- **Stack**: PWA estático: HTML + CSS + JavaScript puro (ES modules), sem framework, sem build e sem servidor. Dados em `dados/*.json`. Offline via `sw.js`. Publicado no GitHub Pages.
 - **Comandos úteis**:
-  - Build: `[preencha]`
-  - Testes: `[preencha]`
-  - Lint: `[preencha]`
-- **Convenções**: [preencha: ex. camelCase, testes com Jest, etc.]
+  - Rodar localmente: `python -m http.server 8000` (via `file://` não funciona)
+  - Testes: `node ferramentas/validar-dados.js` e `node ferramentas/teste-navegador.js` (requer `npm i --no-save playwright@1.48.2`)
+  - Lint: `for f in $(find js ferramentas -name '*.js') sw.js; do node --check "$f"; done` (só sintaxe, igual ao CI)
+- **Convenções**: código e nomes em português; camelCase em funções e UPPER_SNAKE em constantes; um módulo por tela/responsabilidade. Arquivo novo em `js/` ou `dados/` → incluir na lista do `sw.js` e subir a versão de `CACHE`.
 
 > Mantenha esta seção curta. Regras específicas de domínio vão nos `CLAUDE.md` dos subdiretórios.
 
