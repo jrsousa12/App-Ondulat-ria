@@ -18,7 +18,7 @@ Todo arquivo novo entra na lista do `sw.js` (subir `CACHE`) e na de `ferramentas
 - `js/storage/sanitizar.js`: validadores (`obj`, `lista`, `txt`, `num`...) + `sanitizarDados`.
 - `js/storage.js` mantém `storage`, `estadoInicial`, integridade (hash/nonce) e reexporta o resto.
 
-### Passo 2: `js/professor.js` (368 → ~60)
+### Passo 2: `js/professor.js` (368 → 70) ✅ feito (+ `professor/estado.js`: estado e download comum; fora do `sw.js`, como a página)
 - `js/professor/chaves.js`: gerar, importar, copiar e baixar chaves.
 - `js/professor/resultados.js`: `renderizarResultados` + formatadores.
 - `js/professor/exportar.js`: CSV, `baixarTexto`, limpar.

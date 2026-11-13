@@ -148,7 +148,7 @@ try {
   const necessarios = [
     'index.html', 'css/estilo.css', 'manifest.webmanifest',
     ...fs.readdirSync(path.join(RAIZ, 'js'), { recursive: true }).map(f => f.replace(/\\/g, '/'))
-      .filter(f => f.endsWith('.js') && !['professor.js', 'file-check.js'].includes(f)).map(f => 'js/' + f),
+      .filter(f => f.endsWith('.js') && !['professor.js', 'file-check.js'].includes(f) && !f.startsWith('professor/')).map(f => 'js/' + f),
     ...fs.readdirSync(DADOS).filter(f => f.endsWith('.json')).map(f => 'dados/' + f)
   ];
   for (const f of necessarios) if (!sw.includes(`'./${f}'`)) erros.push(`sw.js: falta "${f}" na lista do modo sem internet`);
