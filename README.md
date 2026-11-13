@@ -65,7 +65,7 @@ As duas rodam sozinhas no GitHub a cada envio (aba **Actions**). Um ❌ vermelho
 
 | Pasta/arquivo | Para que serve |
 |---|---|
-| `index.html`, `css/estilo.css` | App do aluno |
+| `index.html`, `css/*.css` (menos `professor.css`) | App do aluno |
 | `js/app.js` | Navegação entre telas |
 | `js/inicio.js`, `js/lista-trilhas.js`, `js/trilhas.js`, `js/praticar.js`, `js/treino.js`, `js/lab.js`, `js/perfil.js`, `js/desempenho.js`, `js/ficha.js`, `js/fontes.js`, `js/onboarding.js` | Telas |
 | `js/quiz.js`, `js/registro.js`, `js/progresso.js` | Motor de questões, caderno de erros e regras de progresso |

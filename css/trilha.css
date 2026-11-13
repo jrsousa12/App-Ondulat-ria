@@ -1,0 +1,34 @@
+/* ============ Dentro da trilha ============ */
+.leitura-hero { position: relative; padding: var(--esp-3); margin-bottom: var(--esp-2); border-radius: var(--raio-g); background: linear-gradient(135deg, color-mix(in srgb, var(--cor-trilha, var(--ciano)) 22%, var(--bg-elev)), var(--bg-elev) 70%); border: 1px solid color-mix(in srgb, var(--cor-trilha, var(--ciano)) 40%, var(--borda)); }
+.leitura-hero .tela-rotulo { color: var(--cor-trilha, var(--ciano)); }
+.leitura-hero h2 { font-size: 1.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.3px; padding-right: 64px; }
+.leitura-sub { color: var(--texto-fraco); margin: 6px 0 var(--esp-2); }
+.leitura-icone { position: absolute; top: var(--esp-3); right: var(--esp-3); width: 52px; height: 52px; padding: 11px; border-radius: 16px; color: var(--cor-trilha, var(--ciano)); background: color-mix(in srgb, var(--cor-trilha, var(--ciano)) 18%, transparent); }
+.leitura-icone svg { width: 100%; height: 100%; }
+.meta-leitura span { padding: 4px 10px; border-radius: 999px; background: var(--bg); border: 1px solid var(--borda); font-size: 0.8rem; }
+.secao-leitura { font-size: 1.05rem; line-height: 1.7; }
+.secao-leitura h3 { display: flex; align-items: center; gap: 10px; color: var(--texto); font-size: 1.15rem; }
+.secao-num { display: grid; place-items: center; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; font-size: 0.85rem; font-weight: 800; color: #0F172A; background: var(--cor-trilha, var(--ciano)); }
+[data-tema="claro"] .secao-num { color: #fff; }
+.leitura-fim { text-align: center; }
+.leitura-fim p { color: var(--texto-fraco); margin-bottom: var(--esp-2); }
+.leitura-fim .msg-ok { color: var(--sucesso-texto); font-weight: 700; }
+.leitura-fim .msg-alerta { color: var(--ambar-texto); }
+.progresso-leitura-fill, .quiz-progresso-barra > div { background: var(--cor-trilha, var(--ciano)); }
+.card-pergunta h3 { font-size: 1.15rem; line-height: 1.45; margin-bottom: var(--esp-2); }
+.quiz-conceito { padding: 3px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; color: var(--cor-trilha, var(--ciano)); background: color-mix(in srgb, var(--cor-trilha, var(--ciano)) 14%, transparent); }
+.resultado-hero.passou { background: linear-gradient(160deg, color-mix(in srgb, var(--sucesso) 20%, var(--bg-elev)), var(--bg-elev) 70%); border-color: color-mix(in srgb, var(--sucesso) 45%, var(--borda)); }
+.resultado-hero .emoji { animation: saltar 700ms ease both; }
+@keyframes saltar { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); } }
+
+/* ============ Flashcard que vira ============ */
+.flash-cena { perspective: 1200px; }
+.flash-cartao { display: grid; padding: 0; border: none; background: none; min-height: 230px; transform-style: preserve-3d; transition: transform 550ms cubic-bezier(.2, .7, .2, 1); }
+.flash-cartao { cursor: pointer; }
+.flash-cartao.virado { transform: rotateY(180deg); cursor: default; }
+.flash-face { grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: var(--esp-3) var(--esp-2); border-radius: var(--raio-g); border: 2px solid var(--borda); background: var(--bg); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.flash-face-frente { background: linear-gradient(160deg, color-mix(in srgb, var(--ciano) 14%, var(--bg)), var(--bg) 70%); border-color: color-mix(in srgb, var(--ciano) 40%, var(--borda)); }
+.flash-face-verso { transform: rotateY(180deg); border-color: color-mix(in srgb, var(--ambar) 45%, var(--borda)); }
+.flash-cartao:not(.virado):hover .flash-face-frente { border-color: var(--ciano); }
+.flash-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--esp-1); margin-top: var(--esp-2); }
+.flash-pergunta-auto { flex-basis: 100%; text-align: center; color: var(--texto-fraco); font-size: 0.9rem; }

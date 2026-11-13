@@ -1,0 +1,18 @@
+/* ============ Telas grandes: menu lateral e duas colunas ============ */
+@media (min-width: 960px) {
+  body { padding-bottom: 24px; padding-left: 232px; }
+  .nav-inferior { top: 0; bottom: 0; right: auto; width: 216px; flex-direction: column; justify-content: flex-start; gap: 4px; padding: 88px 12px 16px; border-top: none; border-right: 1px solid var(--borda); z-index: 9; }
+  .nav-item { flex: 0 0 auto; flex-direction: row; justify-content: flex-start; gap: 12px; padding: 12px 14px; font-size: 0.95rem; margin: 0; }
+  .nav-ponto { top: 50%; left: auto; right: 12px; transform: translateY(-50%); }
+  .conteudo { max-width: 1040px; padding: var(--esp-4); }
+  #avisos { bottom: 24px; left: calc(50% + 116px); }
+  .home-grade .home-atalhos { grid-template-columns: repeat(2, 1fr); }
+  .home-grade { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: var(--esp-3); align-items: start; }
+  .trilhas-lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .perfil-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--esp-2); align-items: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+  .onda-header, .home-hero-ondas { display: none; }
+}

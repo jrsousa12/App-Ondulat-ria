@@ -1,0 +1,59 @@
+/* ============ Identidade visual: peças comuns ============ */
+.tela-topo { margin-bottom: var(--esp-2); }
+.tela-topo h2 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.4px; line-height: 1.2; }
+.tela-rotulo { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--ciano); margin-bottom: 2px; }
+.tela-sub { color: var(--texto-fraco); font-size: 0.95rem; margin-top: 4px; }
+.tela-voltar { display: inline-block; font-size: 0.9rem; font-weight: 700; color: var(--ciano); text-decoration: none; padding: 6px 0; margin-bottom: 4px; }
+
+.conteudo.entrando > * { animation: telaEntra 260ms ease both; }
+.conteudo.entrando > *:nth-child(2) { animation-delay: 30ms; }
+.conteudo.entrando > *:nth-child(3) { animation-delay: 60ms; }
+.conteudo.entrando > *:nth-child(n+4) { animation-delay: 90ms; }
+@keyframes telaEntra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.esqueleto { display: flex; flex-direction: column; gap: 12px; }
+.esq { border-radius: var(--raio-g); background: linear-gradient(90deg, var(--bg-elev) 25%, color-mix(in srgb, var(--borda) 60%, var(--bg-elev)) 50%, var(--bg-elev) 75%); background-size: 200% 100%; animation: brilho 1.2s linear infinite; }
+.esq-titulo { height: 64px; width: 70%; }
+.esq-bloco { height: 120px; }
+@keyframes brilho { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+.etapas { list-style: none; display: flex; gap: 6px; margin: 0 0 var(--esp-2); }
+.etapas li { flex: 1; display: flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 700; color: var(--texto-fraco); padding: 8px 10px; border-radius: 999px; background: var(--bg-elev); border: 1px solid var(--borda); white-space: nowrap; min-width: 0; overflow: hidden; }
+.etapas li span { display: grid; place-items: center; flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; font-size: 0.7rem; background: var(--borda); color: var(--texto); }
+.etapas li.feito { color: var(--sucesso-texto); border-color: color-mix(in srgb, var(--sucesso) 50%, transparent); }
+.etapas li.feito span { background: var(--sucesso); color: #fff; }
+.etapas li.atual { color: var(--texto); border-color: var(--cor-trilha, var(--ciano)); background: color-mix(in srgb, var(--cor-trilha, var(--ciano)) 14%, var(--bg-elev)); }
+.etapas li.atual span { background: var(--cor-trilha, var(--ciano)); color: #0F172A; }
+
+.icone-trilha { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.confete { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 300; }
+.xp-flutuante { position: fixed; z-index: 300; transform: translate(-50%, 0); font-weight: 900; font-size: 1.3rem; color: var(--ambar-texto); text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); pointer-events: none; animation: xpSobe 1400ms ease-out forwards; }
+@keyframes xpSobe { 0% { opacity: 0; transform: translate(-50%, 10px) scale(0.8); } 20% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -70px) scale(1); } }
+
+.nav-item { position: relative; }
+.nav-ponto { position: absolute; top: 4px; left: calc(50% + 6px); min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--ambar); color: #0F172A; font-size: 0.65rem; font-weight: 900; display: grid; place-items: center; border: 2px solid var(--bg-elev); }
+
+/* ============ Cores das trilhas (mais escuras no tema claro, para contraste) ============ */
+[data-trilha="1"] { --cor-trilha: #22D3EE; }
+[data-trilha="2"] { --cor-trilha: #A78BFA; }
+[data-trilha="3"] { --cor-trilha: #34D399; }
+[data-trilha="4"] { --cor-trilha: #FBBF24; }
+[data-trilha="5"] { --cor-trilha: #F472B6; }
+[data-trilha="6"] { --cor-trilha: #FB7185; }
+[data-tema="claro"] [data-trilha="1"], [data-tema="claro"][data-trilha="1"] { --cor-trilha: #0E7490; }
+[data-tema="claro"] [data-trilha="2"], [data-tema="claro"][data-trilha="2"] { --cor-trilha: #6D28D9; }
+[data-tema="claro"] [data-trilha="3"], [data-tema="claro"][data-trilha="3"] { --cor-trilha: #047857; }
+[data-tema="claro"] [data-trilha="4"], [data-tema="claro"][data-trilha="4"] { --cor-trilha: #B45309; }
+[data-tema="claro"] [data-trilha="5"], [data-tema="claro"][data-trilha="5"] { --cor-trilha: #BE185D; }
+[data-tema="claro"] [data-trilha="6"], [data-tema="claro"][data-trilha="6"] { --cor-trilha: #BE123C; }
+[data-tema="claro"] .etapas li.atual span { color: #fff; }
+
+/* Tela inicial: avatar e ícone da trilha no cartão "continuar" */
+.home-avatar { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: rgba(255, 255, 255, 0.18); font-size: 1.05rem; }
+.home-continuar { border-left-color: var(--cor-trilha, var(--ambar)); }
+.home-continuar-icone { position: absolute; top: var(--esp-3); right: var(--esp-3); width: 48px; height: 48px; padding: 10px; border-radius: 14px; color: var(--cor-trilha, var(--ciano)); background: color-mix(in srgb, var(--cor-trilha, var(--ciano)) 16%, transparent); }
+.home-continuar-icone svg { width: 100%; height: 100%; }
+.home-continuar .etapas { margin: var(--esp-2) 0; }
+.home-mapa-item.livre .home-no { border-color: var(--cor-trilha, var(--ciano)); color: var(--cor-trilha, var(--ciano)); }
+.home-col { min-width: 0; }

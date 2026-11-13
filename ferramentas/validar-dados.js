@@ -146,7 +146,8 @@ try {
   const RAIZ = path.join(__dirname, '..');
   const sw = fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8');
   const necessarios = [
-    'index.html', 'css/estilo.css', 'manifest.webmanifest',
+    'index.html', 'manifest.webmanifest',
+    ...fs.readdirSync(path.join(RAIZ, 'css')).filter(f => f.endsWith('.css') && f !== 'professor.css').map(f => 'css/' + f),
     ...fs.readdirSync(path.join(RAIZ, 'js'), { recursive: true }).map(f => f.replace(/\\/g, '/'))
       .filter(f => f.endsWith('.js') && !['professor.js', 'file-check.js'].includes(f) && !f.startsWith('professor/')).map(f => 'js/' + f),
     ...fs.readdirSync(DADOS).filter(f => f.endsWith('.json')).map(f => 'dados/' + f)

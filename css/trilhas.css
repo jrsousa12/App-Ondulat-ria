@@ -1,0 +1,25 @@
+/* ============ Lista de trilhas ============ */
+.trilhas-lista { list-style: none; display: grid; gap: 12px; }
+.trilha-card { display: flex; gap: var(--esp-2); align-items: flex-start; padding: var(--esp-2) var(--esp-2) var(--esp-2) 18px; border-radius: var(--raio-g); background: var(--bg-elev); border: 1px solid var(--borda); border-left: 6px solid var(--cor-trilha); color: var(--texto); text-decoration: none; transition: var(--transicao); height: 100%; }
+a.trilha-card:hover { transform: translateY(-2px); border-color: var(--cor-trilha); box-shadow: 0 10px 24px -14px var(--cor-trilha); }
+a.trilha-card:focus-visible { outline: 2px solid var(--cor-trilha); outline-offset: 3px; }
+.trilha-card.atual { box-shadow: 0 0 0 2px color-mix(in srgb, var(--cor-trilha) 35%, transparent); }
+.trilha-card.bloqueada { opacity: 0.6; border-left-color: var(--borda); }
+.trilha-icone { flex-shrink: 0; width: 52px; height: 52px; padding: 11px; border-radius: 16px; color: var(--cor-trilha); background: color-mix(in srgb, var(--cor-trilha) 16%, transparent); }
+.trilha-card.bloqueada .trilha-icone { color: var(--texto-fraco); background: var(--bg); }
+.trilha-icone svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.trilha-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.trilha-num { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--cor-trilha); }
+.trilha-card.bloqueada .trilha-num { color: var(--texto-fraco); }
+.trilha-num b { color: var(--ambar-texto); }
+.trilha-texto strong { font-size: 1.05rem; line-height: 1.3; }
+.trilha-desc { font-size: 0.88rem; color: var(--texto-fraco); }
+.trilha-etapas { display: flex; gap: 4px; margin: 8px 0 6px; }
+.trilha-etapas i { flex: 1; height: 5px; border-radius: 3px; background: var(--borda); }
+.trilha-etapas i.feito { background: var(--cor-trilha); }
+.trilha-chip { align-self: flex-start; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+.trilha-chip svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.trilha-chip.ok { background: color-mix(in srgb, var(--sucesso) 18%, transparent); color: var(--sucesso-texto); }
+.trilha-chip.and { background: color-mix(in srgb, var(--ambar) 18%, transparent); color: var(--ambar-texto); }
+.trilha-chip.nova { background: color-mix(in srgb, var(--cor-trilha) 16%, transparent); color: var(--cor-trilha); }
+.trilha-chip.bloq { background: var(--bg); color: var(--texto-fraco); }

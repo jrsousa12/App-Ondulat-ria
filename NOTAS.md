@@ -31,7 +31,7 @@ Todo arquivo novo entra na lista do `sw.js` (subir `CACHE`) e na de `ferramentas
 - `js/trilha/quiz.js`: `sortearQuestoes` + iniciar/render/responder/finalizar quiz.
 - `js/trilhas.js` mantém `renderTrilha` e `cleanupTrilha` (importadores não mudam).
 
-### Passo 4: `css/estilo.css` (~1000 → arquivos de 30–150 linhas)
+### Passo 4: `css/estilo.css` (1008 → 14 arquivos de 18–229 linhas) ✅ feito (`base.css` virou base + `leitura-quiz` + `lab` + `diversos`; `trilha.css` separado de `trilhas.css` para manter a ordem da cascata)
 - `base.css` (linhas 1–467; ler e subdividir se passar de 300), `inicio.css`, `dialogos.css`,
   `desempenho.css`, `identidade.css`, `trilhas.css` (lista + dentro + flashcard), `perfil.css`
   (perfil + cadastro), `treino.css`, `ficha.css`, `telas-grandes.css`.
