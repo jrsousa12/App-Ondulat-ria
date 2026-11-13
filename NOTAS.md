@@ -37,3 +37,20 @@ Todo arquivo novo entra na lista do `sw.js` (subir `CACHE`) e na de `ferramentas
   (perfil + cadastro), `treino.css`, `ficha.css`, `telas-grandes.css`.
 - `index.html`: um `<link>` por arquivo, **na mesma ordem atual** (cascata).
 - Atualizar `css/CLAUDE.md` e `js/CLAUDE.md` removendo as exceções.
+
+## Histórico (tarefas importantes)
+
+- Monitoramento automático do PR desativado (sem tarefas agendadas ativas).
+- `CLAUDE.md` da raiz enxugado: só regras globais; regras de domínio em `js/CLAUDE.md` e `css/CLAUDE.md`.
+- Modularização concluída (passos 1–4 acima). Decisões que valem daqui em diante:
+  - Etapas da trilha (`js/trilha/`) recebem `ctx` e trocam de etapa só por `ctx.ir.*` (sem imports cruzados).
+  - Arquivos do professor (`professor.js`, `js/professor/`, `professor.css`) ficam fora do `sw.js`, como a página.
+  - CSS: a ordem dos `<link>` no `index.html` é a cascata; não reordenar nem juntar arquivos não vizinhos.
+  - `validar-dados.js` confere no `sw.js` todo `js/**` e `css/*.css` (exceto os do professor).
+- Cache do `sw.js` em `ondulatoria-v6`.
+
+## Pendências
+
+- Recomendação 3: rodar `/fewer-permission-prompts`.
+- Teste de navegador não clica em "Refazer o quiz", "Rever erros" e "Reler o texto"; vale cobrir.
+- Sem comparação visual (screenshots) antes/depois da divisão do CSS.
