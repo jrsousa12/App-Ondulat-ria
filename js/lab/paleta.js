@@ -8,16 +8,18 @@ export function paleta() {
     const n = parseInt(m[1], 16);
     return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`;
   };
+  // Reservas (tema escuro) para quando uma variável do CSS não estiver definida.
   const texto = v('--texto-fraco') || '#94A3B8';
+  const onda = v('--ciano') || '#22D3EE';
   return {
-    onda: v('--ciano') || P.onda,
-    ondaSuave: comAlfa(v('--ciano') || P.onda, 0.3),
-    ponto: v('--ambar') || P.ponto,
-    fundo: v('--bg-elev') || P.fundo,
+    onda,
+    ondaSuave: comAlfa(onda, 0.3),
+    ponto: v('--ambar') || '#F59E0B',
+    fundo: v('--bg-elev') || '#1E293B',
     grade: comAlfa(texto, 0.35),
     gradeForte: comAlfa(texto, 0.55),
     textoFraco: texto,
-    erro: v('--erro') || P.erro,
+    erro: v('--erro') || '#EF4444',
     meio: { ar: v('--meio-ar'), agua: v('--meio-agua'), aco: v('--meio-aco') }
   };
 }
