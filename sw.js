@@ -1,7 +1,7 @@
 /* Service worker: guarda o app no aparelho para abrir sem internet.
    Estratégia: responde com a cópia guardada e atualiza a cópia em segundo plano,
    então uma versão nova chega na próxima vez que o app for aberto com internet. */
-const CACHE = 'ondulatoria-v2';
+const CACHE = 'ondulatoria-v3';
 const ARQUIVOS = [
   './',
   './index.html',
@@ -22,6 +22,12 @@ const ARQUIVOS = [
   './js/fx.js',
   './js/inicio.js',
   './js/lab.js',
+  './js/lab/fenomeno.js',
+  './js/lab/meios.js',
+  './js/lab/meu-som.js',
+  './js/lab/osciloscopio.js',
+  './js/lab/paleta.js',
+  './js/lab/ressonancia.js',
   './js/lista-trilhas.js',
   './js/modo-professor.js',
   './js/onboarding.js',
