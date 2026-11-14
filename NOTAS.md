@@ -40,6 +40,7 @@ Os arquivos formam um conjunto (`utils.js`, `storage.js`, `audio.js`, `lab.js`, 
 3. Junte ao `main`; o Pages republica sozinho.
 
 ## Pendências
+- [ ] **Trabalhar na exclusão do modo professor com PIN** (decisão do professor; detalhes no `CLAUDE.md`).
 - [ ] Ativar o GitHub Pages.
 - [ ] Gerar o par de chaves e subir `js/chave-publica.js`.
 - [ ] Trilha 2, seção 4 (`dados/trilha-2.json`): o texto diz "λ ≈ 0,068 m no aço (~29 vezes mais rápido)". O correto é λ = 5000/170 ≈ 29,4 m, e o aço é cerca de 15 vezes mais rápido que o ar.
